@@ -44,7 +44,10 @@ async function __unlock(pw){
 document.getElementById('__gform').addEventListener('submit',async e=>{
  e.preventDefault();
  const btn=e.target.querySelector('button');btn.textContent='ひらいています…';
- try{ D=await __unlock(document.getElementById('__pw').value.trim());
+ const __pwval=document.getElementById('__pw').value.trim();
+ try{ D=await __unlock(__pwval);
+  try{ const __hb=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(__pwval+':bunseki-miyairi-v1'));
+   window.__bmAuth=Array.from(new Uint8Array(__hb)).map(b=>b.toString(16).padStart(2,'0')).join(''); }catch(_){}
   const g=document.getElementById('__gate'); if(g) g.remove(); __boot();
  }catch(_){ document.getElementById('__err').style.display='block';
   btn.textContent='ひらく';
