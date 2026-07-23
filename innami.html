@@ -1,0 +1,375 @@
+<meta name="robots" content="noindex,nofollow">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>印南先生の発掘現場｜東京山側DMC</title>
+<style>
+:root{
+  --sky:#8ED6F0; --sky2:#BDEAFB; --sun:#FFC53D; --sand:#F4D58D; --sand2:#EFC46C;
+  --terra:#E07A5F; --soil:#C68B59; --soil2:#A9714B; --rock:#8A5A3B; --deep:#6B4226;
+  --ink:#3B2A1E; --paper:#FFF8EA; --card:#FFFFFF;
+  --amethyst:#9B5DE5; --emerald:#06C29A; --coral:#FF6B6B; --skyink:#1B7FA8;
+  --line:4px solid var(--ink);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;color:var(--ink);background:var(--paper)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+h2.sec{font-size:24px;font-weight:900;display:flex;align-items:center;gap:10px;margin:38px 0 6px}
+h2.sec .num{background:var(--ink);color:var(--paper);border-radius:10px;padding:2px 12px;font-size:14px;letter-spacing:.12em}
+.secnote{font-size:12.5px;color:#7a6a58;margin:0 0 14px}
+/* ===== HERO ===== */
+.hero{position:relative;background:linear-gradient(var(--sky2),var(--sky) 55%,var(--sand) 55.2%);border-bottom:var(--line);overflow:hidden}
+.hero-inner{max-width:1180px;margin:0 auto;padding:26px 20px 0;position:relative}
+.hero h1{font-size:min(44px,6vw);font-weight:900;letter-spacing:.02em;text-shadow:0 3px 0 rgba(255,255,255,.6)}
+.hero .sub{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.badge{display:inline-block;background:var(--card);border:3px solid var(--ink);border-radius:999px;padding:4px 14px;font-weight:800;font-size:13px;box-shadow:0 3px 0 var(--ink)}
+.badge.hot{background:var(--coral);color:#fff}
+.badge.go{background:var(--emerald);color:#fff}
+.heroSvg{display:block;width:100%;height:auto;margin-top:6px}
+.sun{cursor:pointer;transform-origin:center;transition:transform .3s}
+.sun:hover{transform:rotate(18deg) scale(1.06)}
+.crystal{cursor:pointer;transition:filter .2s,transform .2s;transform-origin:center}
+.crystal:hover{filter:drop-shadow(0 0 8px #fff)}
+.crystal.dug{opacity:.18;pointer-events:none}
+.bird{opacity:0}
+.bird.fly{animation:fly 5s linear forwards}
+@keyframes fly{0%{opacity:0;transform:translate(-80px,20px)}10%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translate(1260px,-60px)}}
+.pickbar{position:absolute;right:22px;top:20px;display:flex;gap:10px;align-items:center}
+.pickbtn{border:3px solid var(--ink);background:var(--card);border-radius:999px;padding:8px 16px;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.pickbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.pickbtn.on{background:var(--sun)}
+.digcount{font-weight:900;font-size:14px;background:var(--ink);color:var(--paper);border-radius:999px;padding:8px 14px}
+body.digging .crystal{cursor:crosshair}
+/* ===== CHAT ===== */
+.chatCard{background:var(--card);border:var(--line);border-radius:22px;box-shadow:0 6px 0 var(--ink);overflow:hidden;margin-top:-46px;position:relative;z-index:5}
+.chatHead{display:flex;align-items:center;gap:12px;background:var(--sun);border-bottom:var(--line);padding:12px 18px;flex-wrap:wrap}
+.chatHead .tt{font-size:19px;font-weight:900}
+.chatHead .st{font-size:12px;font-weight:700;color:#6b5312}
+.log{padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-height:140px;max-height:52vh;overflow-y:auto;background:repeating-linear-gradient(0deg,#fffdf6,#fffdf6 34px,#fdf6e4 35px)}
+.msg{max-width:82%;padding:10px 14px;border:3px solid var(--ink);border-radius:16px;font-size:14px;line-height:1.75;word-break:break-word;background:#fff}
+.msg.user{align-self:flex-end;background:var(--sky2);border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:#fff;border-bottom-left-radius:4px;box-shadow:0 3px 0 var(--ink)}
+.msg.wait{align-self:flex-start;border:none;background:none;box-shadow:none;color:#8a7a68;font-style:italic}
+.msg.err{align-self:flex-start;background:#ffe3e3}
+.calwrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.calbtn{font-size:12px;border:2px solid var(--ink);border-radius:8px;padding:4px 10px;text-decoration:none;color:var(--ink);background:var(--sand);font-weight:700}
+.inbar{display:flex;gap:10px;padding:12px 16px;border-top:var(--line);background:#fff}
+.inbar textarea{flex:1;border:3px solid var(--ink);border-radius:12px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical;min-height:46px;max-height:140px;background:var(--paper)}
+.sendbtn{border:3px solid var(--ink);background:var(--emerald);color:#fff;font-weight:900;font-size:15px;border-radius:14px;padding:0 26px;cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+.sendbtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.sendbtn:disabled{opacity:.5}
+.chatnote{font-size:11px;color:#8a7a68;padding:0 18px 12px;background:#fff}
+/* ===== 今週の一手 ===== */
+.flagCard{display:flex;gap:16px;align-items:center;background:var(--card);border:var(--line);border-radius:20px;box-shadow:0 6px 0 var(--ink);padding:16px 20px}
+.flagCard .ttl{font-size:13px;font-weight:900;color:var(--terra);letter-spacing:.1em}
+.flagCard .big{font-size:20px;font-weight:900;line-height:1.5}
+.flagCard .meta{font-size:12.5px;color:#7a6a58;margin-top:4px}
+/* ===== ボード ===== */
+.board{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.board{grid-template-columns:1fr}}
+.col{background:var(--card);border:var(--line);border-radius:20px;box-shadow:0 6px 0 var(--ink);overflow:hidden}
+.col .colhead{padding:12px 16px;border-bottom:var(--line);font-weight:900;font-size:16px;display:flex;align-items:center;gap:8px}
+.col.dig .colhead{background:var(--sand)}
+.col.done .colhead{background:var(--emerald);color:#fff}
+.col .list{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:90px}
+.item{border:3px solid var(--ink);border-radius:14px;padding:10px 12px;background:#fff;box-shadow:0 3px 0 var(--ink);transition:transform .15s}
+.item:hover{transform:rotate(-.6deg) translateY(-2px)}
+.item .t{font-weight:800;font-size:14px;line-height:1.5}
+.item .m{font-size:11.5px;color:#7a6a58;margin-top:3px}
+.item .ops{display:flex;gap:6px;margin-top:8px}
+.opbtn{font-size:11.5px;font-weight:800;border:2px solid var(--ink);border-radius:8px;background:var(--paper);padding:3px 10px;cursor:pointer}
+.opbtn.doneb{background:var(--emerald);color:#fff}
+.opbtn.holdb{background:var(--sand)}
+.item.doneItem{background:#EFFBF5;opacity:.92}
+.item.doneItem .t{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--emerald)}
+.empty{font-size:12.5px;color:#a09080;padding:8px}
+/* 標本棚（決定） */
+.shelf{background:var(--card);border:var(--line);border-radius:20px;box-shadow:0 6px 0 var(--ink);padding:16px}
+.shelfrow{display:flex;flex-wrap:wrap;gap:12px}
+.spec{position:relative;border:3px solid var(--ink);background:linear-gradient(#fff,#F6EEDD);border-radius:12px;padding:12px 14px 10px;min-width:200px;flex:1 1 240px;box-shadow:0 3px 0 var(--ink);transition:transform .15s}
+.spec:hover{transform:rotate(1deg) translateY(-3px)}
+.spec::before{content:"◆";position:absolute;top:-14px;left:14px;font-size:20px;color:var(--amethyst);text-shadow:0 2px 0 var(--ink)}
+.spec .t{font-weight:800;font-size:13.5px;line-height:1.5}
+.spec .m{font-size:11px;color:#7a6a58;margin-top:4px;border-top:2px dashed #d8c9ae;padding-top:4px}
+/* 地層にねむる（保留） */
+.strata{border:var(--line);border-radius:20px;overflow:hidden;box-shadow:0 6px 0 var(--ink);background:repeating-linear-gradient(0deg,var(--soil),var(--soil) 26px,var(--soil2) 26px,var(--soil2) 52px)}
+.strata .inner{padding:16px;display:flex;flex-wrap:wrap;gap:12px}
+.holditem{background:rgba(255,248,234,.93);border:3px dashed var(--ink);border-radius:12px;padding:10px 12px;flex:1 1 240px;min-width:200px}
+.holditem .t{font-weight:800;font-size:13.5px}
+.holditem .m{font-size:11px;color:#6b5a48;margin-top:3px}
+/* カレンダー・記録 */
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.evcard{background:var(--card);border:var(--line);border-radius:18px;box-shadow:0 5px 0 var(--ink);padding:14px 16px;position:relative}
+.evcard .d{font-size:13px;font-weight:900;color:var(--skyink)}
+.evcard .t{font-size:15px;font-weight:900;margin-top:4px;line-height:1.5}
+.evcard .m{font-size:12px;color:#7a6a58;margin-top:4px}
+.evcard .tag{position:absolute;top:-12px;right:12px}
+.reccard{background:var(--card);border:var(--line);border-radius:18px;box-shadow:0 5px 0 var(--ink);padding:14px 16px}
+.reccard .n{font-size:30px;font-weight:900;color:var(--terra)}
+.reccard .l{font-size:12.5px;font-weight:700;color:#7a6a58}
+/* キラキラ演出 */
+.spark{position:fixed;pointer-events:none;font-size:22px;animation:sp 1s ease-out forwards;z-index:99}
+@keyframes sp{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4)}}
+.footer{font-size:11.5px;color:#8a7a68;text-align:center;margin-top:46px;line-height:1.8}
+</style>
+</head>
+<body>
+<!-- ===== HERO: 発掘現場パノラマ ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>⛏️ 印南先生の発掘現場</h1>
+    <div class="sub">
+      <span class="badge hot">2026年7月 講師デビュー</span>
+      <span class="badge">微小鉱物・地質・みちくさ担当</span>
+      <span class="badge go" id="hero-next">次の現場: —</span>
+    </div>
+    <div class="pickbar">
+      <button class="pickbtn" id="pickmode">⛏️ 発掘モード</button>
+      <span class="digcount" id="digcount">💎 0</span>
+    </div>
+    <svg class="heroSvg" viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" id="heroSvg">
+      <!-- 太陽（クリックで鳥） -->
+      <g class="sun" id="sun">
+        <circle cx="1040" cy="66" r="38" fill="#FFC53D" stroke="#3B2A1E" stroke-width="5"/>
+        <g stroke="#3B2A1E" stroke-width="5" stroke-linecap="round">
+          <line x1="1040" y1="8" x2="1040" y2="20"/><line x1="1040" y1="112" x2="1040" y2="124"/>
+          <line x1="982" y1="66" x2="994" y2="66"/><line x1="1086" y1="66" x2="1098" y2="66"/>
+          <line x1="999" y1="25" x2="1008" y2="34"/><line x1="1072" y1="98" x2="1081" y2="107"/>
+          <line x1="1081" y1="25" x2="1072" y2="34"/><line x1="1008" y1="98" x2="999" y2="107"/>
+        </g>
+        <path d="M1026 74 q14 12 28 0" stroke="#3B2A1E" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="1029" cy="60" r="4" fill="#3B2A1E"/><circle cx="1051" cy="60" r="4" fill="#3B2A1E"/>
+      </g>
+      <!-- 鳥 -->
+      <g class="bird" id="bird1"><path d="M0 60 q10 -12 20 0 q10 -12 20 0" stroke="#3B2A1E" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+      <g class="bird" id="bird2"><path d="M0 100 q8 -10 16 0 q8 -10 16 0" stroke="#3B2A1E" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+      <!-- 雲 -->
+      <g fill="#fff" stroke="#3B2A1E" stroke-width="4">
+        <ellipse cx="200" cy="60" rx="60" ry="24"/><ellipse cx="255" cy="52" rx="40" ry="18"/>
+        <ellipse cx="620" cy="42" rx="48" ry="18"/>
+      </g>
+      <!-- 山（遠景） -->
+      <path d="M-10 190 L150 70 L310 190 Z" fill="#7FBF8E" stroke="#3B2A1E" stroke-width="5"/>
+      <path d="M240 190 L420 90 L600 190 Z" fill="#98CBA2" stroke="#3B2A1E" stroke-width="5"/>
+      <!-- 地層断面 -->
+      <g id="strataG">
+        <rect x="0" y="188" width="1180" height="30" fill="#F4D58D" stroke="#3B2A1E" stroke-width="5"/>
+        <rect x="0" y="215" width="1180" height="30" fill="#C68B59" stroke="#3B2A1E" stroke-width="5"/>
+        <rect x="0" y="242" width="1180" height="30" fill="#A9714B" stroke="#3B2A1E" stroke-width="5"/>
+        <rect x="0" y="269" width="1180" height="31" fill="#8A5A3B" stroke="#3B2A1E" stroke-width="5"/>
+      </g>
+      <!-- 埋まっている結晶（発掘モードでクリック） -->
+      <g id="crystals">
+        <path class="crystal" data-c="1" d="M120 250 l10 -16 l10 16 l-10 14 Z" fill="#9B5DE5" stroke="#3B2A1E" stroke-width="4"/>
+        <path class="crystal" data-c="2" d="M330 278 l9 -14 l9 14 l-9 12 Z" fill="#06C29A" stroke="#3B2A1E" stroke-width="4"/>
+        <path class="crystal" data-c="3" d="M520 226 l10 -15 l10 15 l-10 13 Z" fill="#FF6B6B" stroke="#3B2A1E" stroke-width="4"/>
+        <path class="crystal" data-c="4" d="M730 258 l11 -17 l11 17 l-11 15 Z" fill="#4CC9F0" stroke="#3B2A1E" stroke-width="4"/>
+        <path class="crystal" data-c="5" d="M930 232 l9 -14 l9 14 l-9 12 Z" fill="#FFC53D" stroke="#3B2A1E" stroke-width="4"/>
+        <path class="crystal" data-c="6" d="M1080 272 l10 -15 l10 15 l-10 13 Z" fill="#9B5DE5" stroke="#3B2A1E" stroke-width="4"/>
+      </g>
+      <!-- ピッケルと旗 -->
+      <g transform="translate(840,140)">
+        <rect x="18" y="6" width="8" height="52" rx="3" fill="#C68B59" stroke="#3B2A1E" stroke-width="4"/>
+        <path d="M-6 10 q28 -22 56 0 q-28 -8 -56 0Z" fill="#E07A5F" stroke="#3B2A1E" stroke-width="4"/>
+      </g>
+      <g transform="translate(70,120)">
+        <line x1="0" y1="0" x2="0" y2="70" stroke="#3B2A1E" stroke-width="6" stroke-linecap="round"/>
+        <path d="M3 4 L50 16 L3 30 Z" fill="#FF6B6B" stroke="#3B2A1E" stroke-width="4"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- ===== チャット（参謀テント） ===== -->
+  <div class="chatCard">
+    <div class="chatHead">
+      <span style="font-size:26px">🧠</span>
+      <div><div class="tt">分析宮入くんと作戦会議</div>
+      <div class="st">相談すると、決まったこと・宿題・保留が下のボードに自動で並びます</div></div>
+      <button class="pickbtn" id="newchat" style="margin-left:auto">🆕 新しい会話</button>
+    </div>
+    <div class="log" id="log"></div>
+    <form class="inbar" id="form">
+      <textarea id="q" rows="2" placeholder="相談したいことをどうぞ（例: 8/17の流しそうめん、あと3名をどう集める？）"></textarea>
+      <button type="submit" class="sendbtn" id="send">送信</button>
+    </form>
+    <p class="chatnote">回答は参考情報です。会話の要点はカルテとして学習され、決定・宿題はボードに反映されます。</p>
+  </div>
+
+  <!-- ===== 今週の一手 ===== -->
+  <h2 class="sec"><span class="num">01</span>🚩 いまの最優先</h2>
+  <p class="secnote">ボードの中でいちばん新しい「やること」が旗になります</p>
+  <div class="flagCard" id="flagcard">
+    <svg width="64" height="64" viewBox="0 0 64 64"><line x1="14" y1="6" x2="14" y2="58" stroke="#3B2A1E" stroke-width="6" stroke-linecap="round"/><path d="M18 8 L56 18 L18 30 Z" fill="#FF6B6B" stroke="#3B2A1E" stroke-width="4"/></svg>
+    <div><div class="ttl">TOP PRIORITY</div><div class="big" id="flag-title">まだありません。上のチャットで作戦会議をどうぞ</div><div class="meta" id="flag-meta"></div></div>
+  </div>
+
+  <!-- ===== 発掘ボード ===== -->
+  <h2 class="sec"><span class="num">02</span>⛏️ 発掘ボード（やること）</h2>
+  <p class="secnote">チャットで握った宿題が「発掘中」に並びます。掘り終えたら「発掘成功！」を押してください</p>
+  <div class="board">
+    <div class="col dig"><div class="colhead">🕳️ 発掘中</div><div class="list" id="list-task"></div></div>
+    <div class="col done"><div class="colhead">🏛️ 展示室（完了）</div><div class="list" id="list-done"></div></div>
+  </div>
+
+  <!-- ===== 標本棚（決定） ===== -->
+  <h2 class="sec"><span class="num">03</span>💎 標本棚（決まったこと）</h2>
+  <p class="secnote">会話で決まった方針が、標本ラベルになって並びます</p>
+  <div class="shelf"><div class="shelfrow" id="list-decision"><div class="empty">まだ標本はありません</div></div></div>
+
+  <!-- ===== 地層にねむる（保留） ===== -->
+  <h2 class="sec"><span class="num">04</span>🌙 地層にねむる（保留）</h2>
+  <p class="secnote">「また今度」になった話題はここに埋まっています。掘り起こすといつでも再開できます</p>
+  <div class="strata"><div class="inner" id="list-hold"><div class="empty" style="color:#fff8ea">いま眠っている話題はありません</div></div></div>
+
+  <!-- ===== 探検カレンダー ===== -->
+  <h2 class="sec"><span class="num">05</span>🗓️ 探検カレンダー</h2>
+  <div class="cards3" id="schedule"></div>
+
+  <!-- ===== 発掘記録 ===== -->
+  <h2 class="sec"><span class="num">06</span>📜 発掘記録（これまでの実績）</h2>
+  <div class="cards3" id="records"></div>
+
+  <p class="footer">東京山側DMC 分析スタジオ｜印南先生専用ページ（社内限定）<br>データ出典: aini/gifte実測・予約通知メール（個人名は保存していません）</p>
+</div>
+
+
+<div id="__gate" style="position:fixed;inset:0;z-index:9999;background:#f9f8f4;color:#191713;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,'Hiragino Sans',sans-serif">
+ <form id="__gform" style="background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:30px 34px;max-width:380px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.15)">
+  <div style="font-size:12px;letter-spacing:.16em;color:#8a6d1f;font-weight:700">TOKYO YAMAGAWA DMC</div>
+  <h1 style="font-size:20px;margin:6px 0 4px;font-family:'Hiragino Mincho ProN',serif">体験販売 分析スタジオ</h1>
+  <p style="font-size:12.5px;color:#666;margin:0 0 16px;line-height:1.7">社内限定の資料です。合言葉を入力してください。</p>
+  <input id="__pw" type="password" placeholder="合言葉" autocomplete="off" autofocus style="width:100%;padding:11px 13px;font-size:15px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box">
+  <button type="submit" style="width:100%;margin-top:12px;padding:11px;font-size:14px;font-weight:700;border:none;border-radius:8px;background:#233d33;color:#fff;cursor:pointer">ひらく</button>
+  <p id="__err" style="display:none;font-size:12px;color:#b91c1c;margin:10px 0 0">合言葉がちがうようです。もう一度お試しください。</p>
+ </form>
+</div>
+<script>
+let D=null;
+
+const CIPHER={"s":"s2PqB8PfmgbdFa2XyTKU+w==","i":"cT2moSkWmNGgqqUM","d":"VOwht7fduJNm04WDaqxZhikqH7pmWxUhZ3O52Y9Rj40aO2KtfDoIrDk5NyrzmvpRNrNRMN3msU8jeuU0JeDAVw1KFWaxnJ45ua0EVzPWIHUCJY3iqpdDElKuD8WXsDsNVyxYVRv2sfCIV5Bdj+TNWqpSpuVQNTJfPKiXhtbZmKxktBgs2PgEu6ViDeRLfs9FwFVc3cwY1bLNAHwmvNWcPG25xal8eO7yxjjE9E7eZFw6Ah0KJzdxgKCq0F+iGhcMIv2RqNRrga5xAoDMckSudSwdWkYjMaEweCKMFVM4NBWu5Bc4Iq2fc2YgsaPhiUWQo/w1fFnQKroNhq0ZuGEc8/2M+McFFTGNzgH8/t+nYl4a7f5xuaECP7Mimfe4PMBYLflMQMzcb8CLYBG0mSLoZDYoWOPO3ebOFiHoXzkf9ZaiP1tnr73dZPQSdg06XpmIFQuwrAmy+KEerI2Qbat7xStMKMjh5pxvttEWOEM+RTD6E9pdNwk0BydXYIqPdQmznhFr6kCJUVq3tHH/XRaDgiW0N0zYSvQKvx4hkSuoeIyeb/CM8nKrmS04/A53lcQc1QmEim3y9iqKlyK7m9xhwKX7P99iIWlKI5aFW8e2GhAJOphWdLRbYo0F1/6QY5EXoYcV607hVftlfmA4NdJD0GahwHTUGS05U4R2+Ir2nYG3mL6tbk/YnMFNo2bixE4Oz6XuNljr5PR2jqptR6zdPgj8j83AB15E4v5wIOyY0k7lTDaGppsLJsSqnYWkxiAcXupEwUNasafCVYgzIGommyNqy+rLKUEplxwhOKK46VuLzUiVl4NW6do9l8ZpYA5Q+cr6hYOxLXXFlNKUYJjFGz7zUIHGgfrQAYAPtq0JV/AbirsNKy+lLCnEM3xRKMTGs/4YNSQNFGjgyuFXPxAnIzPEWtIplrI515+g2gKB4J5RM1GKKgfkg73sGRLJy8Gnr6j2pf+PIAC4jK19xIsuXFAtuNMZQMz98H/9ch3EyQdwpX6sGftKMxZYFv0k8y+xiTKh5X5iDJZxj4dy3RfQffmp6zmNv8gfE9ixSmTCm/YoRXK7GMXi3INukVngzXb468dw+heQ/QIk4RVpdZe7MaigpauOM6Ngakd1NMCseGXqc+wxqHEs4dE7WAD1FkFmMGrlbv+GNe82t16yfMx6rUeojffeHMIIrm4qij6FSHpisR8kdULm8TvetJmqQfwTqw/HI1Cearnqz3+9ZZgofyWRKvynsgFWKPzWJnaeKQ=="};
+function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+async function __unlock(pw){
+ const enc=new TextEncoder();
+ const km=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+ const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:__b64(CIPHER.s),iterations:100000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
+ const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:__b64(CIPHER.i)},key,__b64(CIPHER.d));
+ return JSON.parse(new TextDecoder().decode(plain));
+}
+document.getElementById('__gform').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=e.target.querySelector('button');btn.textContent='ひらいています…';
+ const __pwval=document.getElementById('__pw').value.trim();
+ try{ D=await __unlock(__pwval);
+  try{ const __hb=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(__pwval+':bunseki-miyairi-v1'));
+   window.__bmAuth=Array.from(new Uint8Array(__hb)).map(b=>b.toString(16).padStart(2,'0')).join(''); }catch(_){}
+  const g=document.getElementById('__gate'); if(g) g.remove(); __boot();
+ }catch(_){ document.getElementById('__err').style.display='block';
+  btn.textContent='ひらく';
+  document.getElementById('__pw').value='';document.getElementById('__pw').focus(); }
+});
+function __boot(){
+
+const W=D.worker;
+let history=[],busy=false;
+const log=document.getElementById("log"),qEl=document.getElementById("q"),sendBtn=document.getElementById("send");
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function auth(){return (typeof window!=="undefined"&&window.__bmAuth)||"";}
+/* ---- チャット ---- */
+function extractCals(text){const cals=[];let clean=String(text).replace(/<cal\b([^>]*?)\/?>(?:<\/cal>)?/gi,(m,a)=>{const g=k=>{const mm=a.match(new RegExp(k+'\\s*=\\s*"([^"]*)"',"i"));return mm?mm[1]:"";};const t=g("title"),s=g("start");if(t&&/^\d{4}-\d{2}-\d{2}$/.test(s))cals.push({title:t.slice(0,60),start:s,time:g("time"),minutes:parseInt(g("minutes")||"60",10)||60,details:g("details").slice(0,200)});return "";}).replace(/<cal\b[^>]*$/i,"");return {clean:clean.trim(),cals:cals.slice(0,3)};}
+function calUrl(c){const p=n=>String(n).padStart(2,"0");let dates;if(/^\d{2}:\d{2}$/.test(c.time||"")){const st=c.start.replace(/-/g,"")+"T"+c.time.replace(":","")+"00";const en=new Date(c.start+"T"+c.time+":00");en.setMinutes(en.getMinutes()+c.minutes);dates=st+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate())+"T"+p(en.getHours())+p(en.getMinutes())+"00";}else{const en=new Date(c.start+"T00:00:00");en.setDate(en.getDate()+1);dates=c.start.replace(/-/g,"")+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate());}return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(c.title)+"&dates="+dates+"&ctz=Asia/Tokyo&details="+encodeURIComponent(c.details||"発掘現場の作戦会議より");}
+function add(cls,text,cals){const d=document.createElement("div");d.className="msg "+cls;
+ d.innerHTML=esc(text).replace(/\*\*([^*\n]{1,80}?)\*\*/g,"<b>$1</b>").replace(/^#{1,4}\s*/gm,"").replace(/\n/g,"<br>");
+ if(cals&&cals.length){const w=document.createElement("div");w.className="calwrap";cals.forEach(c=>{const a=document.createElement("a");a.className="calbtn";a.target="_blank";a.rel="noopener";a.href=calUrl(c);a.textContent="📅 "+c.title;w.appendChild(a);});d.appendChild(w);}
+ log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+async function send(){if(busy)return;const text=qEl.value.trim();if(!text)return;
+ add("user",text);qEl.value="";busy=true;sendBtn.disabled=true;
+ const wait=add("wait","考えています…（30秒ほどかかることがあります）");
+ try{
+  const res=await fetch(W+"/ask",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},
+   body:JSON.stringify({mode:"consult",user:D.user,question:text,history:history,model:"sonnet"})});
+  let data=null;try{data=await res.json();}catch(_){ }
+  if(!data||typeof data.answer!=="string")throw new Error((data&&data.error)||("bad response "+res.status));
+  wait.remove();
+  const stripped=data.answer.replace(/<karte>[\s\S]*?<\/karte>/gi,"").replace(/<stats\b[^>]*\/?>/gi,"").trim();
+  const cx=extractCals(stripped);
+  add("bot",cx.clean,cx.cals);
+  history=history.concat([{role:"user",content:text},{role:"assistant",content:cx.clean}]).slice(-40);
+  refreshBoard(true);
+ }catch(err){wait.remove();add("err",/上限|お断り|翌月/.test(String(err.message))?err.message:"つながりませんでした。少し時間をおいてもう一度お試しください。");}
+ finally{busy=false;sendBtn.disabled=false;qEl.focus();}}
+document.getElementById("form").addEventListener("submit",e=>{e.preventDefault();send();});
+qEl.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();send();}});
+document.getElementById("newchat").addEventListener("click",()=>{if(busy)return;history=[];log.innerHTML="";add("bot","新しい作戦会議を始めます。聞きたいことをどうぞ ⛏️");qEl.focus();});
+/* ---- ボード ---- */
+let boardCache=[];
+function sparkleAt(x,y){for(let i=0;i<7;i++){const s=document.createElement("div");s.className="spark";s.textContent=["✨","💎","⭐️"][i%3];s.style.left=x+"px";s.style.top=y+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(Math.random()*-140-20)+"px");document.body.appendChild(s);setTimeout(()=>s.remove(),1000);}}
+async function boardOp(id,op,ev){try{await fetch(W+"/board-op",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},body:JSON.stringify({user:D.user,id:id,op:op})});}catch(_){}
+ if(op==="done"&&ev)sparkleAt(ev.clientX,ev.clientY);refreshBoard(false);}
+function itemHtml(it){const meta=[it.who?("👤 "+it.who):"",it.due?("📅 "+it.due):"",it.at?("記録 "+it.at):""].filter(Boolean).join("　");
+ return '<div class="t">'+esc(it.title)+'</div>'+(it.note?'<div class="m">'+esc(it.note)+'</div>':'')+'<div class="m">'+esc(meta)+'</div>';}
+function renderBoard(prevIds){
+ const tasks=boardCache.filter(x=>x.type==="task"&&x.status==="open");
+ const dones=boardCache.filter(x=>x.status==="done");
+ const decisions=boardCache.filter(x=>x.type==="decision"&&x.status==="open");
+ const holds=boardCache.filter(x=>x.type==="hold"&&x.status==="open");
+ // 旗
+ if(tasks.length){document.getElementById("flag-title").textContent=tasks[0].title;
+  document.getElementById("flag-meta").textContent=[tasks[0].who?("担当: "+tasks[0].who):"",tasks[0].due?("期限: "+tasks[0].due):"",tasks[0].note||""].filter(Boolean).join("　");}
+ else{document.getElementById("flag-title").textContent="まだありません。上のチャットで作戦会議をどうぞ";document.getElementById("flag-meta").textContent="";}
+ // 発掘中
+ const lt=document.getElementById("list-task");lt.innerHTML=tasks.length?"":'<div class="empty">いまは空です。作戦会議で宿題を握りましょう</div>';
+ tasks.forEach(it=>{const d=document.createElement("div");d.className="item"+(prevIds&&!prevIds.has(it.id)?" newItem":"");d.innerHTML=itemHtml(it);
+  const ops=document.createElement("div");ops.className="ops";
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="⛏️ 発掘成功！";b1.onclick=e=>boardOp(it.id,"done",e);
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🌙 保留にする";b2.onclick=()=>boardOp(it.id,"hold");
+  ops.appendChild(b1);ops.appendChild(b2);d.appendChild(ops);lt.appendChild(d);
+  if(prevIds&&!prevIds.has(it.id)){const r=d.getBoundingClientRect();sparkleAt(r.left+40,r.top+10);}});
+ // 展示室
+ const ld=document.getElementById("list-done");ld.innerHTML=dones.length?"":'<div class="empty">完了した発掘はここに並びます</div>';
+ dones.slice(0,10).forEach(it=>{const d=document.createElement("div");d.className="item doneItem";d.innerHTML=itemHtml(it);ld.appendChild(d);});
+ // 標本棚
+ const lc=document.getElementById("list-decision");lc.innerHTML=decisions.length?"":'<div class="empty">まだ標本はありません</div>';
+ decisions.forEach(it=>{const d=document.createElement("div");d.className="spec";d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc((it.note||"")+"　"+(it.at||""))+'</div>';lc.appendChild(d);});
+ // 地層にねむる
+ const lh=document.getElementById("list-hold");lh.innerHTML=holds.length?"":'<div class="empty" style="color:#fff8ea">いま眠っている話題はありません</div>';
+ holds.forEach(it=>{const d=document.createElement("div");d.className="holditem";d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc(it.note||"")+'</div>';
+  const b=document.createElement("button");b.className="opbtn";b.style.marginTop="6px";b.textContent="⛏️ 掘り起こす";b.onclick=()=>boardOp(it.id,"restore");d.appendChild(b);lh.appendChild(d);});}
+async function refreshBoard(sparkleNew){
+ const prevIds=sparkleNew?new Set(boardCache.map(x=>x.id)):null;
+ try{const r=await fetch(W+"/board?user="+encodeURIComponent(D.user),{headers:{"X-BM-Auth":auth()}});
+  const d=await r.json();if(Array.isArray(d.items))boardCache=d.items;}catch(_){}
+ renderBoard(prevIds);}
+/* ---- カレンダー・記録 ---- */
+function renderStatic(){
+ document.getElementById("hero-next").textContent="次の現場: "+D.next;
+ const sc=document.getElementById("schedule");
+ D.schedule.forEach(s=>{const d=document.createElement("div");d.className="evcard";
+  d.innerHTML='<span class="tag badge '+(s.tagbg||"")+'">'+esc(s.tag)+'</span><div class="d">'+esc(s.date)+'</div><div class="t">'+esc(s.title)+'</div><div class="m">'+esc(s.meta)+'</div>';sc.appendChild(d);});
+ const rc=document.getElementById("records");
+ D.records.forEach(s=>{const d=document.createElement("div");d.className="reccard";
+  d.innerHTML='<div class="n">'+esc(s.n)+'</div><div class="l">'+esc(s.l)+'</div>';rc.appendChild(d);});}
+/* ---- 遊び: 太陽・発掘モード ---- */
+function playSetup(){
+ let digging=false,dug=0;
+ const btn=document.getElementById("pickmode");
+ btn.addEventListener("click",()=>{digging=!digging;btn.classList.toggle("on",digging);document.body.classList.toggle("digging",digging);});
+ document.querySelectorAll(".crystal").forEach(c=>{c.addEventListener("click",e=>{if(!digging)return;
+  c.classList.add("dug");dug++;document.getElementById("digcount").textContent="💎 "+dug;
+  sparkleAt(e.clientX,e.clientY);
+  if(dug>=6){setTimeout(()=>{document.querySelectorAll(".crystal").forEach(x=>x.classList.remove("dug"));dug=0;document.getElementById("digcount").textContent="💎 コンプリート！また埋まりました";},900);}});});
+ document.getElementById("sun").addEventListener("click",()=>{["bird1","bird2"].forEach((id,i)=>{const b=document.getElementById(id);b.classList.remove("fly");void b.getBoundingClientRect();setTimeout(()=>b.classList.add("fly"),i*400);});});
+}
+/* ---- 起動 ---- */
+renderStatic();playSetup();
+add("bot","こんにちは、印南先生。ここはあなた専用の作戦室です ⛏️ 8/14の微小鉱物（満席！）のことでも、8/17の流しそうめんのことでも、なんでも相談してください。決まったことは下のボードに自動で並びます。");
+refreshBoard(false);
+setInterval(()=>refreshBoard(false),90000);
+
+}
+</script>
+</body>
+</html>
