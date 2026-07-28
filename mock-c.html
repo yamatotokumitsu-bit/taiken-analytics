@@ -1,0 +1,574 @@
+<meta name="robots" content="noindex,nofollow">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>印南先生の採集ノート｜東京山側DMC</title>
+<style>
+:root{
+  --kraft:#E6CB96; --kraft2:#DDBD80; --cover:#BE8B58;
+  --paper:#FBF4E0; --page:#FFFCF1; --card:#FFFCF1;
+  --ink:#4A3728;
+  --wakakusa:#7FB069; --wakakusa2:#C6DD9D; --leaf:#8FBF5A;
+  --sumire:#8E7CC3; --sumire2:#D6CBEE; --sumideep:#6F5BA8;
+  --pink:#DE8CA0; --pink2:#F5CBD4; --pinkdeep:#C25E77;
+  --karashi:#DFA226; --karashi2:#F2CB63;
+  --thread:#D96C85;
+  --line:4px solid var(--ink);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;color:var(--ink);
+ background-color:var(--kraft);
+ background-image:radial-gradient(rgba(122,90,54,.10) 1.5px,transparent 1.6px),radial-gradient(rgba(255,255,255,.42) 1.2px,transparent 1.3px);
+ background-size:28px 28px,37px 37px;background-position:0 0,14px 19px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+/* ===== 見出し＝マスキングテープのラベル ===== */
+h2.sec{position:relative;font-size:23px;font-weight:900;display:inline-flex;align-items:center;gap:10px;
+ margin:42px 0 6px;padding:9px 24px 10px;background:var(--tapec,var(--karashi2));
+ clip-path:polygon(2% 0,98% 5%,100% 26%,98% 76%,100% 96%,3% 100%,0 74%,2% 28%);
+ transform:rotate(-1.2deg);box-shadow:0 3px 0 rgba(74,55,40,.2)}
+h2.sec .num{background:var(--ink);color:var(--paper);border-radius:50%;padding:4px 9px;font-size:13px;letter-spacing:.05em}
+.tape-pink{--tapec:var(--pink2)}
+.tape-green{--tapec:var(--wakakusa2)}
+.tape-sumire{--tapec:var(--sumire2)}
+.secnote{font-size:12.5px;color:#7d6b53;margin:2px 0 16px}
+/* ===== マスキングテープ部品 ===== */
+.tp{position:absolute;height:26px;width:104px;z-index:6;pointer-events:none;
+ background:linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,0) 60%),var(--tpc,var(--pink2));
+ opacity:.92;box-shadow:0 2px 3px rgba(74,55,40,.18);
+ clip-path:polygon(3% 0,97% 4%,100% 24%,98% 78%,100% 96%,4% 100%,0 80%,2% 26%)}
+.tp-a{top:-13px;left:28px;transform:rotate(-5deg)}
+.tp-b{top:-13px;right:28px;transform:rotate(4deg);--tpc:var(--wakakusa2)}
+.tp-c{top:-13px;left:50%;transform:translateX(-50%) rotate(-2deg);--tpc:var(--karashi2)}
+.tp-s{--tpc:var(--sumire2)}
+/* ===== HERO: 見開き採集ノート ===== */
+.hero{position:relative;border-bottom:var(--line);overflow:hidden;background-color:var(--kraft2);
+ background-image:radial-gradient(rgba(122,90,54,.12) 1.5px,transparent 1.6px),radial-gradient(rgba(255,255,255,.4) 1.2px,transparent 1.3px);
+ background-size:28px 28px,37px 37px;background-position:0 0,14px 19px}
+.hero-inner{max-width:1180px;margin:0 auto;padding:26px 20px 0;position:relative}
+.hero h1{font-size:min(44px,6vw);font-weight:900;letter-spacing:.02em;text-shadow:0 3px 0 rgba(255,252,241,.75)}
+.hero .sub{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.badge{display:inline-block;background:var(--card);border:3px solid var(--ink);border-radius:999px;padding:4px 14px;font-weight:800;font-size:13px;box-shadow:0 3px 0 var(--ink)}
+.badge.hot{background:var(--pink);color:#fff}
+.badge.go{background:var(--wakakusa);color:#fff}
+.heroSvg{display:block;width:100%;height:auto;margin-top:8px}
+.heroSvg text{font-family:inherit}
+.sun{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:transform .3s}
+.sun:hover{transform:rotate(14deg) scale(1.08)}
+.crystal{cursor:pointer;transition:filter .2s,transform .2s;transform-box:fill-box;transform-origin:center}
+.crystal:hover{filter:drop-shadow(0 0 7px #fff);transform:scale(1.14) rotate(-5deg)}
+.crystal.dug{opacity:.15;pointer-events:none}
+#bigviolet{cursor:pointer;transform-box:fill-box;transform-origin:center}
+#bigviolet.pressed{animation:squash .55s ease}
+@keyframes squash{0%{transform:scale(1)}35%{transform:scale(1.12,.85)}70%{transform:scale(.94,1.06)}100%{transform:scale(1)}}
+.bird{opacity:0}
+.bird.fly{animation:fly 5s linear forwards}
+@keyframes fly{0%{opacity:0;transform:translate(-80px,20px)}10%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translate(1260px,-60px)}}
+.pickbar{position:absolute;right:22px;top:20px;display:flex;gap:10px;align-items:center;flex-direction:row;flex-wrap:wrap;justify-content:flex-end}
+.pickbtn{border:3px solid var(--ink);background:var(--card);border-radius:999px;padding:8px 16px;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+.pickbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.pickbtn.on{background:var(--karashi2)}
+.digcount{font-weight:900;font-size:14px;background:var(--sumire);color:#fff;border-radius:999px;padding:8px 14px;border:3px solid var(--ink);box-shadow:0 3px 0 var(--ink)}
+.pickhint{position:absolute;right:24px;top:66px;font-size:11px;font-weight:800;color:#6d5a41;background:rgba(255,252,241,.8);border-radius:999px;padding:3px 10px}
+body.digging .crystal{cursor:grab}
+@media(max-width:980px){
+ .pickbar{position:static;margin-top:10px;justify-content:flex-start}
+ .pickhint{position:static;display:inline-block;margin-top:6px}
+}
+/* ===== チャット（おしゃべりページ） ===== */
+.chatCard{position:relative;background:var(--card);border:var(--line);border-radius:18px;box-shadow:0 7px 0 rgba(74,55,40,.3);margin-top:-26px;z-index:5}
+.chatHead{display:flex;align-items:center;gap:12px;background:var(--karashi2);border-bottom:var(--line);padding:12px 18px;flex-wrap:wrap;border-radius:13px 13px 0 0}
+.chatHead .tt{font-size:19px;font-weight:900}
+.chatHead .st{font-size:12px;font-weight:700;color:#7a5f17}
+.log{padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;min-height:140px;max-height:52vh;overflow-y:auto;
+ background:linear-gradient(90deg,transparent 44px,rgba(222,140,160,.55) 44px,rgba(222,140,160,.55) 47px,transparent 47px),
+ repeating-linear-gradient(0deg,#FFFCF1,#FFFCF1 33px,#F3E4C4 34px)}
+.msg{position:relative;max-width:82%;padding:11px 14px;border:3px solid var(--ink);border-radius:6px;font-size:14px;line-height:1.75;word-break:break-word;background:#fff}
+.msg.user{align-self:flex-end;background:#EDF5DA;transform:rotate(.4deg)}
+.msg.user::before{content:"";position:absolute;top:-9px;right:16px;width:52px;height:15px;background:var(--wakakusa2);opacity:.9;transform:rotate(3deg);clip-path:polygon(4% 0,96% 8%,100% 30%,97% 72%,100% 100%,3% 92%,0 68%,3% 24%)}
+.msg.bot{align-self:flex-start;background:#fff;box-shadow:0 3px 0 rgba(74,55,40,.22);transform:rotate(-.3deg)}
+.msg.bot::before{content:"";position:absolute;top:-9px;left:16px;width:52px;height:15px;background:var(--pink2);opacity:.9;transform:rotate(-3deg);clip-path:polygon(4% 0,96% 8%,100% 30%,97% 72%,100% 100%,3% 92%,0 68%,3% 24%)}
+.msg.wait{align-self:flex-start;border:none;background:none;box-shadow:none;color:#8a7a68;font-style:italic;transform:none}
+.msg.wait::before{display:none}
+.msg.err{align-self:flex-start;background:#FBE3E1}
+.calwrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.calbtn{font-size:12px;border:2px solid var(--ink);border-radius:6px;padding:4px 10px;text-decoration:none;color:var(--ink);background:var(--karashi2);font-weight:700}
+.inbar{display:flex;gap:10px;padding:12px 16px;border-top:var(--line);background:#FFFCF1}
+.inbar textarea{flex:1;border:3px solid var(--ink);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical;min-height:46px;max-height:140px;background:var(--paper)}
+.sendbtn{border:3px solid var(--ink);background:var(--karashi);color:#fff;font-weight:900;font-size:15px;border-radius:12px;padding:0 26px;cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+.sendbtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.sendbtn:disabled{opacity:.5}
+.chatnote{font-size:11px;color:#8a7a68;padding:0 18px 12px;background:#FFFCF1;border-radius:0 0 13px 13px}
+/* ===== 今週のしおり ===== */
+.flagCard{position:relative;display:flex;gap:16px;align-items:center;background:var(--card);border:var(--line);border-radius:14px;box-shadow:0 6px 0 rgba(74,55,40,.3);padding:18px 20px 16px}
+.flagCard .ttl{font-size:13px;font-weight:900;color:var(--pinkdeep);letter-spacing:.1em}
+.flagCard .big{font-size:20px;font-weight:900;line-height:1.5}
+.flagCard .meta{font-size:12.5px;color:#7d6b53;margin-top:4px}
+/* ===== 貼りものボード ===== */
+.board{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.board{grid-template-columns:1fr}}
+.col{position:relative;background:var(--card);border:var(--line);border-radius:14px;box-shadow:0 6px 0 rgba(74,55,40,.3)}
+.col .colhead{padding:12px 16px;border-bottom:var(--line);font-weight:900;font-size:16px;display:flex;align-items:center;gap:8px;border-radius:9px 9px 0 0}
+.col.dig .colhead{background:var(--karashi2)}
+.col.done .colhead{background:var(--wakakusa);color:#FFFDF4}
+.col .list{padding:20px 14px 14px;display:flex;flex-direction:column;gap:16px;min-height:90px}
+.item{position:relative;border:3px solid var(--ink);border-radius:5px;padding:12px 12px 10px;background:#FFFDF6;box-shadow:0 3px 0 rgba(74,55,40,.22);transition:transform .15s;transform:rotate(-.4deg)}
+.item:nth-child(even){transform:rotate(.5deg)}
+.item:hover{transform:rotate(0deg) translateY(-2px)}
+.item::before{content:"";position:absolute;top:-10px;left:50%;width:66px;height:16px;transform:translateX(-50%) rotate(-3deg);background:var(--karashi2);opacity:.85;clip-path:polygon(4% 0,96% 6%,100% 30%,97% 74%,100% 100%,3% 94%,0 70%,3% 26%)}
+.item.newItem{animation:paste .5s ease}
+@keyframes paste{0%{transform:scale(1.15) rotate(3deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.item .t{font-weight:800;font-size:14px;line-height:1.5}
+.item .m{font-size:11.5px;color:#7d6b53;margin-top:3px}
+.item .ops{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.opbtn{font-size:11.5px;font-weight:800;border:2px solid var(--ink);border-radius:6px;background:var(--paper);padding:3px 10px;cursor:pointer}
+.opbtn.doneb{background:var(--wakakusa);color:#fff}
+.opbtn.holdb{background:var(--pink2)}
+.item.doneItem{background:#F0F7E4;opacity:.94}
+.item.doneItem::before{background:var(--wakakusa2)}
+.item.doneItem .t{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--wakakusa)}
+.empty{font-size:12.5px;color:#a5947e;padding:8px}
+/* 標本ラベル帳（決定）＋ポケット（アイデア） */
+.shelf{position:relative;background:var(--card);border:var(--line);border-radius:14px;box-shadow:0 6px 0 rgba(74,55,40,.3);padding:24px 16px 16px;
+ background-image:repeating-linear-gradient(0deg,transparent 0 33px,rgba(226,205,160,.5) 33px 34px)}
+.shelfrow{display:flex;flex-wrap:wrap;gap:16px 14px}
+.spec{position:relative;border:3px solid var(--ink);background:linear-gradient(#FFFCF1,#F6EBD2);border-radius:5px;padding:14px 14px 10px;min-width:200px;flex:1 1 240px;box-shadow:0 3px 0 rgba(74,55,40,.22);transition:transform .15s;transform:rotate(-.5deg)}
+.spec:nth-child(even){transform:rotate(.6deg)}
+.spec:hover{transform:rotate(0deg) translateY(-3px)}
+.spec::before{content:"";position:absolute;top:-10px;left:50%;width:74px;height:17px;transform:translateX(-50%) rotate(-2deg);background:var(--sumire2);opacity:.9;clip-path:polygon(4% 0,96% 6%,100% 30%,97% 74%,100% 100%,3% 94%,0 70%,3% 26%)}
+.spec .t{font-weight:800;font-size:13.5px;line-height:1.5}
+.spec .m{font-size:11px;color:#7d6b53;margin-top:4px;border-top:2px dashed #D9C7A0;padding-top:4px}
+#list-idea .spec::before{background:var(--pink2)}
+#list-idea .spec::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(128deg,rgba(255,255,255,.5),rgba(255,255,255,0) 42%,rgba(255,255,255,.22) 78%)}
+/* 押し花プレス（保留） */
+.strata{border:var(--line);border-radius:14px;overflow:hidden;box-shadow:0 6px 0 rgba(74,55,40,.32);background:repeating-linear-gradient(90deg,#C08A52 0 46px,#B57E47 46px 92px)}
+.pressbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;background:linear-gradient(#D8A468,#C08A52);border-bottom:var(--line)}
+.pressttl{font-weight:900;color:#FFF6E3;text-shadow:0 2px 0 rgba(74,55,40,.45);font-size:15px}
+.knob{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE9AF,#DFA226 72%);border:3px solid var(--ink);box-shadow:0 2px 0 rgba(74,55,40,.45)}
+.strata .inner{padding:16px;display:flex;flex-wrap:wrap;gap:12px}
+.holditem{background:rgba(255,250,235,.93);border:3px dashed var(--ink);border-radius:8px;padding:10px 12px;flex:1 1 240px;min-width:200px}
+.holditem .t{font-weight:800;font-size:13.5px}
+.holditem .m{font-size:11px;color:#6b5a48;margin-top:3px}
+/* おでかけ予定・採集記録 */
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px 16px}
+.evcard{background:var(--card);border:var(--line);border-radius:8px;box-shadow:0 5px 0 rgba(74,55,40,.28);padding:16px 16px 14px;position:relative;transform:rotate(-.4deg)}
+.evcard:nth-child(even){transform:rotate(.5deg)}
+.evcard::before{content:"";position:absolute;top:-11px;left:18px;width:84px;height:20px;background:var(--sumire2);opacity:.88;transform:rotate(-4deg);clip-path:polygon(3% 0,97% 5%,100% 26%,98% 76%,100% 96%,4% 100%,0 74%,2% 28%)}
+.evcard .d{font-size:13px;font-weight:900;color:var(--sumideep)}
+.evcard .t{font-size:15px;font-weight:900;margin-top:4px;line-height:1.5}
+.evcard .m{font-size:12px;color:#7d6b53;margin-top:4px}
+.evcard .tag{position:absolute;top:-12px;right:12px}
+.reccard{position:relative;background:var(--card);border:var(--line);border-radius:8px;box-shadow:0 5px 0 rgba(74,55,40,.28);padding:18px 18px}
+.reccard::before{content:"";position:absolute;inset:6px;border:3px dashed rgba(74,55,40,.32);border-radius:4px;pointer-events:none}
+.reccard .n{font-size:30px;font-weight:900;color:var(--pinkdeep)}
+.reccard .l{font-size:12.5px;font-weight:700;color:#86735C;margin-top:2px}
+/* キラキラ・花びら演出 */
+.spark{position:fixed;pointer-events:none;font-size:22px;animation:sp 1s ease-out forwards;z-index:99}
+@keyframes sp{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4)}}
+.petal{position:fixed;pointer-events:none;font-size:18px;z-index:99;animation:petfall 1.6s ease-in forwards}
+@keyframes petfall{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--px),150px) rotate(220deg)}}
+.footer{font-size:11.5px;color:#6d5a41;text-align:center;margin-top:50px;line-height:1.8;border-top:3px dashed rgba(74,55,40,.35);padding-top:14px}
+</style>
+</head>
+<body>
+<!-- ===== HERO: 見開き採集ノートのパノラマ ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>📒 印南先生の採集ノート</h1>
+    <div class="sub">
+      <span class="badge hot">2026年7月 講師デビュー</span>
+      <span class="badge">微小鉱物・地質・みちくさ担当</span>
+      <span class="badge go" id="hero-next">次のおでかけ: —</span>
+    </div>
+    <div class="pickbar">
+      <button class="pickbtn" id="pickmode">🧺 採集モード</button>
+      <span class="digcount" id="digcount">🌼 0</span>
+    </div>
+    <span class="pickhint">採集モードにして、ページの上の草花や石を拾ってみてください</span>
+    <svg class="heroSvg" viewBox="0 0 1180 340" xmlns="http://www.w3.org/2000/svg" id="heroSvg">
+      <!-- 机の上の影 -->
+      <ellipse cx="590" cy="324" rx="565" ry="14" fill="rgba(74,55,40,.18)"/>
+      <!-- ノートの表紙（クラフト） -->
+      <rect x="18" y="22" width="1144" height="298" rx="16" fill="#BE8B58" stroke="#4A3728" stroke-width="5"/>
+      <!-- 紙の束の気配 -->
+      <rect x="28" y="32" width="558" height="276" rx="10" fill="#F2E5C5" stroke="#4A3728" stroke-width="3"/>
+      <rect x="592" y="32" width="558" height="276" rx="10" fill="#F2E5C5" stroke="#4A3728" stroke-width="3"/>
+      <!-- 見開きページ -->
+      <rect x="34" y="38" width="550" height="266" rx="10" fill="#FDF7E7" stroke="#4A3728" stroke-width="5"/>
+      <rect x="596" y="38" width="550" height="266" rx="10" fill="#FFFCF1" stroke="#4A3728" stroke-width="5"/>
+      <!-- 罫線 -->
+      <g stroke="#EFE0BC" stroke-width="3">
+        <line x1="60" y1="110" x2="560" y2="110"/><line x1="60" y1="148" x2="560" y2="148"/>
+        <line x1="60" y1="186" x2="560" y2="186"/><line x1="60" y1="224" x2="560" y2="224"/>
+        <line x1="60" y1="262" x2="560" y2="262"/>
+        <line x1="620" y1="110" x2="1120" y2="110"/><line x1="620" y1="148" x2="1120" y2="148"/>
+        <line x1="620" y1="186" x2="1120" y2="186"/><line x1="620" y1="224" x2="1120" y2="224"/>
+        <line x1="620" y1="262" x2="1120" y2="262"/>
+      </g>
+      <line x1="84" y1="46" x2="84" y2="298" stroke="#F2BFCB" stroke-width="3"/>
+      <line x1="646" y1="46" x2="646" y2="298" stroke="#F2BFCB" stroke-width="3"/>
+      <!-- 綴じ糸（スパイン） -->
+      <line x1="590" y1="40" x2="590" y2="304" stroke="#4A3728" stroke-width="5"/>
+      <path d="M582 58 l16 12 M598 58 l-16 12 M582 100 l16 12 M598 100 l-16 12 M582 142 l16 12 M598 142 l-16 12 M582 184 l16 12 M598 184 l-16 12 M582 226 l16 12 M598 226 l-16 12 M582 268 l16 12 M598 268 l-16 12" stroke="#D96C85" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <!-- 角のマスキングテープ -->
+      <g opacity=".88">
+        <rect x="6" y="48" width="92" height="24" rx="2" fill="#F5CBD4" transform="rotate(-38 52 60)"/>
+        <rect x="1082" y="46" width="92" height="24" rx="2" fill="#C6DD9D" transform="rotate(38 1128 58)"/>
+        <rect x="10" y="276" width="80" height="22" rx="2" fill="#F2CB63" transform="rotate(38 50 287)"/>
+        <rect x="1090" y="276" width="80" height="22" rx="2" fill="#D6CBEE" transform="rotate(-38 1130 287)"/>
+      </g>
+      <!-- 左ページ: タイトルテープと押し花 -->
+      <g transform="rotate(-2 240 70)">
+        <rect x="120" y="52" width="248" height="36" rx="3" fill="#F2CB63" opacity=".93"/>
+        <text x="244" y="77" text-anchor="middle" font-size="20" font-weight="900" fill="#4A3728">7月の さいしゅう</text>
+      </g>
+      <!-- 押し花のすみれ（クリックで花びらが舞う） -->
+      <g id="bigviolet">
+        <title>押し花のすみれ（そっと押してみて）</title>
+        <path d="M200 232 q-6 30 -18 44" stroke="#7FB069" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <g stroke="#4A3728" stroke-width="4">
+          <ellipse cx="200" cy="152" rx="17" ry="27" fill="#8E7CC3"/>
+          <ellipse cx="200" cy="152" rx="17" ry="27" fill="#A08FD0" transform="rotate(72 200 185)"/>
+          <ellipse cx="200" cy="152" rx="17" ry="27" fill="#8E7CC3" transform="rotate(144 200 185)"/>
+          <ellipse cx="200" cy="152" rx="17" ry="27" fill="#A08FD0" transform="rotate(216 200 185)"/>
+          <ellipse cx="200" cy="152" rx="17" ry="27" fill="#8E7CC3" transform="rotate(288 200 185)"/>
+          <circle cx="200" cy="185" r="14" fill="#F2CB63"/>
+        </g>
+        <circle cx="195" cy="182" r="2.4" fill="#4A3728"/><circle cx="205" cy="182" r="2.4" fill="#4A3728"/>
+        <path d="M194 190 q6 5 12 0" stroke="#4A3728" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <rect x="160" y="120" width="64" height="18" fill="#F5CBD4" opacity=".82" transform="rotate(-24 192 129)"/>
+        <rect x="205" y="238" width="60" height="16" fill="#C6DD9D" opacity=".82" transform="rotate(18 235 246)"/>
+      </g>
+      <!-- 押し花のラベル -->
+      <rect x="138" y="256" width="156" height="34" rx="3" fill="#FFFFFF" stroke="#4A3728" stroke-width="3"/>
+      <text x="216" y="279" text-anchor="middle" font-size="14" font-weight="800" fill="#4A3728">すみれ｜羽村の野</text>
+      <!-- 左ページの小石たち（飾り） -->
+      <g>
+        <ellipse cx="390" cy="252" rx="26" ry="18" fill="#CBB9A3" stroke="#4A3728" stroke-width="4"/>
+        <ellipse cx="432" cy="262" rx="18" ry="13" fill="#B7A18C" stroke="#4A3728" stroke-width="4"/>
+        <circle cx="384" cy="248" r="2.2" fill="#4A3728"/><circle cx="396" cy="248" r="2.2" fill="#4A3728"/>
+        <path d="M385 256 q5 4 10 0" stroke="#4A3728" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <text x="410" y="292" text-anchor="middle" font-size="13" font-weight="800" fill="#8A7454">きらきら石</text>
+      </g>
+      <!-- 右ページ: メモテープ・手書きの線・ハート -->
+      <g transform="rotate(2 760 70)">
+        <rect x="660" y="52" width="210" height="34" rx="3" fill="#C6DD9D" opacity=".93"/>
+        <text x="765" y="76" text-anchor="middle" font-size="18" font-weight="900" fill="#4A3728">みちくさメモ</text>
+      </g>
+      <g stroke="#BCA786" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M665 142 q10 -8 20 0 t20 0 t20 0 t20 0 t20 0"/>
+        <path d="M665 170 q10 -8 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0"/>
+        <path d="M665 198 q10 -8 20 0 t20 0 t20 0 t20 0"/>
+      </g>
+      <path d="M905 195 q-7 -9 -14 -2 q-6 7 14 18 q20 -11 14 -18 q-7 -7 -14 2Z" fill="#DE8CA0" stroke="#4A3728" stroke-width="3.5"/>
+      <!-- 透明ポケット（中に葉っぱ） -->
+      <g>
+        <path d="M962 214 q4 -26 22 -34 q2 22 -14 36 Z" fill="#8FBF5A" stroke="#4A3728" stroke-width="3.5" transform="translate(60 44)"/>
+        <rect x="960" y="214" width="152" height="78" fill="rgba(255,255,255,.55)" stroke="#4A3728" stroke-width="4"/>
+        <path d="M960 214 l76 34 l76 -34" fill="none" stroke="#4A3728" stroke-width="3" opacity=".45"/>
+        <rect x="1002" y="204" width="68" height="18" fill="#F5CBD4" opacity=".85" transform="rotate(-3 1036 213)"/>
+        <text x="1036" y="282" text-anchor="middle" font-size="13" font-weight="800" fill="#6d5a41">ひろいものポケット</text>
+      </g>
+      <!-- おひさまシール（押すと ことりが飛ぶ） -->
+      <g class="sun" id="sun">
+        <title>おひさまシール（押すと ことりが飛びます）</title>
+        <circle cx="1060" cy="88" r="28" fill="#F2CB63" stroke="#4A3728" stroke-width="5"/>
+        <g stroke="#4A3728" stroke-width="5" stroke-linecap="round">
+          <line x1="1060" y1="46" x2="1060" y2="54"/><line x1="1060" y1="122" x2="1060" y2="130"/>
+          <line x1="1018" y1="88" x2="1026" y2="88"/><line x1="1094" y1="88" x2="1102" y2="88"/>
+          <line x1="1030" y1="58" x2="1036" y2="64"/><line x1="1084" y1="112" x2="1090" y2="118"/>
+          <line x1="1090" y1="58" x2="1084" y2="64"/><line x1="1036" y1="112" x2="1030" y2="118"/>
+        </g>
+        <path d="M1050 94 q10 9 20 0" stroke="#4A3728" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="1051" cy="83" r="3.5" fill="#4A3728"/><circle cx="1069" cy="83" r="3.5" fill="#4A3728"/>
+      </g>
+      <!-- ことり（おひさまで飛ぶ） -->
+      <g class="bird" id="bird1"><path d="M0 60 q10 -12 20 0 q10 -12 20 0" stroke="#4A3728" stroke-width="5" fill="none" stroke-linecap="round"/></g>
+      <g class="bird" id="bird2"><path d="M0 100 q8 -10 16 0 q8 -10 16 0" stroke="#4A3728" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+      <!-- ページの上の採集物（採集モードで拾える） -->
+      <g id="crystals">
+        <g class="crystal" data-c="1" transform="translate(672,112)">
+          <g stroke="#4A3728" stroke-width="3.5">
+            <circle cx="0" cy="-11" r="8" fill="#8E7CC3"/><circle cx="10" cy="-3" r="8" fill="#A08FD0"/>
+            <circle cx="6" cy="9" r="8" fill="#8E7CC3"/><circle cx="-6" cy="9" r="8" fill="#A08FD0"/>
+            <circle cx="-10" cy="-3" r="8" fill="#8E7CC3"/><circle cx="0" cy="0" r="5.5" fill="#F2CB63"/>
+          </g>
+        </g>
+        <g class="crystal" data-c="2" transform="translate(492,112)">
+          <path d="M0 8 q2 14 -4 22" stroke="#7FB069" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <g fill="#8FBF5A" stroke="#4A3728" stroke-width="3.5">
+            <circle cx="-9" cy="-4" r="9"/><circle cx="9" cy="-4" r="9"/><circle cx="0" cy="8" r="9"/>
+          </g>
+        </g>
+        <g class="crystal" data-c="3" transform="translate(508,250)">
+          <ellipse cx="0" cy="0" rx="16" ry="12" fill="#CBB9A3" stroke="#4A3728" stroke-width="4"/>
+          <path d="M-6 -2 l4 4 M2 -6 l3 3" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <g class="crystal" data-c="4" transform="translate(884,146) rotate(24)">
+          <path d="M0 -26 q15 10 2 46 q-17 -12 -2 -46Z" fill="#F5CBD4" stroke="#4A3728" stroke-width="4"/>
+          <line x1="0" y1="-18" x2="0" y2="26" stroke="#4A3728" stroke-width="3"/>
+        </g>
+        <g class="crystal" data-c="5" transform="translate(712,244)">
+          <path d="M-11 -2 a11 11 0 0 1 22 0 q0 14 -11 18 q-11 -4 -11 -18Z" fill="#C98F5C" stroke="#4A3728" stroke-width="4"/>
+          <path d="M-13 -4 q13 -8 26 0 l-2 5 q-11 -6 -22 0Z" fill="#8A5A3B" stroke="#4A3728" stroke-width="3.5"/>
+          <line x1="0" y1="-14" x2="0" y2="-9" stroke="#4A3728" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <g class="crystal" data-c="6" transform="translate(938,118)">
+          <g stroke="#4A3728" stroke-width="3.5">
+            <ellipse cx="-9" cy="-4" rx="10" ry="8" fill="#DFA226" transform="rotate(-20 -9 -4)"/>
+            <ellipse cx="9" cy="-4" rx="10" ry="8" fill="#DFA226" transform="rotate(20 9 -4)"/>
+            <ellipse cx="-8" cy="6" rx="7" ry="6" fill="#F2CB63" transform="rotate(-14 -8 6)"/>
+            <ellipse cx="8" cy="6" rx="7" ry="6" fill="#F2CB63" transform="rotate(14 8 6)"/>
+          </g>
+          <line x1="0" y1="-8" x2="0" y2="10" stroke="#4A3728" stroke-width="4" stroke-linecap="round"/>
+          <path d="M-2 -8 q-4 -6 -7 -8 M2 -8 q4 -6 7 -8" stroke="#4A3728" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- ===== おしゃべりページ（チャット） ===== -->
+  <div class="chatCard">
+    <i class="tp tp-a"></i><i class="tp tp-b"></i>
+    <div class="chatHead">
+      <span style="font-size:26px">🧵</span>
+      <div><div class="tt">分析宮入くんと おしゃべりページ</div>
+      <div class="st">相談すると、決まったこと・宿題・保留が下のページに自動で貼られます</div></div>
+      <button class="pickbtn" id="newchat" style="margin-left:auto">📄 新しいページ</button>
+    </div>
+    <div class="log" id="log"></div>
+    <form class="inbar" id="form">
+      <textarea id="q" rows="2" placeholder="相談したいことをどうぞ（例: 8/17の流しそうめん、あと3名をどう集める？）"></textarea>
+      <button type="submit" class="sendbtn" id="send">送信</button>
+    </form>
+    <p class="chatnote">回答は参考情報です。会話の要点はカルテとして学習され、決定・宿題は下のページに貼られます。</p>
+  </div>
+
+  <!-- ===== 今週のしおり ===== -->
+  <h2 class="sec tape-pink"><span class="num">01</span>🔖 いまの最優先（今週のしおり）</h2>
+  <p class="secnote">ノートの中でいちばん新しい「やること」に、しおりが挟まります</p>
+  <div class="flagCard" id="flagcard">
+    <i class="tp tp-c"></i>
+    <svg width="74" height="74" viewBox="0 0 74 74">
+      <path d="M22 6 h30 v58 l-15 -13 l-15 13 Z" fill="#DE8CA0" stroke="#4A3728" stroke-width="4"/>
+      <g stroke="#4A3728" stroke-width="3">
+        <circle cx="37" cy="15" r="5" fill="#D6CBEE"/><circle cx="47" cy="23" r="5" fill="#D6CBEE"/>
+        <circle cx="44" cy="34" r="5" fill="#D6CBEE"/><circle cx="30" cy="34" r="5" fill="#D6CBEE"/>
+        <circle cx="27" cy="23" r="5" fill="#D6CBEE"/><circle cx="37" cy="25" r="6" fill="#F2CB63"/>
+      </g>
+    </svg>
+    <div><div class="ttl">きょうの いちばん</div><div class="big" id="flag-title">まだありません。上のおしゃべりページで相談をどうぞ</div><div class="meta" id="flag-meta"></div></div>
+  </div>
+
+  <!-- ===== 貼りものボード ===== -->
+  <h2 class="sec"><span class="num">02</span>🧺 貼りものボード（やること）</h2>
+  <p class="secnote">おしゃべりで握った宿題が「採集かご」に入ります。やり終えたら「ノートに貼れた！」を押してください</p>
+  <div class="board">
+    <div class="col dig"><i class="tp tp-a"></i><div class="colhead">🧺 これから貼るもの（採集かご）</div><div class="list" id="list-task"></div></div>
+    <div class="col done"><i class="tp tp-b"></i><div class="colhead">📖 貼り終えたページ（完了）</div><div class="list" id="list-done"></div></div>
+  </div>
+
+  <!-- ===== 標本ラベル帳（決定） ===== -->
+  <h2 class="sec tape-sumire"><span class="num">03</span>🏷️ 標本ラベル帳（決まったこと）</h2>
+  <p class="secnote">会話で決まった方針が、清書したラベルになってノートに並びます</p>
+  <div class="shelf"><i class="tp tp-c tp-s"></i><div class="shelfrow" id="list-decision"><div class="empty">まだ清書ラベルはありません</div></div></div>
+
+  <!-- ===== ポケットの拾いもの（アイデア） ===== -->
+  <h2 class="sec tape-green"><span class="num">03b</span>🎒 ポケットの拾いもの（アイデア）</h2>
+  <p class="secnote">チャットやSlack（会議室・みちくさ化石塾・プロデューサー講座）で出た印南さんのアイデア・関連タスクが、毎晩この透明ポケットに集まります</p>
+  <div class="shelf"><i class="tp tp-c"></i><div class="shelfrow" id="list-idea"><div class="empty">まだ拾いものはありません</div></div></div>
+
+  <!-- ===== 押し花プレスのなか（保留） ===== -->
+  <h2 class="sec tape-pink"><span class="num">04</span>🌸 押し花プレスのなか（保留）</h2>
+  <p class="secnote">「また今度」になった話題はプレスに挟んで保管しています。取り出せばいつでも再開できます</p>
+  <div class="strata">
+    <div class="pressbar"><span class="knob"></span><span class="pressttl">🌸 押し花プレス（重しの下でおやすみ中）</span><span class="knob"></span></div>
+    <div class="inner" id="list-hold"><div class="empty" style="color:#fff8ea">いまプレスに挟んでいる話題はありません</div></div>
+  </div>
+
+  <!-- ===== おでかけ予定のページ ===== -->
+  <h2 class="sec tape-sumire"><span class="num">05</span>🗓️ おでかけ予定のページ</h2>
+  <div class="cards3" id="schedule"></div>
+
+  <!-- ===== これまでの採集記録 ===== -->
+  <h2 class="sec tape-green"><span class="num">06</span>📚 これまでの採集記録（実績）</h2>
+  <div class="cards3" id="records"></div>
+
+  <p class="footer">東京山側DMC 分析スタジオ｜印南先生専用の採集ノート（社内限定）<br>データ出典: aini/gifte実測・予約通知メール（個人名は保存していません）</p>
+</div>
+
+
+<div id="__gate" style="position:fixed;inset:0;z-index:9999;background:#f9f8f4;color:#191713;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,'Hiragino Sans',sans-serif">
+ <form id="__gform" style="background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:30px 34px;max-width:380px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.15)">
+  <div style="font-size:12px;letter-spacing:.16em;color:#8a6d1f;font-weight:700">TOKYO YAMAGAWA DMC</div>
+  <h1 style="font-size:20px;margin:6px 0 4px;font-family:'Hiragino Mincho ProN',serif">体験販売 分析スタジオ</h1>
+  <p style="font-size:12.5px;color:#666;margin:0 0 16px;line-height:1.7">社内限定の資料です。合言葉を入力してください。</p>
+  <input id="__pw" type="password" placeholder="合言葉" autocomplete="off" autofocus style="width:100%;padding:11px 13px;font-size:15px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box">
+  <button type="submit" style="width:100%;margin-top:12px;padding:11px;font-size:14px;font-weight:700;border:none;border-radius:8px;background:#233d33;color:#fff;cursor:pointer">ひらく</button>
+  <p id="__err" style="display:none;font-size:12px;color:#b91c1c;margin:10px 0 0">合言葉がちがうようです。もう一度お試しください。</p>
+ </form>
+</div>
+<script>
+let D=null;
+
+const CIPHER={"s":"9fNZ7ZGxy2xFdtYANuGUiQ==","i":"pWspkMHLfQZNusYZ","d":"Vb1MNYXjG9o0B3iE2Szkxo6UwPVCYcB02YpLVdFG/QD2YgmrarZIqjgF8t8RfwUGHDx3uOZe6E+gUZvHh6p7eP9vtHs6yUEoDUs1HmDW6b3fl7WtixtUyzw6+9IhwV6PtMcO1Ol8bg8CPEa8YTZc7lLhws4Lzj4n+6vm5sQl79hf76IzpdFrvZzvGlFCcXb3qS8ImJUTYj/72xsj1bMEdpUDmmXMXVoJH6Ou4m2t4sO6b0uWTzwQ1hLv7Ed2JPYEHdFPfbk8+a518hOV4oQw9/hWtLnp/Bi51tflJwyN2K58DvdpbU+q5qxOUzwbvOqymBVheB8Ij4b4Mjv4yDlIkgXKIrflFcKxSMi+gfL7u+1n/f+qhIhL6Y6FzVeGdlKoCurNmfvxPO4c5zDa7qBJhIfP+2q7adempmr1GsgLw7pBpb9hhADMBKLXD8k669kWRQI3Vnh9WKPzPUS9iURnfUSETKyy5PFnyzZD440cCCCWXIt4HgKDKtNsNO1GLfHHjyXThmwHBirO7wYwU6eyp5ATwd2Sl0+vvAaGx1rq6vy6+Tbpj+yYADnmQjLMSueQdUjA9pPXfgbFI0B139n952UyOEfwXGrCBnI+z00SJNuQWJ3C11Avjehwgm48ys5GZhmqnJldaziKOVrW3cArYyBuV7csPk06Ilw2ZBBCe7Z8/Y6pzfCJT5HI0S9Xx2f07I8gf9R3jMYpO78ueTKv/x3kegvwpkzkCzR2GHDJhsd7CcKFaSdmkNwC0g2+Vb+k4QPoL0c/z88DD/KhwAeQfnnyY+t3l9uP7DxWucgNjLW8wQ1JvTn8muVdZ9hQEla9QdsV9gD20rukCbo+8yi6bLm9ZDwZ0GxQOjz5sOMlpsGdlVOE1i/4JYuK58zdrekdCOixcGwInZAmCjua6foWD1A5ySHt7WF+OYW73MElJJW49TvbkUlvE223mYwPFg2nb4p00yxupcCT6JGwYsK8KSpS3mmSfHEZb8bEdB3sQehH+gzLvXubsYUCUPE0QgxDz5GgnpaH9F8YL27mKPOXoWZrt9xRvygIrfqkrJzOKRPHc2r2QPnRpL+GXzC5GYQZAMT7xNzBJLdJwZaeORyFnAaa1VaxsYAb01a8Xyeg2XElJhos1aQUY08siq+037nz7CHaaBiGn0tbmLTYAgHrc8I0kI2TEE/jdpWW5Uv1uOHqmsxdkLi6T2QXpeGkPgNYMtnLl/XcQo9/mGoGXbR/NPvuanCgC8CyiflWrisYXg=="};
+function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+async function __unlock(pw){
+ const enc=new TextEncoder();
+ const km=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+ const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:__b64(CIPHER.s),iterations:100000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
+ const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:__b64(CIPHER.i)},key,__b64(CIPHER.d));
+ return JSON.parse(new TextDecoder().decode(plain));
+}
+document.getElementById('__gform').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=e.target.querySelector('button');btn.textContent='ひらいています…';
+ const __pwval=document.getElementById('__pw').value.trim();
+ try{ D=await __unlock(__pwval);
+  try{ const __hb=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(__pwval+':bunseki-miyairi-v1'));
+   window.__bmAuth=Array.from(new Uint8Array(__hb)).map(b=>b.toString(16).padStart(2,'0')).join(''); }catch(_){}
+  const g=document.getElementById('__gate'); if(g) g.remove(); __boot();
+ }catch(_){ document.getElementById('__err').style.display='block';
+  btn.textContent='ひらく';
+  document.getElementById('__pw').value='';document.getElementById('__pw').focus(); }
+});
+function __boot(){
+
+const W=D.worker;
+let history=[],busy=false;
+const log=document.getElementById("log"),qEl=document.getElementById("q"),sendBtn=document.getElementById("send");
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function auth(){return (typeof window!=="undefined"&&window.__bmAuth)||"";}
+/* ---- チャット ---- */
+function extractCals(text){const cals=[];let clean=String(text).replace(/<cal\b([^>]*?)\/?>(?:<\/cal>)?/gi,(m,a)=>{const g=k=>{const mm=a.match(new RegExp(k+'\\s*=\\s*"([^"]*)"',"i"));return mm?mm[1]:"";};const t=g("title"),s=g("start");if(t&&/^\d{4}-\d{2}-\d{2}$/.test(s))cals.push({title:t.slice(0,60),start:s,time:g("time"),minutes:parseInt(g("minutes")||"60",10)||60,details:g("details").slice(0,200)});return "";}).replace(/<cal\b[^>]*$/i,"");return {clean:clean.trim(),cals:cals.slice(0,3)};}
+function calUrl(c){const p=n=>String(n).padStart(2,"0");let dates;if(/^\d{2}:\d{2}$/.test(c.time||"")){const st=c.start.replace(/-/g,"")+"T"+c.time.replace(":","")+"00";const en=new Date(c.start+"T"+c.time+":00");en.setMinutes(en.getMinutes()+c.minutes);dates=st+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate())+"T"+p(en.getHours())+p(en.getMinutes())+"00";}else{const en=new Date(c.start+"T00:00:00");en.setDate(en.getDate()+1);dates=c.start.replace(/-/g,"")+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate());}return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(c.title)+"&dates="+dates+"&ctz=Asia/Tokyo&details="+encodeURIComponent(c.details||"採集ノートの相談より");}
+function add(cls,text,cals){const d=document.createElement("div");d.className="msg "+cls;
+ d.innerHTML=esc(text).replace(/\*\*([^*\n]{1,80}?)\*\*/g,"<b>$1</b>").replace(/^#{1,4}\s*/gm,"").replace(/\n/g,"<br>");
+ if(cals&&cals.length){const w=document.createElement("div");w.className="calwrap";cals.forEach(c=>{const a=document.createElement("a");a.className="calbtn";a.target="_blank";a.rel="noopener";a.href=calUrl(c);a.textContent="📅 "+c.title;w.appendChild(a);});d.appendChild(w);}
+ log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+async function send(){if(busy)return;const text=qEl.value.trim();if(!text)return;
+ add("user",text);qEl.value="";busy=true;sendBtn.disabled=true;
+ const wait=add("wait","考えています…（30秒ほどかかることがあります）");
+ try{
+  const res=await fetch(W+"/ask",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},
+   body:JSON.stringify({mode:"consult",user:D.user,question:text,history:history,model:"sonnet"})});
+  let data=null;try{data=await res.json();}catch(_){ }
+  if(!data||typeof data.answer!=="string")throw new Error((data&&data.error)||("bad response "+res.status));
+  wait.remove();
+  const stripped=data.answer.replace(/<karte>[\s\S]*?<\/karte>/gi,"").replace(/<stats\b[^>]*\/?>/gi,"").trim();
+  const cx=extractCals(stripped);
+  add("bot",cx.clean,cx.cals);
+  history=history.concat([{role:"user",content:text},{role:"assistant",content:cx.clean}]).slice(-40);
+  refreshBoard(true);
+ }catch(err){wait.remove();add("err",/上限|お断り|翌月/.test(String(err.message))?err.message:"つながりませんでした。少し時間をおいてもう一度お試しください。");}
+ finally{busy=false;sendBtn.disabled=false;qEl.focus();}}
+document.getElementById("form").addEventListener("submit",e=>{e.preventDefault();send();});
+qEl.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();send();}});
+document.getElementById("newchat").addEventListener("click",()=>{if(busy)return;history=[];log.innerHTML="";add("bot","新しいページをひらきました。相談したいことをどうぞ 🌿");qEl.focus();});
+/* ---- ボード ---- */
+let boardCache=[];
+function sparkleAt(x,y){for(let i=0;i<7;i++){const s=document.createElement("div");s.className="spark";s.textContent=["✨","🌸","🌿"][i%3];s.style.left=x+"px";s.style.top=y+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(Math.random()*-140-20)+"px");document.body.appendChild(s);setTimeout(()=>s.remove(),1000);}}
+async function boardOp(id,op,ev){try{await fetch(W+"/board-op",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},body:JSON.stringify({user:D.user,id:id,op:op})});}catch(_){}
+ if(op==="done"&&ev)sparkleAt(ev.clientX,ev.clientY);refreshBoard(false);}
+function itemHtml(it){const meta=[it.who?("👤 "+it.who):"",it.due?("📅 "+it.due):"",it.at?("記録 "+it.at):""].filter(Boolean).join("　");
+ const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
+ return '<div class="t">'+esc(it.title)+'</div>'+(short?'<div class="m">'+esc(short)+'</div>':'')+'<div class="m">'+esc(meta)+'</div>';}
+/* 詳細（AI要約＋Slack原文リンク）を開く */
+function detailBtns(it){const w=document.createElement("span");w.style.display="contents";
+ if(it.note&&it.note.length>44){const b=document.createElement("button");b.className="opbtn";b.textContent="📖 詳細";
+  b.onclick=e=>{const box=e.target.closest(".item,.spec,.holditem").querySelector(".detailbox");
+   if(box){box.remove();b.textContent="📖 詳細";return;}
+   const d=document.createElement("div");d.className="detailbox";d.style.cssText="margin-top:8px;padding:10px;border:2px dashed var(--ink);border-radius:10px;background:#FFFDF4;font-size:12.5px;line-height:1.8";
+   d.innerHTML="<b>📝 AIによる要点メモ</b><br>"+esc(it.note);
+   e.target.closest(".item,.spec,.holditem").appendChild(d);b.textContent="📕 閉じる";};
+  w.appendChild(b);}
+ if(it.url){const a=document.createElement("a");a.className="opbtn";a.href=it.url;a.target="_blank";a.rel="noopener";
+  a.style.cssText="text-decoration:none;background:#E8F4FF";a.textContent="💬 Slackで見る";w.appendChild(a);}
+ return w;}
+function renderBoard(prevIds){
+ const tasks=boardCache.filter(x=>x.type==="task"&&x.status==="open");
+ const dones=boardCache.filter(x=>x.status==="done");
+ const decisions=boardCache.filter(x=>x.type==="decision"&&x.status==="open");
+ const holds=boardCache.filter(x=>x.type==="hold"&&x.status==="open");
+ // しおり
+ if(tasks.length){document.getElementById("flag-title").textContent=tasks[0].title;
+  document.getElementById("flag-meta").textContent=[tasks[0].who?("担当: "+tasks[0].who):"",tasks[0].due?("期限: "+tasks[0].due):"",tasks[0].note||""].filter(Boolean).join("　");}
+ else{document.getElementById("flag-title").textContent="まだありません。上のおしゃべりページで相談をどうぞ";document.getElementById("flag-meta").textContent="";}
+ // 採集かご
+ const lt=document.getElementById("list-task");lt.innerHTML=tasks.length?"":'<div class="empty">かごは空です。おしゃべりページで宿題を見つけましょう</div>';
+ tasks.forEach(it=>{const d=document.createElement("div");d.className="item"+(prevIds&&!prevIds.has(it.id)?" newItem":"");d.innerHTML=itemHtml(it);
+  const ops=document.createElement("div");ops.className="ops";
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="🌼 ノートに貼れた！";b1.onclick=e=>boardOp(it.id,"done",e);
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🌸 プレスに挟む";b2.onclick=()=>boardOp(it.id,"hold");
+  ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(detailBtns(it));d.appendChild(ops);lt.appendChild(d);
+  if(prevIds&&!prevIds.has(it.id)){const r=d.getBoundingClientRect();sparkleAt(r.left+40,r.top+10);}});
+ // 貼り終えたページ（間違えて完了→戻せる）
+ const ld=document.getElementById("list-done");ld.innerHTML=dones.length?"":'<div class="empty">貼り終えたものはこのページに並びます</div>';
+ dones.slice(0,10).forEach(it=>{const d=document.createElement("div");d.className="item doneItem";d.innerHTML=itemHtml(it);
+  const ops=document.createElement("div");ops.className="ops";
+  const b=document.createElement("button");b.className="opbtn";b.textContent="↩️ かごに戻す";b.onclick=()=>boardOp(it.id,"reopen");
+  ops.appendChild(b);d.appendChild(ops);ld.appendChild(d);});
+ // ポケットの拾いもの（アイデア）
+ const li=document.getElementById("list-idea");
+ const ideas=boardCache.filter(x=>x.type==="idea"&&x.status==="open");
+ li.innerHTML=ideas.length?"":'<div class="empty">まだ拾いものはありません。Slackでのアイデア投稿も毎晩ここに集まります</div>';
+ ideas.forEach(it=>{const d=document.createElement("div");d.className="spec";d.style.background="linear-gradient(#fff,#F3E9FF)";
+  const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
+  d.innerHTML='<div class="t">💡 '+esc(it.title)+'</div><div class="m">'+esc(short+"　"+(it.at||""))+'</div>';
+  const ops=document.createElement("div");ops.className="ops";
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="🧺 かごに入れる";b1.onclick=()=>boardOp(it.id,"restore");
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🌸 プレスへ";b2.onclick=()=>boardOp(it.id,"hold");
+  ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(detailBtns(it));d.appendChild(ops);li.appendChild(d);});
+ // 標本ラベル帳
+ const lc=document.getElementById("list-decision");lc.innerHTML=decisions.length?"":'<div class="empty">まだ清書ラベルはありません</div>';
+ decisions.forEach(it=>{const d=document.createElement("div");d.className="spec";d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc((it.note||"")+"　"+(it.at||""))+'</div>';lc.appendChild(d);});
+ // 押し花プレスのなか
+ const lh=document.getElementById("list-hold");lh.innerHTML=holds.length?"":'<div class="empty" style="color:#fff8ea">いまプレスに挟んでいる話題はありません</div>';
+ holds.forEach(it=>{const d=document.createElement("div");d.className="holditem";
+  const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
+  d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc(short)+'</div>';
+  const ops=document.createElement("div");ops.className="ops";
+  const b=document.createElement("button");b.className="opbtn";b.textContent="🌿 プレスから出す";b.onclick=()=>boardOp(it.id,"restore");
+  ops.appendChild(b);ops.appendChild(detailBtns(it));d.appendChild(ops);lh.appendChild(d);});}
+async function refreshBoard(sparkleNew){
+ const prevIds=sparkleNew?new Set(boardCache.map(x=>x.id)):null;
+ try{const r=await fetch(W+"/board?user="+encodeURIComponent(D.user),{headers:{"X-BM-Auth":auth()}});
+  const d=await r.json();if(Array.isArray(d.items))boardCache=d.items;}catch(_){}
+ renderBoard(prevIds);}
+/* ---- カレンダー・記録 ---- */
+function renderStatic(){
+ document.getElementById("hero-next").textContent="次のおでかけ: "+D.next;
+ const sc=document.getElementById("schedule");
+ D.schedule.forEach(s=>{const d=document.createElement("div");d.className="evcard";
+  d.innerHTML='<span class="tag badge '+(s.tagbg||"")+'">'+esc(s.tag)+'</span><div class="d">'+esc(s.date)+'</div><div class="t">'+esc(s.title)+'</div><div class="m">'+esc(s.meta)+'</div>';sc.appendChild(d);});
+ const rc=document.getElementById("records");
+ D.records.forEach(s=>{const d=document.createElement("div");d.className="reccard";
+  d.innerHTML='<div class="n">'+esc(s.n)+'</div><div class="l">'+esc(s.l)+'</div>';rc.appendChild(d);});}
+/* ---- 遊び: おひさま・採集モード ---- */
+function playSetup(){
+ let digging=false,dug=0;
+ const btn=document.getElementById("pickmode");
+ btn.addEventListener("click",()=>{digging=!digging;btn.classList.toggle("on",digging);document.body.classList.toggle("digging",digging);});
+ document.querySelectorAll(".crystal").forEach(c=>{c.addEventListener("click",e=>{if(!digging)return;
+  c.classList.add("dug");dug++;document.getElementById("digcount").textContent="🌼 "+dug;
+  sparkleAt(e.clientX,e.clientY);
+  if(dug>=6){setTimeout(()=>{document.querySelectorAll(".crystal").forEach(x=>x.classList.remove("dug"));dug=0;document.getElementById("digcount").textContent="🌼 ぜんぶ拾えた！また野原に咲きました";},900);}});});
+ document.getElementById("sun").addEventListener("click",()=>{["bird1","bird2"].forEach((id,i)=>{const b=document.getElementById(id);b.classList.remove("fly");void b.getBoundingClientRect();setTimeout(()=>b.classList.add("fly"),i*400);});});
+}
+/* ---- 遊び: 押し花のすみれ（花びらが舞う） ---- */
+function petalRain(x,y){for(let i=0;i<8;i++){const p=document.createElement("div");p.className="petal";p.textContent=i%2?"🌸":"💜";p.style.left=(x+Math.random()*60-30)+"px";p.style.top=y+"px";p.style.setProperty("--px",(Math.random()*140-70)+"px");p.style.animationDelay=(Math.random()*.3)+"s";document.body.appendChild(p);setTimeout(()=>p.remove(),2000);}}
+function playExtra(){const v=document.getElementById("bigviolet");if(!v)return;
+ v.addEventListener("click",e=>{v.classList.remove("pressed");void v.getBoundingClientRect();v.classList.add("pressed");petalRain(e.clientX,e.clientY);});}
+/* ---- 起動 ---- */
+renderStatic();playSetup();playExtra();
+add("bot","こんにちは、印南先生。ここはあなた専用の採集ノートです 🌼 8/14の微小鉱物（満席！）のことでも、8/17の流しそうめんのことでも、なんでも相談してください。決まったことは下のページに自動で貼られます。");
+refreshBoard(false);
+setInterval(()=>refreshBoard(false),90000);
+
+}
+</script>
+</body>
+</html>

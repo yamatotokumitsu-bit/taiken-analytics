@@ -1,0 +1,614 @@
+<meta name="robots" content="noindex,nofollow">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>印南先生の刺繍のノート｜東京山側DMC</title>
+<style>
+:root{
+  --linen:#F6EDD9; --linen2:#F2E7CF; --cloth:#FFFDF6;
+  --ink:#5F4633; --thread:#8A6B4F;
+  --wood:#C99E63; --wood2:#A97F49;
+  --pink:#E48BA0; --pinkdeep:#C25E7B; --pinkpale:#F9E2E8;
+  --mint:#5FBF9F; --mintdeep:#3E8F75; --mintpale:#E0F3EB;
+  --mustard:#E0A93C; --mustdeep:#B07F1F; --mustpale:#F7E9C6;
+  --lav:#A48AD4; --lavdeep:#7C63AC; --lavpale:#ECE5F8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;color:var(--ink);
+ background:
+  repeating-linear-gradient(90deg,rgba(154,124,92,.05) 0 1px,rgba(0,0,0,0) 1px 4px),
+  repeating-linear-gradient(0deg,rgba(154,124,92,.07) 0 1px,rgba(0,0,0,0) 1px 4px),
+  var(--linen)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+h2.sec{font-size:24px;font-weight:900;display:flex;align-items:center;gap:12px;margin:46px 0 6px;letter-spacing:.03em}
+h2.sec .num{background:var(--pink);color:#fff;border:2px solid var(--pinkdeep);border-radius:7px;padding:3px 12px;font-size:13px;letter-spacing:.14em;box-shadow:2px 2px 0 rgba(95,70,51,.2)}
+h2.sec::after{content:"";flex:1;border-bottom:3px dashed #E7C7D1;margin-left:4px;transform:translateY(4px)}
+.secnote{font-size:12.5px;color:#98805F;margin:0 0 14px}
+/* ===== HERO: 刺繍枠のパノラマ ===== */
+.hero{background:
+  repeating-linear-gradient(90deg,rgba(154,124,92,.05) 0 1px,rgba(0,0,0,0) 1px 4px),
+  repeating-linear-gradient(0deg,rgba(154,124,92,.08) 0 1px,rgba(0,0,0,0) 1px 4px),
+  #F3E8CF;
+ border-bottom:4px solid var(--wood);box-shadow:inset 0 -14px 0 rgba(201,158,99,.14)}
+.hero-inner{max-width:1180px;margin:0 auto;padding:24px 20px 20px}
+.titlerow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hero h1{font-size:min(40px,5.6vw);font-weight:900;letter-spacing:.02em;text-shadow:0 2px 0 #FFFDF4}
+.hero .sub{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.badge{display:inline-flex;align-items:center;background:var(--cloth);border:2px solid var(--thread);border-radius:6px 14px 14px 6px;padding:5px 14px 5px 20px;font-weight:800;font-size:13px;position:relative;box-shadow:2px 3px 0 rgba(95,70,51,.14)}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--linen);border:2px solid var(--thread);position:absolute;left:6px;top:50%;transform:translateY(-50%)}
+.badge.hot{background:var(--pink);color:#fff;border-color:var(--pinkdeep)}
+.badge.hot::before{border-color:#fff}
+.badge.go{background:var(--mint);color:#fff;border-color:var(--mintdeep)}
+.badge.go::before{border-color:#fff}
+.pickbar{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pickbtn{border:2px solid var(--ink);background:var(--cloth);border-radius:999px;padding:9px 18px;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 3px 0 var(--thread);transition:transform .12s}
+.pickbtn:hover{transform:translateY(-1px)}
+.pickbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--thread)}
+.pickbtn.on{background:var(--mustard);color:#fff}
+.digcount{font-weight:900;font-size:14px;background:var(--ink);color:var(--cloth);border-radius:999px;padding:9px 16px}
+.hint{width:100%;text-align:right;font-size:11px;font-weight:700;color:#9B8468;margin-top:2px}
+.heroSvg{display:block;width:100%;height:auto;margin-top:12px}
+/* お日さま（クリックで刺し子の鳥が飛ぶ） */
+.sun{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:transform .3s}
+.sun:hover{transform:rotate(14deg) scale(1.05)}
+/* 下絵モチーフ（針モードでクリック→縫い上がる） */
+.crystal{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:transform .2s}
+.crystal:hover{transform:scale(1.12)}
+.crystal .draft{transition:opacity .25s}
+.crystal .sewn{opacity:0;transform:scale(.75);transform-box:fill-box;transform-origin:center;transition:opacity .25s,transform .25s}
+.crystal.dug .sewn{opacity:1;transform:scale(1)}
+.crystal.dug .draft{opacity:0}
+.crystal.dug{pointer-events:none}
+body.digging .crystal{cursor:crosshair;animation:pulse 1.6s ease-in-out infinite}
+body.digging .crystal .draft{stroke:var(--pinkdeep)}
+@keyframes pulse{50%{transform:scale(1.08)}}
+/* まち針・糸巻き・糸のゆらぎ */
+.pin{transform-box:fill-box;transform-origin:50% 85%}
+.pin:hover{animation:wig .5s ease}
+@keyframes wig{25%{transform:rotate(8deg)}60%{transform:rotate(-6deg)}}
+.spool{transform-box:fill-box;transform-origin:center;transition:transform .25s}
+.spool:hover{transform:rotate(-9deg) translateY(-2px)}
+.threadline{stroke-dasharray:10 8;animation:flow 16s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-360}}
+.bird{opacity:0}
+.bird.fly{animation:fly 5s linear forwards}
+@keyframes fly{0%{opacity:0;transform:translate(-80px,20px)}10%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translate(1260px,-60px)}}
+/* ===== チャット（おしゃべりのポケット） ===== */
+.chatCard{background:var(--cloth);border:3px solid var(--wood);border-radius:22px;box-shadow:0 6px 0 rgba(138,107,79,.28);overflow:hidden;margin-top:30px;position:relative}
+.chatCard::before{content:"";position:absolute;inset:7px;border:2px dashed var(--pink);border-radius:16px;pointer-events:none;z-index:7;opacity:.55}
+.chatHead{display:flex;align-items:center;gap:12px;background:var(--pinkpale);border-bottom:3px dashed var(--pink);padding:14px 18px;flex-wrap:wrap}
+.chatHead .tt{font-size:19px;font-weight:900}
+.chatHead .st{font-size:12px;font-weight:700;color:#A06B7C}
+.log{padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-height:140px;max-height:52vh;overflow-y:auto;
+ background:
+  repeating-linear-gradient(45deg,rgba(216,155,170,.06) 0 1px,rgba(0,0,0,0) 1px 26px),
+  repeating-linear-gradient(-45deg,rgba(216,155,170,.06) 0 1px,rgba(0,0,0,0) 1px 26px),
+  #FFFEF8}
+.msg{max-width:82%;padding:10px 14px;border:2px solid var(--thread);border-radius:14px;font-size:14px;line-height:1.75;word-break:break-word;background:#fff;box-shadow:2px 3px 0 rgba(95,70,51,.12)}
+.msg.user{align-self:flex-end;background:var(--pinkpale);border-color:#CE8B9E;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:#FFFEF8;border-bottom-left-radius:4px}
+.msg.wait{align-self:flex-start;border:none;background:none;box-shadow:none;color:#A08D77;font-style:italic}
+.msg.err{align-self:flex-start;background:#FFE3E3}
+.calwrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.calbtn{font-size:12px;border:2px solid var(--mintdeep);border-radius:8px;padding:4px 10px;text-decoration:none;color:#fff;background:var(--mint);font-weight:700}
+.inbar{display:flex;gap:10px;padding:12px 16px;border-top:3px dashed var(--wood);background:#FFF9EC}
+.inbar textarea{flex:1;border:2px solid var(--thread);border-radius:12px;padding:10px 12px;font-size:14px;font-family:inherit;resize:vertical;min-height:46px;max-height:140px;background:#FFFDF4}
+.sendbtn{border:2px solid var(--pinkdeep);background:var(--pink);color:#fff;font-weight:900;font-size:15px;border-radius:14px;padding:0 26px;cursor:pointer;box-shadow:0 4px 0 var(--pinkdeep)}
+.sendbtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--pinkdeep)}
+.sendbtn:disabled{opacity:.5}
+.chatnote{font-size:11px;color:#A08D77;padding:0 18px 12px;background:#FFF9EC}
+/* ===== いまの一針 ===== */
+.flagCard{display:flex;gap:18px;align-items:center;background:var(--cloth);border:3px solid var(--wood);border-radius:20px;box-shadow:0 6px 0 rgba(138,107,79,.28);padding:16px 20px;position:relative}
+.flagCard::before{content:"";position:absolute;inset:6px;border:2px dashed var(--mustard);border-radius:14px;pointer-events:none;opacity:.6}
+.flagCard .ttl{font-size:13px;font-weight:900;color:var(--pinkdeep);letter-spacing:.1em}
+.flagCard .big{font-size:20px;font-weight:900;line-height:1.5}
+.flagCard .meta{font-size:12.5px;color:#98805F;margin-top:4px}
+/* ===== ステッチのノート（ボード） ===== */
+.board{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.board{grid-template-columns:1fr}}
+.col{background:var(--cloth);border:3px solid var(--wood);border-radius:18px;box-shadow:0 5px 0 rgba(138,107,79,.25);overflow:hidden}
+.col .colhead{padding:12px 16px;border-bottom:3px dashed var(--thread);font-weight:900;font-size:16px;display:flex;align-items:center;gap:8px}
+.col.dig .colhead{background:var(--mustpale)}
+.col.done .colhead{background:var(--mint);color:#fff;border-bottom-color:var(--mintdeep)}
+.col .list{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:90px}
+.item{border:2px solid var(--thread);border-radius:12px;padding:10px 12px;background:#FFFEF8;box-shadow:2px 3px 0 rgba(95,70,51,.13);transition:transform .15s}
+.item:hover{transform:rotate(-.5deg) translateY(-2px)}
+/* 縫いかけ＝途中まで縫えたステッチ線（残りは下絵の点） */
+.col.dig .item::before{content:"";display:block;height:6px;margin:2px 0 9px;border-radius:3px;
+ background-image:
+  repeating-linear-gradient(90deg,var(--pink) 0 13px,rgba(0,0,0,0) 13px 21px),
+  repeating-linear-gradient(90deg,#DCCBAD 0 4px,rgba(0,0,0,0) 4px 13px);
+ background-size:58% 6px,100% 3px;background-position:left center,left center;background-repeat:no-repeat}
+.item .t{font-weight:800;font-size:14px;line-height:1.5}
+.item .m{font-size:11.5px;color:#98805F;margin-top:3px}
+.item .ops{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.opbtn{font-size:11.5px;font-weight:800;border:2px solid var(--thread);border-radius:999px;background:#FFF9EC;padding:4px 12px;cursor:pointer;box-shadow:0 2px 0 rgba(95,70,51,.2);transition:transform .1s}
+.opbtn:active{transform:translateY(2px);box-shadow:none}
+.opbtn.doneb{background:var(--mint);border-color:var(--mintdeep);color:#fff}
+.opbtn.holdb{background:var(--mustard);border-color:var(--mustdeep);color:#fff}
+/* 縫い上がり＝木の額に入る */
+.item.doneItem{background:#FDFBF3;border:4px double var(--wood);box-shadow:0 3px 0 rgba(138,107,79,.3),inset 0 0 0 3px #F1E6CE}
+.item.doneItem::before{content:"";display:block;height:5px;margin:2px 0 8px;border-radius:3px;background:repeating-linear-gradient(90deg,var(--mint) 0 12px,rgba(0,0,0,0) 12px 19px)}
+.item.doneItem .t{text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:var(--mint)}
+.empty{font-size:12.5px;color:#A89478;padding:8px}
+/* 玉留めのタグ（決定）と糸の色見本（アイデア） */
+.shelf{background:var(--cloth);border:3px solid var(--wood);border-radius:20px;box-shadow:0 6px 0 rgba(138,107,79,.25);padding:22px 16px 16px}
+.shelfrow{display:flex;flex-wrap:wrap;gap:14px}
+.spec{position:relative;border:2px solid var(--thread);background:linear-gradient(#FFFEF8,#F7EFDC);border-radius:8px 14px 14px 8px;padding:14px 14px 10px;min-width:200px;flex:1 1 240px;box-shadow:2px 3px 0 rgba(95,70,51,.15);transition:transform .15s}
+.spec:hover{transform:rotate(1deg) translateY(-3px)}
+.spec::before{content:"";position:absolute;top:-9px;left:16px;width:13px;height:13px;border-radius:50%;background:var(--thread);border:3px solid var(--cloth);box-shadow:0 2px 0 rgba(95,70,51,.3)}
+.spec::after{content:"";position:absolute;top:-5px;left:32px;width:20px;height:12px;border-bottom:3px solid var(--thread);border-radius:0 0 14px 8px}
+#list-idea .spec::before{width:36px;height:13px;border-radius:4px;background:repeating-linear-gradient(90deg,var(--pink) 0 4px,#F6D7DE 4px 8px);border:2px solid var(--thread);box-shadow:none}
+#list-idea .spec::after{display:none}
+.spec .t{font-weight:800;font-size:13.5px;line-height:1.5}
+.spec .m{font-size:11px;color:#98805F;margin-top:4px;border-top:2px dashed #DCC9A8;padding-top:4px}
+/* 糸箱にしまう（保留） */
+.strata{position:relative;border:4px solid var(--wood2);border-radius:16px;box-shadow:0 6px 0 rgba(138,107,79,.3);margin-top:18px;
+ background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.12) 0 8px,rgba(0,0,0,0) 8px 16px),
+  repeating-linear-gradient(-45deg,rgba(90,60,30,.14) 0 8px,rgba(0,0,0,0) 8px 16px),
+  #BC8449}
+.strata::before{content:"";position:absolute;left:-10px;right:-10px;top:-14px;height:20px;background:var(--wood);border:3px solid var(--wood2);border-radius:10px;box-shadow:0 3px 0 rgba(95,70,51,.2)}
+.strata::after{content:"🧺 糸箱のふた";position:absolute;top:-24px;left:50%;transform:translateX(-50%);background:#FFF9EC;border:2px dashed var(--thread);border-radius:8px;padding:2px 14px;font-size:12px;font-weight:800}
+.strata .inner{padding:22px 16px 16px;display:flex;flex-wrap:wrap;gap:12px}
+.holditem{background:rgba(255,250,238,.95);border:2px dashed var(--thread);border-radius:10px;padding:10px 12px;flex:1 1 240px;min-width:200px}
+.holditem .t{font-weight:800;font-size:13.5px}
+.holditem .m{font-size:11px;color:#7A6446;margin-top:3px}
+/* 縫い付けカレンダー・作品ノート */
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.evcard{background:var(--cloth);border:2px solid var(--thread);border-radius:14px;box-shadow:3px 4px 0 rgba(95,70,51,.15);padding:16px 16px 14px;position:relative}
+.evcard::after{content:"";position:absolute;inset:5px;border:2px dashed #EFC7D1;border-radius:9px;pointer-events:none}
+.evcard .d{font-size:13px;font-weight:900;color:var(--lavdeep)}
+.evcard .t{font-size:15px;font-weight:900;margin-top:4px;line-height:1.5}
+.evcard .m{font-size:12px;color:#98805F;margin-top:4px}
+.evcard .tag{position:absolute;top:-13px;right:12px;z-index:2}
+.reccard{background:var(--cloth);border:2px solid var(--thread);border-radius:5px;box-shadow:3px 4px 0 rgba(95,70,51,.15);padding:22px 16px 14px;position:relative}
+.reccard::before{content:"";position:absolute;top:-9px;left:50%;width:88px;height:18px;transform:translateX(-50%) rotate(-2deg);background:rgba(164,138,212,.45);border-left:2px dashed rgba(255,255,255,.8);border-right:2px dashed rgba(255,255,255,.8)}
+.reccard .n{font-size:30px;font-weight:900;color:var(--pinkdeep)}
+.reccard .l{font-size:12.5px;font-weight:700;color:#98805F}
+/* キラキラ（縫えたときの糸くず） */
+.spark{position:fixed;pointer-events:none;font-size:22px;animation:sp 1s ease-out forwards;z-index:99}
+@keyframes sp{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4)}}
+.footer{font-size:11.5px;color:#A08D77;text-align:center;margin-top:46px;line-height:1.8}
+</style>
+</head>
+<body>
+<!-- ===== HERO: 刺繍枠のパノラマ ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="titlerow">
+      <h1>🪡 印南先生の刺繍のノート</h1>
+      <div class="pickbar">
+        <button class="pickbtn" id="pickmode">🪡 針モード</button>
+        <span class="digcount" id="digcount">🧵 0</span>
+        <span class="hint">針モードON → 枠の中の下絵にタッチすると、ひと目ずつ縫えます</span>
+      </div>
+    </div>
+    <div class="sub">
+      <span class="badge hot">2026年7月 講師デビュー</span>
+      <span class="badge">微小鉱物・地質・みちくさ担当</span>
+      <span class="badge go" id="hero-next">次の出番: —</span>
+    </div>
+    <svg class="heroSvg" viewBox="0 0 1180 330" xmlns="http://www.w3.org/2000/svg" id="heroSvg" role="img" aria-label="刺繍枠に刺し子で描いた山と草花のパノラマ">
+      <defs>
+        <pattern id="pf" width="9" height="9" patternUnits="userSpaceOnUse">
+          <rect width="9" height="9" fill="#F3E9D2"/>
+          <path d="M0 4.5h9" stroke="#EADCBE" stroke-width="1.6"/>
+          <path d="M4.5 0v9" stroke="#EEE3C9" stroke-width="1.6"/>
+        </pattern>
+        <pattern id="pf2" width="9" height="9" patternUnits="userSpaceOnUse">
+          <rect width="9" height="9" fill="#FFFBEF"/>
+          <path d="M0 4.5h9" stroke="#F3E9D2" stroke-width="1.5"/>
+          <path d="M4.5 0v9" stroke="#F7EFDC" stroke-width="1.5"/>
+        </pattern>
+        <clipPath id="hoopClip"><ellipse cx="590" cy="180" rx="512" ry="122"/></clipPath>
+      </defs>
+      <!-- 布の台紙とステッチ縁 -->
+      <rect x="2" y="2" width="1176" height="326" rx="20" fill="url(#pf)" stroke="#E0CFA9" stroke-width="3"/>
+      <rect x="13" y="13" width="1154" height="304" rx="14" fill="none" stroke="#D8A0B0" stroke-width="2.5" stroke-dasharray="9 8" stroke-linecap="round"/>
+      <!-- 糸巻き（ホバーでかしげる） -->
+      <g transform="translate(58,54)"><g class="spool">
+        <rect x="-16" y="-27" width="32" height="9" rx="3" fill="#C99E63" stroke="#8A6B4F" stroke-width="3"/>
+        <rect x="-16" y="18" width="32" height="9" rx="3" fill="#C99E63" stroke="#8A6B4F" stroke-width="3"/>
+        <rect x="-12" y="-18" width="24" height="36" fill="#E48BA0" stroke="#8A6B4F" stroke-width="3"/>
+        <path d="M-12 -9h24M-12 0h24M-12 9h24" stroke="#F6D7DE" stroke-width="2.5"/>
+        <path class="threadline" d="M12 16 C 42 34 20 66 58 84" fill="none" stroke="#E48BA0" stroke-width="3"/>
+      </g></g>
+      <g transform="translate(76,268)"><g class="spool">
+        <rect x="-14" y="-24" width="28" height="8" rx="3" fill="#C99E63" stroke="#8A6B4F" stroke-width="3"/>
+        <rect x="-14" y="16" width="28" height="8" rx="3" fill="#C99E63" stroke="#8A6B4F" stroke-width="3"/>
+        <rect x="-10" y="-16" width="20" height="32" fill="#5FBF9F" stroke="#8A6B4F" stroke-width="3"/>
+        <path d="M-10 -8h20M-10 0h20M-10 8h20" stroke="#DDF2E8" stroke-width="2.2"/>
+      </g></g>
+      <!-- ボタン -->
+      <g transform="translate(1092,44)">
+        <circle r="14" fill="#E0A93C" stroke="#8A6B4F" stroke-width="3"/>
+        <circle r="9" fill="none" stroke="#B07F1F" stroke-width="1.6" stroke-dasharray="3 3"/>
+        <circle cx="-3.5" cy="-3.5" r="1.8" fill="#5F4633"/><circle cx="3.5" cy="-3.5" r="1.8" fill="#5F4633"/>
+        <circle cx="-3.5" cy="3.5" r="1.8" fill="#5F4633"/><circle cx="3.5" cy="3.5" r="1.8" fill="#5F4633"/>
+        <path d="M-3.5 -3.5 L3.5 3.5 M3.5 -3.5 L-3.5 3.5" stroke="#FFF6E0" stroke-width="1.6"/>
+      </g>
+      <g transform="translate(1128,74)">
+        <circle r="9" fill="#A48AD4" stroke="#8A6B4F" stroke-width="3"/>
+        <circle cx="-2.5" cy="0" r="1.5" fill="#5F4633"/><circle cx="2.5" cy="0" r="1.5" fill="#5F4633"/>
+        <path d="M-2.5 0 H2.5" stroke="#FFF6E0" stroke-width="1.4"/>
+      </g>
+      <!-- 糸くず -->
+      <path d="M40 302 q14 -18 4 -28 q-10 -8 -16 4" fill="none" stroke="#A48AD4" stroke-width="2.5" stroke-dasharray="5 5" stroke-linecap="round"/>
+      <path d="M1148 246 q-16 10 -8 22 q8 10 18 2" fill="none" stroke="#5FBF9F" stroke-width="2.5" stroke-dasharray="5 5" stroke-linecap="round"/>
+      <!-- 刺繍枠（フープ） -->
+      <ellipse cx="590" cy="180" rx="512" ry="122" fill="url(#pf2)"/>
+      <ellipse cx="590" cy="180" rx="512" ry="122" fill="none" stroke="#B4854E" stroke-width="5"/>
+      <ellipse cx="590" cy="180" rx="528" ry="138" fill="none" stroke="#C99E63" stroke-width="12"/>
+      <ellipse cx="590" cy="180" rx="528" ry="138" fill="none" stroke="#8A6B4F" stroke-width="2" opacity=".35"/>
+      <rect x="576" y="18" width="28" height="28" rx="7" fill="#C99E63" stroke="#8A6B4F" stroke-width="3.5"/>
+      <circle cx="590" cy="13" r="7" fill="#E8C68C" stroke="#8A6B4F" stroke-width="3"/>
+      <path d="M583 32h14" stroke="#8A6B4F" stroke-width="3" stroke-linecap="round"/>
+      <!-- 枠の中: 刺し子の風景 -->
+      <g clip-path="url(#hoopClip)">
+        <path d="M40 262 Q250 96 470 262 Z" fill="#CFE9DB" stroke="#7FB89E" stroke-width="3.5"/>
+        <path d="M110 238 Q252 126 396 240" fill="none" stroke="#8FC4AB" stroke-width="3" stroke-dasharray="9 8" stroke-linecap="round"/>
+        <path d="M170 262 Q252 186 338 262" fill="none" stroke="#8FC4AB" stroke-width="2.5" stroke-dasharray="7 8" stroke-linecap="round"/>
+        <path d="M360 262 Q600 82 850 262 Z" fill="#F2E5BC" stroke="#CDA84C" stroke-width="3.5"/>
+        <path d="M436 238 Q602 112 772 240" fill="none" stroke="#D9B75C" stroke-width="3" stroke-dasharray="9 8" stroke-linecap="round"/>
+        <path d="M508 262 Q602 168 700 262" fill="none" stroke="#D9B75C" stroke-width="2.5" stroke-dasharray="7 8" stroke-linecap="round"/>
+        <path d="M740 262 Q902 140 1064 262 Z" fill="#E9E0F6" stroke="#A48AD4" stroke-width="3.5"/>
+        <path d="M802 250 Q902 168 1004 252" fill="none" stroke="#B79BE0" stroke-width="3" stroke-dasharray="9 8" stroke-linecap="round"/>
+        <rect x="60" y="252" width="1064" height="60" fill="#F4E7C5"/>
+        <path d="M78 252 H1102" stroke="#C9A96A" stroke-width="3" stroke-dasharray="12 9" stroke-linecap="round"/>
+        <path d="M62 284 q70 -8 140 0 t150 3 t160 -5 t170 3 t180 -3 t150 1" fill="none" stroke="#8FD0C6" stroke-width="5" stroke-dasharray="14 8" stroke-linecap="round"/>
+        <path d="M80 295 q70 -6 140 0 t150 2 t160 -4 t170 2 t180 -2 t120 0" fill="none" stroke="#B9E2DB" stroke-width="3.5" stroke-dasharray="8 8" stroke-linecap="round"/>
+        <g fill="#FFFFFF" stroke="#C9B18E" stroke-width="3" stroke-dasharray="3 6" stroke-linecap="round">
+          <ellipse cx="300" cy="92" rx="52" ry="20"/><ellipse cx="348" cy="82" rx="34" ry="15"/>
+          <ellipse cx="742" cy="74" rx="44" ry="17"/>
+        </g>
+        <!-- お日さま（サンステッチ・クリックで鳥） -->
+        <g class="sun" id="sun">
+          <g stroke="#D99A2B" stroke-width="5" stroke-linecap="round">
+            <line x1="742" y1="112" x2="754" y2="112"/><line x1="658" y1="112" x2="646" y2="112"/>
+            <line x1="700" y1="70" x2="700" y2="62"/><line x1="700" y1="154" x2="700" y2="166"/>
+            <line x1="730" y1="82" x2="738" y2="74"/><line x1="670" y1="82" x2="662" y2="74"/>
+            <line x1="670" y1="142" x2="662" y2="150"/><line x1="730" y1="142" x2="738" y2="150"/>
+          </g>
+          <circle cx="700" cy="112" r="33" fill="#F5C84E" stroke="#A8781F" stroke-width="4"/>
+          <circle cx="700" cy="112" r="25" fill="none" stroke="#E8AE33" stroke-width="2.5" stroke-dasharray="5 6"/>
+          <circle cx="689" cy="106" r="3.5" fill="#5F4633"/><circle cx="711" cy="106" r="3.5" fill="#5F4633"/>
+          <path d="M689 120 q11 9 22 0" stroke="#5F4633" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- 小石（クロスステッチ入り＝鉱物の世界） -->
+        <g transform="translate(700,286)">
+          <ellipse cx="-18" cy="4" rx="16" ry="11" fill="#D9D2E8" stroke="#9C86C8" stroke-width="3"/>
+          <ellipse cx="7" cy="9" rx="13" ry="9" fill="#E4DCCB" stroke="#B49A6E" stroke-width="3"/>
+          <ellipse cx="26" cy="1" rx="10" ry="8" fill="#CFE3DC" stroke="#7FB89E" stroke-width="3"/>
+          <path d="M-24 1 l6 6 m0 -6 l-6 6 M3 7 l5 5 m0 -5 l-5 5 M23 -2 l4 4 m0 -4 l-4 4" stroke="#8A6B4F" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- 草 -->
+        <g stroke="#8FBF9F" stroke-width="3" stroke-linecap="round" fill="none">
+          <path d="M150 304 q-3 -12 -8 -16 M150 304 q1 -12 6 -18 M150 304 q6 -8 12 -10"/>
+          <path d="M470 308 q-3 -10 -7 -14 M470 308 q2 -12 7 -16"/>
+          <path d="M905 302 q-3 -10 -7 -14 M905 302 q2 -12 7 -16"/>
+        </g>
+        <!-- 下絵モチーフ（針モードでクリック→縫い上がる） -->
+        <g id="crystals">
+          <g transform="translate(170,200)"><g class="crystal" data-c="1">
+            <g class="draft" fill="none" stroke="#AC8E66" stroke-width="2.5" stroke-dasharray="3 4">
+              <circle cx="0" cy="-13" r="6.5"/><circle cx="12" cy="-4" r="6.5"/><circle cx="8" cy="11" r="6.5"/>
+              <circle cx="-8" cy="11" r="6.5"/><circle cx="-12" cy="-4" r="6.5"/><circle r="5.5"/>
+            </g>
+            <g class="sewn">
+              <circle cx="0" cy="-13" r="6.5" fill="#E48BA0" stroke="#C25E7B" stroke-width="2.5"/>
+              <circle cx="12" cy="-4" r="6.5" fill="#E48BA0" stroke="#C25E7B" stroke-width="2.5"/>
+              <circle cx="8" cy="11" r="6.5" fill="#E48BA0" stroke="#C25E7B" stroke-width="2.5"/>
+              <circle cx="-8" cy="11" r="6.5" fill="#E48BA0" stroke="#C25E7B" stroke-width="2.5"/>
+              <circle cx="-12" cy="-4" r="6.5" fill="#E48BA0" stroke="#C25E7B" stroke-width="2.5"/>
+              <circle r="5.5" fill="#F0B93F" stroke="#B07F1F" stroke-width="2.5"/>
+            </g>
+          </g></g>
+          <g transform="translate(352,230)"><g class="crystal" data-c="2">
+            <g class="draft"><path d="M0 8 C -15 -6 -6 -20 0 -10 C 6 -20 15 -6 0 8 Z" fill="none" stroke="#AC8E66" stroke-width="2.5" stroke-dasharray="3 4"/></g>
+            <g class="sewn">
+              <path d="M0 8 C -15 -6 -6 -20 0 -10 C 6 -20 15 -6 0 8 Z" fill="#ED8A97" stroke="#C9556B" stroke-width="2.5"/>
+              <path d="M-5 -7 l3.5 3.5 m0 -3.5 l-3.5 3.5 M2 -9 l3.5 3.5 m0 -3.5 l-3.5 3.5" stroke="#FFF2F2" stroke-width="1.6" stroke-linecap="round"/>
+            </g>
+          </g></g>
+          <g transform="translate(505,170)"><g class="crystal" data-c="3">
+            <g class="draft" fill="none" stroke="#AC8E66" stroke-width="2.5" stroke-dasharray="3 4">
+              <path d="M0 16 Q 3 0 0 -16"/>
+              <ellipse cx="-8" cy="-6" rx="7" ry="4" transform="rotate(-30 -8 -6)"/>
+              <ellipse cx="8" cy="-1" rx="7" ry="4" transform="rotate(28 8 -1)"/>
+              <ellipse cx="-7" cy="6" rx="6.5" ry="3.8" transform="rotate(-24 -7 6)"/>
+            </g>
+            <g class="sewn">
+              <path d="M0 16 Q 3 0 0 -16" fill="none" stroke="#48997C" stroke-width="3" stroke-linecap="round"/>
+              <ellipse cx="-8" cy="-6" rx="7" ry="4" transform="rotate(-30 -8 -6)" fill="#6FC2A2" stroke="#48997C" stroke-width="2.2"/>
+              <ellipse cx="8" cy="-1" rx="7" ry="4" transform="rotate(28 8 -1)" fill="#6FC2A2" stroke="#48997C" stroke-width="2.2"/>
+              <ellipse cx="-7" cy="6" rx="6.5" ry="3.8" transform="rotate(-24 -7 6)" fill="#6FC2A2" stroke="#48997C" stroke-width="2.2"/>
+            </g>
+          </g></g>
+          <g transform="translate(665,228)"><g class="crystal" data-c="4">
+            <g class="draft"><path d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" fill="none" stroke="#AC8E66" stroke-width="2.5" stroke-dasharray="3 4"/></g>
+            <g class="sewn">
+              <path d="M0 -15 L4 -4 L15 0 L4 4 L0 15 L-4 4 L-15 0 L-4 -4 Z" fill="#F0B93F" stroke="#B07F1F" stroke-width="2.5"/>
+              <circle r="2.5" fill="#FFF6E0"/>
+            </g>
+          </g></g>
+          <g transform="translate(830,175)"><g class="crystal" data-c="5">
+            <g class="draft"><path d="M-13 -3 L-7 -12 L7 -12 L13 -3 L0 13 Z M-13 -3 H13 M0 -3 V13" fill="none" stroke="#AC8E66" stroke-width="2.5" stroke-dasharray="3 4"/></g>
+            <g class="sewn">
+              <path d="M-13 -3 L-7 -12 L7 -12 L13 -3 L0 13 Z" fill="#B79BE0" stroke="#7C63AC" stroke-width="2.5"/>
+              <path d="M-13 -3 H13 M-7 -12 L-4 -3 L0 13 M7 -12 L4 -3" fill="none" stroke="#8F76BE" stroke-width="2"/>
+            </g>
+          </g></g>
+          <g transform="translate(1005,240)"><g class="crystal" data-c="6">
+            <g class="draft" fill="none" stroke="#AC8E66" stroke-width="2.5" stroke-dasharray="3 4">
+              <path d="M-14 1 Q0 -17 14 1 Z"/><rect x="-4.5" y="1" width="9" height="12" rx="3.5"/>
+            </g>
+            <g class="sewn">
+              <path d="M-14 1 Q0 -17 14 1 Z" fill="#E97C6E" stroke="#C25445" stroke-width="2.5"/>
+              <rect x="-4.5" y="1" width="9" height="12" rx="3.5" fill="#FFF6E3" stroke="#C9A96A" stroke-width="2.5"/>
+              <circle cx="-6" cy="-4" r="2" fill="#FFF2EF"/><circle cx="3" cy="-7" r="2.4" fill="#FFF2EF"/><circle cx="0" cy="-1.5" r="1.5" fill="#FFF2EF"/>
+            </g>
+          </g></g>
+        </g>
+      </g>
+      <!-- まち針（ホバーでゆれる） -->
+      <g transform="translate(150,286) rotate(-35)"><g class="pin">
+        <line x1="0" y1="-13" x2="0" y2="18" stroke="#9AA0A6" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="0" cy="-20" r="7" fill="#E48BA0" stroke="#5F4633" stroke-width="2.5"/>
+      </g></g>
+      <g transform="translate(1042,302) rotate(30)"><g class="pin">
+        <line x1="0" y1="-13" x2="0" y2="18" stroke="#9AA0A6" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="0" cy="-20" r="7" fill="#5FBF9F" stroke="#5F4633" stroke-width="2.5"/>
+      </g></g>
+      <g transform="translate(348,34) rotate(18)"><g class="pin">
+        <line x1="0" y1="-11" x2="0" y2="15" stroke="#9AA0A6" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="0" cy="-17" r="6.5" fill="#A48AD4" stroke="#5F4633" stroke-width="2.5"/>
+      </g></g>
+      <!-- 針と糸 -->
+      <g transform="translate(1078,284) rotate(-18)">
+        <path d="M-34 0 L30 0" stroke="#ADA79E" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="-28" cy="0" rx="5" ry="3.2" fill="#FFFBEF" stroke="#8B857C" stroke-width="2.5"/>
+        <path class="threadline" d="M-31 3 C -60 26 -20 36 -52 46" fill="none" stroke="#E48BA0" stroke-width="3"/>
+      </g>
+      <!-- 刺し子の鳥（お日さまクリックで飛ぶ） -->
+      <g class="bird" id="bird1"><path d="M0 60 q10 -12 20 0 q10 -12 20 0" stroke="#5F4633" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="7 6"/></g>
+      <g class="bird" id="bird2"><path d="M0 100 q8 -10 16 0 q8 -10 16 0" stroke="#5F4633" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="6 5"/></g>
+    </svg>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- ===== チャット（おしゃべりのポケット） ===== -->
+  <div class="chatCard">
+    <div class="chatHead">
+      <span style="font-size:26px">🧠</span>
+      <div><div class="tt">分析宮入くんと おしゃべり相談</div>
+      <div class="st">相談すると、決まったこと・宿題・アイデアが下のノートに縫いとめられます</div></div>
+      <button class="pickbtn" id="newchat" style="margin-left:auto">🆕 新しい会話</button>
+    </div>
+    <div class="log" id="log"></div>
+    <form class="inbar" id="form">
+      <textarea id="q" rows="2" placeholder="相談したいことをどうぞ（例: 8/17の流しそうめん、あと3名をどう集める？）"></textarea>
+      <button type="submit" class="sendbtn" id="send">送信</button>
+    </form>
+    <p class="chatnote">回答は参考情報です。会話の要点はカルテとして学習され、決定・宿題はノートに反映されます。</p>
+  </div>
+
+  <!-- ===== いまの一針 ===== -->
+  <h2 class="sec"><span class="num">01</span>🪡 いまの一針（最優先）</h2>
+  <p class="secnote">ノートの中でいちばん新しい「やること」が、次に縫うひと針になります</p>
+  <div class="flagCard" id="flagcard">
+    <svg width="74" height="74" viewBox="0 0 74 74">
+      <path class="threadline" d="M10 62 C 26 48 12 34 30 26 C 46 19 52 30 64 12" fill="none" stroke="#E48BA0" stroke-width="4"/>
+      <path d="M22 56 L58 14" stroke="#ADA79E" stroke-width="6" stroke-linecap="round"/>
+      <ellipse cx="26" cy="51" rx="6.5" ry="4.2" transform="rotate(-49 26 51)" fill="#FFFBEF" stroke="#8B857C" stroke-width="3"/>
+      <circle cx="10" cy="62" r="4.5" fill="#C25E7B"/>
+    </svg>
+    <div><div class="ttl">NEXT STITCH</div><div class="big" id="flag-title">まだありません。上のチャットでおしゃべりをどうぞ</div><div class="meta" id="flag-meta"></div></div>
+  </div>
+
+  <!-- ===== ステッチのノート（ボード） ===== -->
+  <h2 class="sec"><span class="num">02</span>🧵 ステッチのノート（やること）</h2>
+  <p class="secnote">チャットで決めた宿題が「縫いかけ」に並びます。縫い終えたら「縫い上がり！」を押すと、額に入って飾られます</p>
+  <div class="board">
+    <div class="col dig"><div class="colhead">🪡 縫いかけ</div><div class="list" id="list-task"></div></div>
+    <div class="col done"><div class="colhead">🖼️ 額に入った作品（完了）</div><div class="list" id="list-done"></div></div>
+  </div>
+
+  <!-- ===== 玉留めのタグ（決定） ===== -->
+  <h2 class="sec"><span class="num">03</span>🔖 玉留めのタグ（決まったこと）</h2>
+  <p class="secnote">会話で決まった方針は、しっかり玉留めしてタグにして留めてあります。ほどけません</p>
+  <div class="shelf"><div class="shelfrow" id="list-decision"><div class="empty">まだ玉留めしたタグはありません</div></div></div>
+
+  <!-- ===== 糸の色見本（アイデア） ===== -->
+  <h2 class="sec"><span class="num">03b</span>🧶 糸の色見本（アイデア）</h2>
+  <p class="secnote">チャットやSlack（会議室・みちくさ化石塾・プロデューサー講座）で出た印南さんのアイデアが、毎晩ここに色見本として巻き取られます</p>
+  <div class="shelf"><div class="shelfrow" id="list-idea"><div class="empty">まだ糸見本はありません</div></div></div>
+
+  <!-- ===== 糸箱にしまう（保留） ===== -->
+  <h2 class="sec"><span class="num">04</span>🧺 糸箱にしまう（保留）</h2>
+  <p class="secnote">「また今度」になった話題は、糸箱にたたんでしまってあります。取り出せばいつでも縫い直せます</p>
+  <div class="strata"><div class="inner" id="list-hold"><div class="empty" style="color:#fff8ea">いま糸箱で休んでいる話題はありません</div></div></div>
+
+  <!-- ===== 縫い付けカレンダー ===== -->
+  <h2 class="sec"><span class="num">05</span>🗓️ 縫い付けカレンダー</h2>
+  <p class="secnote">これからの予定を、布に縫い付けたタグでご案内します</p>
+  <div class="cards3" id="schedule"></div>
+
+  <!-- ===== 作品ノート ===== -->
+  <h2 class="sec"><span class="num">06</span>📖 作品ノート（これまでの記録）</h2>
+  <div class="cards3" id="records"></div>
+
+  <p class="footer">東京山側DMC 分析スタジオ｜印南先生専用ページ（社内限定）<br>データ出典: aini/gifte実測・予約通知メール（個人名は保存していません）</p>
+</div>
+
+
+<div id="__gate" style="position:fixed;inset:0;z-index:9999;background:#f9f8f4;color:#191713;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,'Hiragino Sans',sans-serif">
+ <form id="__gform" style="background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:30px 34px;max-width:380px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.15)">
+  <div style="font-size:12px;letter-spacing:.16em;color:#8a6d1f;font-weight:700">TOKYO YAMAGAWA DMC</div>
+  <h1 style="font-size:20px;margin:6px 0 4px;font-family:'Hiragino Mincho ProN',serif">体験販売 分析スタジオ</h1>
+  <p style="font-size:12.5px;color:#666;margin:0 0 16px;line-height:1.7">社内限定の資料です。合言葉を入力してください。</p>
+  <input id="__pw" type="password" placeholder="合言葉" autocomplete="off" autofocus style="width:100%;padding:11px 13px;font-size:15px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box">
+  <button type="submit" style="width:100%;margin-top:12px;padding:11px;font-size:14px;font-weight:700;border:none;border-radius:8px;background:#233d33;color:#fff;cursor:pointer">ひらく</button>
+  <p id="__err" style="display:none;font-size:12px;color:#b91c1c;margin:10px 0 0">合言葉がちがうようです。もう一度お試しください。</p>
+ </form>
+</div>
+<script>
+let D=null;
+
+const CIPHER={"s":"6VablxNv2JOXTedJk3OhBQ==","i":"ed6pi2DObag33w9t","d":"5m3jo9B47FJauF9KGEOecaQM4dabdnkQkDwKAPPWDM1AVhE+5OX7+k7/b5PUdDlRj+fq6dAr8J17ttL1VRPNzwx0a11mjSPhZ2etBKttlcXy34H/4PtBBMrawmukGaC+6aVtISRfAmgiuSi717cxyeVPmFSHG1gIPHEjWCcVAWn78ve/MY8KXiv0cjvsQD5mnAHSDazh90paY02wfltyoEO9+xkUY8O/YfI/79jj/r3PVG7xZlgxrWLC+2jHeWd7ikWZSSilExVR+omxvrWVWPMPRD71vD0cCa/jKHxtOh8PU3ElzEguh/xEe2jyrWBjlDGvQMC+cUzwbNagvUrxqijmXrmj+Dw9SN/GD5c6BnK17kz9ntha4eX8EDJpWVjTSSAEEvcX+Iea6WqCWqIShIao1AasFXzIiii+WHbjT7fwn5Ax0ypisPFStX8Mw6E3rQD4UNp7TocJohJqumiayQB66O/e+sA7xCG7n8vBTBHVUhhMhnjwND3Lo4nUinMcqdDEJsk+YFNiorrESLsUC2MEmpBVMHW54oZcFC0wvJPmd4dKIAeenUq2BtO+HxSexP2z6LLhK5A230yduJBDqBZgkjC9IKV+rU0dc+PAOAcS2qGG1mOwyRoO1wXYJSZFqA7EkF4PgPSj+ZN9IA8apKa120za+kxi50qkVF8TDyQVjrCIGiyahYevwMlJ5wM8oLMOu1pf/QTyj07G37FDfedSHahXSOOXKU726x6Zj7Wz11mIsJ1p9jh2YOgd8OhbeDwJmnE71tojWuvBcKOrXIoFyeGNCQSGIgH68TiH8pa9ONt2vUqPWrT7yFFPYtpVrjCzhqrQhKwi0uq10oGIttP8vcMiJsC5XoNJ5K0MSXFPrCYWASyZL/JAidJuBT9vbjd8righ0noLeoLsNfDrexwFfEk6qP31Yl1+1iwEtQOFmPbS5pMTmEH0FDCTAK7VzjrdtunUk/wlZ9BgPUGS7TN4t1i+9u6ZLUIl7l+34bGAU//93Tio1uUVSwGUoqIqWlmjMh94cRpu3LnB+ckHTcenTDw9OLWe4+3C2L/RGj6RyBZvZDRimLsKKSoj1pVdDjuSgqWWFE/pW9uzpjU5s79ezDJybT5Xa9eCIC3IcnX0hIjn2ywCTABHt8LDizIBboXSbYi/XtE3By5ZK4iaA1lE8QjS26JpI5v/XjYssGX7rwWxmPN3JXcRHiwY3bkQGAcbeX1WIiwk9IPGIK2Q9lutq2EWV8e/ElvszYb1+A=="};
+function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+async function __unlock(pw){
+ const enc=new TextEncoder();
+ const km=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+ const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:__b64(CIPHER.s),iterations:100000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
+ const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:__b64(CIPHER.i)},key,__b64(CIPHER.d));
+ return JSON.parse(new TextDecoder().decode(plain));
+}
+document.getElementById('__gform').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=e.target.querySelector('button');btn.textContent='ひらいています…';
+ const __pwval=document.getElementById('__pw').value.trim();
+ try{ D=await __unlock(__pwval);
+  try{ const __hb=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(__pwval+':bunseki-miyairi-v1'));
+   window.__bmAuth=Array.from(new Uint8Array(__hb)).map(b=>b.toString(16).padStart(2,'0')).join(''); }catch(_){}
+  const g=document.getElementById('__gate'); if(g) g.remove(); __boot();
+ }catch(_){ document.getElementById('__err').style.display='block';
+  btn.textContent='ひらく';
+  document.getElementById('__pw').value='';document.getElementById('__pw').focus(); }
+});
+function __boot(){
+
+const W=D.worker;
+let history=[],busy=false;
+const log=document.getElementById("log"),qEl=document.getElementById("q"),sendBtn=document.getElementById("send");
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function auth(){return (typeof window!=="undefined"&&window.__bmAuth)||"";}
+/* ---- チャット ---- */
+function extractCals(text){const cals=[];let clean=String(text).replace(/<cal\b([^>]*?)\/?>(?:<\/cal>)?/gi,(m,a)=>{const g=k=>{const mm=a.match(new RegExp(k+'\\s*=\\s*"([^"]*)"',"i"));return mm?mm[1]:"";};const t=g("title"),s=g("start");if(t&&/^\d{4}-\d{2}-\d{2}$/.test(s))cals.push({title:t.slice(0,60),start:s,time:g("time"),minutes:parseInt(g("minutes")||"60",10)||60,details:g("details").slice(0,200)});return "";}).replace(/<cal\b[^>]*$/i,"");return {clean:clean.trim(),cals:cals.slice(0,3)};}
+function calUrl(c){const p=n=>String(n).padStart(2,"0");let dates;if(/^\d{2}:\d{2}$/.test(c.time||"")){const st=c.start.replace(/-/g,"")+"T"+c.time.replace(":","")+"00";const en=new Date(c.start+"T"+c.time+":00");en.setMinutes(en.getMinutes()+c.minutes);dates=st+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate())+"T"+p(en.getHours())+p(en.getMinutes())+"00";}else{const en=new Date(c.start+"T00:00:00");en.setDate(en.getDate()+1);dates=c.start.replace(/-/g,"")+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate());}return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(c.title)+"&dates="+dates+"&ctz=Asia/Tokyo&details="+encodeURIComponent(c.details||"刺繍のノートの相談より");}
+function add(cls,text,cals){const d=document.createElement("div");d.className="msg "+cls;
+ d.innerHTML=esc(text).replace(/\*\*([^*\n]{1,80}?)\*\*/g,"<b>$1</b>").replace(/^#{1,4}\s*/gm,"").replace(/\n/g,"<br>");
+ if(cals&&cals.length){const w=document.createElement("div");w.className="calwrap";cals.forEach(c=>{const a=document.createElement("a");a.className="calbtn";a.target="_blank";a.rel="noopener";a.href=calUrl(c);a.textContent="📅 "+c.title;w.appendChild(a);});d.appendChild(w);}
+ log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+async function send(){if(busy)return;const text=qEl.value.trim();if(!text)return;
+ add("user",text);qEl.value="";busy=true;sendBtn.disabled=true;
+ const wait=add("wait","考えています…（30秒ほどかかることがあります）");
+ try{
+  const res=await fetch(W+"/ask",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},
+   body:JSON.stringify({mode:"consult",user:D.user,question:text,history:history,model:"sonnet"})});
+  let data=null;try{data=await res.json();}catch(_){ }
+  if(!data||typeof data.answer!=="string")throw new Error((data&&data.error)||("bad response "+res.status));
+  wait.remove();
+  const stripped=data.answer.replace(/<karte>[\s\S]*?<\/karte>/gi,"").replace(/<stats\b[^>]*\/?>/gi,"").trim();
+  const cx=extractCals(stripped);
+  add("bot",cx.clean,cx.cals);
+  history=history.concat([{role:"user",content:text},{role:"assistant",content:cx.clean}]).slice(-40);
+  refreshBoard(true);
+ }catch(err){wait.remove();add("err",/上限|お断り|翌月/.test(String(err.message))?err.message:"つながりませんでした。少し時間をおいてもう一度お試しください。");}
+ finally{busy=false;sendBtn.disabled=false;qEl.focus();}}
+document.getElementById("form").addEventListener("submit",e=>{e.preventDefault();send();});
+qEl.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();send();}});
+document.getElementById("newchat").addEventListener("click",()=>{if(busy)return;history=[];log.innerHTML="";add("bot","新しいおしゃべりを始めます。聞きたいことをどうぞ 🪡");qEl.focus();});
+/* ---- ノート（ボード） ---- */
+let boardCache=[];
+function sparkleAt(x,y){for(let i=0;i<7;i++){const s=document.createElement("div");s.className="spark";s.textContent=["✨","🧵","🌸"][i%3];s.style.left=x+"px";s.style.top=y+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(Math.random()*-140-20)+"px");document.body.appendChild(s);setTimeout(()=>s.remove(),1000);}}
+async function boardOp(id,op,ev){try{await fetch(W+"/board-op",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},body:JSON.stringify({user:D.user,id:id,op:op})});}catch(_){}
+ if(op==="done"&&ev)sparkleAt(ev.clientX,ev.clientY);refreshBoard(false);}
+function itemHtml(it){const meta=[it.who?("👤 "+it.who):"",it.due?("📅 "+it.due):"",it.at?("記録 "+it.at):""].filter(Boolean).join("　");
+ const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
+ return '<div class="t">'+esc(it.title)+'</div>'+(short?'<div class="m">'+esc(short)+'</div>':'')+'<div class="m">'+esc(meta)+'</div>';}
+/* 詳細（AI要約＋Slack原文リンク）を開く */
+function detailBtns(it){const w=document.createElement("span");w.style.display="contents";
+ if(it.note&&it.note.length>44){const b=document.createElement("button");b.className="opbtn";b.textContent="📖 詳細";
+  b.onclick=e=>{const box=e.target.closest(".item,.spec,.holditem").querySelector(".detailbox");
+   if(box){box.remove();b.textContent="📖 詳細";return;}
+   const d=document.createElement("div");d.className="detailbox";d.style.cssText="margin-top:8px;padding:10px;border:2px dashed var(--ink);border-radius:10px;background:#FFFDF4;font-size:12.5px;line-height:1.8";
+   d.innerHTML="<b>🧠 AIによる要点</b><br>"+esc(it.note);
+   e.target.closest(".item,.spec,.holditem").appendChild(d);b.textContent="📕 閉じる";};
+  w.appendChild(b);}
+ if(it.url){const a=document.createElement("a");a.className="opbtn";a.href=it.url;a.target="_blank";a.rel="noopener";
+  a.style.cssText="text-decoration:none;background:#E8F4FF";a.textContent="💬 Slackで見る";w.appendChild(a);}
+ return w;}
+function renderBoard(prevIds){
+ const tasks=boardCache.filter(x=>x.type==="task"&&x.status==="open");
+ const dones=boardCache.filter(x=>x.status==="done");
+ const decisions=boardCache.filter(x=>x.type==="decision"&&x.status==="open");
+ const holds=boardCache.filter(x=>x.type==="hold"&&x.status==="open");
+ // いまの一針
+ if(tasks.length){document.getElementById("flag-title").textContent=tasks[0].title;
+  document.getElementById("flag-meta").textContent=[tasks[0].who?("担当: "+tasks[0].who):"",tasks[0].due?("期限: "+tasks[0].due):"",tasks[0].note||""].filter(Boolean).join("　");}
+ else{document.getElementById("flag-title").textContent="まだありません。上のチャットでおしゃべりをどうぞ";document.getElementById("flag-meta").textContent="";}
+ // 縫いかけ
+ const lt=document.getElementById("list-task");lt.innerHTML=tasks.length?"":'<div class="empty">いまは下絵もありません。おしゃべりで次のひと針を決めましょう</div>';
+ tasks.forEach(it=>{const d=document.createElement("div");d.className="item"+(prevIds&&!prevIds.has(it.id)?" newItem":"");d.innerHTML=itemHtml(it);
+  const ops=document.createElement("div");ops.className="ops";
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="🪡 縫い上がり！";b1.onclick=e=>boardOp(it.id,"done",e);
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🧺 糸箱にしまう";b2.onclick=()=>boardOp(it.id,"hold");
+  ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(detailBtns(it));d.appendChild(ops);lt.appendChild(d);
+  if(prevIds&&!prevIds.has(it.id)){const r=d.getBoundingClientRect();sparkleAt(r.left+40,r.top+10);}});
+ // 額に入った作品（間違えて完了→戻せる）
+ const ld=document.getElementById("list-done");ld.innerHTML=dones.length?"":'<div class="empty">縫い上がった作品は、額に入ってここに飾られます</div>';
+ dones.slice(0,10).forEach(it=>{const d=document.createElement("div");d.className="item doneItem";d.innerHTML=itemHtml(it);
+  const ops=document.createElement("div");ops.className="ops";
+  const b=document.createElement("button");b.className="opbtn";b.textContent="↩️ 縫いかけに戻す";b.onclick=()=>boardOp(it.id,"reopen");
+  ops.appendChild(b);d.appendChild(ops);ld.appendChild(d);});
+ // 糸の色見本（アイデア）
+ const li=document.getElementById("list-idea");
+ const ideas=boardCache.filter(x=>x.type==="idea"&&x.status==="open");
+ li.innerHTML=ideas.length?"":'<div class="empty">まだ糸見本はありません。Slackでのアイデア投稿も毎晩ここに巻き取られます</div>';
+ ideas.forEach(it=>{const d=document.createElement("div");d.className="spec";d.style.background="linear-gradient(#fff,#F3E9FF)";
+  const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
+  d.innerHTML='<div class="t">🧶 '+esc(it.title)+'</div><div class="m">'+esc(short+"　"+(it.at||""))+'</div>';
+  const ops=document.createElement("div");ops.className="ops";
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="🪡 縫い始める";b1.onclick=()=>boardOp(it.id,"restore");
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🧺 糸箱へ";b2.onclick=()=>boardOp(it.id,"hold");
+  ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(detailBtns(it));d.appendChild(ops);li.appendChild(d);});
+ // 玉留めのタグ
+ const lc=document.getElementById("list-decision");lc.innerHTML=decisions.length?"":'<div class="empty">まだ玉留めしたタグはありません</div>';
+ decisions.forEach(it=>{const d=document.createElement("div");d.className="spec";d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc((it.note||"")+"　"+(it.at||""))+'</div>';lc.appendChild(d);});
+ // 糸箱にしまう
+ const lh=document.getElementById("list-hold");lh.innerHTML=holds.length?"":'<div class="empty" style="color:#fff8ea">いま糸箱で休んでいる話題はありません</div>';
+ holds.forEach(it=>{const d=document.createElement("div");d.className="holditem";
+  const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
+  d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc(short)+'</div>';
+  const ops=document.createElement("div");ops.className="ops";
+  const b=document.createElement("button");b.className="opbtn";b.textContent="🪡 取り出して縫う";b.onclick=()=>boardOp(it.id,"restore");
+  ops.appendChild(b);ops.appendChild(detailBtns(it));d.appendChild(ops);lh.appendChild(d);});}
+async function refreshBoard(sparkleNew){
+ const prevIds=sparkleNew?new Set(boardCache.map(x=>x.id)):null;
+ try{const r=await fetch(W+"/board?user="+encodeURIComponent(D.user),{headers:{"X-BM-Auth":auth()}});
+  const d=await r.json();if(Array.isArray(d.items))boardCache=d.items;}catch(_){}
+ renderBoard(prevIds);}
+/* ---- カレンダー・記録 ---- */
+function renderStatic(){
+ document.getElementById("hero-next").textContent="次の出番: "+D.next;
+ const sc=document.getElementById("schedule");
+ D.schedule.forEach(s=>{const d=document.createElement("div");d.className="evcard";
+  d.innerHTML='<span class="tag badge '+(s.tagbg||"")+'">'+esc(s.tag)+'</span><div class="d">'+esc(s.date)+'</div><div class="t">'+esc(s.title)+'</div><div class="m">'+esc(s.meta)+'</div>';sc.appendChild(d);});
+ const rc=document.getElementById("records");
+ D.records.forEach(s=>{const d=document.createElement("div");d.className="reccard";
+  d.innerHTML='<div class="n">'+esc(s.n)+'</div><div class="l">'+esc(s.l)+'</div>';rc.appendChild(d);});}
+/* ---- 遊び: お日さま・針モード ---- */
+function playSetup(){
+ let digging=false,dug=0;
+ const btn=document.getElementById("pickmode");
+ btn.addEventListener("click",()=>{digging=!digging;btn.classList.toggle("on",digging);document.body.classList.toggle("digging",digging);});
+ document.querySelectorAll(".crystal").forEach(c=>{c.addEventListener("click",e=>{if(!digging)return;
+  c.classList.add("dug");dug++;document.getElementById("digcount").textContent="🧵 "+dug;
+  sparkleAt(e.clientX,e.clientY);
+  if(dug>=6){setTimeout(()=>{document.querySelectorAll(".crystal").forEach(x=>x.classList.remove("dug"));dug=0;document.getElementById("digcount").textContent="🧵 ひと模様完成！また下絵にもどりました";},900);}});});
+ document.getElementById("sun").addEventListener("click",()=>{["bird1","bird2"].forEach((id,i)=>{const b=document.getElementById(id);b.classList.remove("fly");void b.getBoundingClientRect();setTimeout(()=>b.classList.add("fly"),i*400);});});
+}
+/* ---- 起動 ---- */
+renderStatic();playSetup();
+add("bot","こんにちは、印南先生。ここはあなた専用の刺繍のノートです 🪡 8/14の微小鉱物（満席！）のことでも、8/17の流しそうめんのことでも、なんでも相談してください。決まったことは下のノートに縫いとめられていきます。");
+refreshBoard(false);
+setInterval(()=>refreshBoard(false),90000);
+
+}
+</script>
+</body>
+</html>
