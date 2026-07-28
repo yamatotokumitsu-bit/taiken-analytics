@@ -221,6 +221,11 @@ body.digging .crystal{cursor:crosshair}
   <p class="secnote">会話で決まった方針が、標本ラベルになって並びます</p>
   <div class="shelf"><div class="shelfrow" id="list-decision"><div class="empty">まだ標本はありません</div></div></div>
 
+  <!-- ===== 原石箱（アイデア） ===== -->
+  <h2 class="sec"><span class="num">03b</span>💡 原石箱（アイデア）</h2>
+  <p class="secnote">チャットやSlack（会議室・みちくさ化石塾・プロデューサー講座）で出た印南さんのアイデア・関連タスクが毎晩ここに集まります</p>
+  <div class="shelf"><div class="shelfrow" id="list-idea"><div class="empty">まだ原石はありません</div></div></div>
+
   <!-- ===== 地層にねむる（保留） ===== -->
   <h2 class="sec"><span class="num">04</span>🌙 地層にねむる（保留）</h2>
   <p class="secnote">「また今度」になった話題はここに埋まっています。掘り起こすといつでも再開できます</p>
@@ -251,7 +256,7 @@ body.digging .crystal{cursor:crosshair}
 <script>
 let D=null;
 
-const CIPHER={"s":"3OJiv9bjoVBd1mzhd9dz8w==","i":"l9wyIb4/G+Zx3l9j","d":"EU61tt9lMkAaJGDeuFn1jHZEsL4epJgi9h0Zro9J+0/ShbYFj1LwKIbxBQwRkBZ6Fsw35zDRCs5vTmUnzKuFCbTXDJ6VrtbQEMX/G0k5+HMM59hUBmr2j9s9AkdcorG1lfBE/3yLpjBvsL/SRx20B3E19UwIbHl5QhNRCsYAmNHtsXGJsCJPWwn+r3BCbdG8Ik10Yr5jFYX/GYvcwJVaR0SLNJcnRz3JavA/InrnMaI6ymwHH53XYteoFzRl+CpEXzHSvcGyKMnyAXsOjC3RIK0rREa0TavoEsekPRv0+qGn3gkO3nfW9D44elg8IkZMHE0SHeO5fmY3L53t3Xc6KIHZRkCFnLznX2tTBEjDuyPz4FihJnVIAC2WR83OS7cYU6x9u0+WIuHMLAxT1OLRCDo2HuHCevpf4Oy6him73OjMZgWGptKvqw0+VUnz0E1c8YaOxZpXNsh5v7qGkOtThSagrW1vwGRvwpupkcOvGBxZWfYEStAFk+8iSds9v+aSRNcHqujFET6cDWbPbgxWoNmXWNMS5Jbu8UdsVi46A1dxtynD36w92bT3fNQ4OxBYxhxXeIyK0PTzWE+5aIsTPoG3xHFb4vvFPF++p1zX4KvEHZW5Xg9PeZ25TVDniaF47MzibBDSRXdzV/HmEthrS1vTsCTiqvZDTvyBXIA2Vu/h+rUjgT94rgkIBf+4ZNMs4vkitZehFUMOhZYOdfTuIFFo+HqSeyNeGhpgS9lxXwPyBuCcew4MeAzAsdqCJjuRQbLt51R3bM1iDgcqKG2l2kFKumWpkA92A7XepMldSBvPSnkQmDD8a6Z3gNIuwE39qcANFKzp5s74lhAK/CXNhK9AFsZ3yK3abhC8Sy8t0y5zXMt165gHIvx4keJCdFtLBenSsi70PeS6jTEqF+bgnJZv31cQE8eXYHGc2Z9TUvVAo6m0HnjEuHh2bqJSfM5jTzwqTO49qwazWaT7T6t+ZVUGIqY++kajab4Uf+IjNSPBA307s/I+fdyBRK5rqI5ft/DGI9xSSo6ro4W1Ex/icAQtf09rTjeqIRt6DT9jLL5UEB3DSclHXhNHav1cQudobK83AL3T/cBQCqmZgnBegZZpgtLxNNh+rkFZYMd7xfEYaMrKtOxZVxucaBW7v4D07sWWRnrPdd6QoC3PZOcUrnct0AW/tX32dsoys7dRMIfq2IQeq+niaWt3Hxo+4ojIV418T8zQHK+F/zSqbafAQk4nuqXF0Iw19388GjD7dPyGc7NY9V4aJv1v/kORs1iw7g=="};
+const CIPHER={"s":"DdlbhpqqfFS5giDikZrQPQ==","i":"ZuEWzdtb3W49IcUp","d":"Qshlv/6zQuxScn3oOb+pf0xJWjrDNmyo/p4voer2Qevc3lZPb7zeXaaeRHYxiLJx8OOYN4TMqyZ0O38hawv8kJeLPNDNp7/IK7rbBcpkkQ/IarF9LCbk9Vqn5ZXuWI26hyc1RKhpAngnZWp0IrlMsJ4OFTw6mew+6OO7+XZKoF0MRqjO5hFvt2IzhhnYfvUsneAcm4AYrmRTl0+31o2qmrfP9rEUuUwYGu24PWmfgo8GHRDr6A8/Lf1p91SWXoHJ97C01x5v/cfk1OOY/LztPlV7dK8XWnLIqo2lbk9I0bwu1iJyVSH70RjSNfVPfSj1ITR8sXqzD1LuXHj2yT2bgpuQ2hUKJSzC12L3Jhqv80jhTcLpHry5vAExpHZgDEXJ2oDKxMv74LMU13a1uAN/TCk6VxhlE7cEUkD9s8BybrIQSRtWWUCvEmIJGqwzYqIW4fkPzDONdyhyhGhAfIb15D+OumkSAMNukHHxachWcxz/95gnsYKTGm1u2HDSOf8E84rhPiu3PUJHkGnw2xW3nguJxjzm79F9iL39pFvYey0/iq9MEk+1TkOMrLwO7RPbG6NDoTOyNQbGVTLkwAi1r6h5PCMJJt4dT0rkJrh8qWawKPUpVADinwqsNuOHPjhEqzRrBP0v3DtA2sEyysaHOPbEgF3oI1SOUZSt/vHT3QUNsqWo12qnxVCWB52ATYfRs50fCBEfJ2k10kEVzOBXyE9q0gRXkvgjxuY1SO2+qG651exDOvocgZegDepyBLsdUC12hdI9+y92UNZyrLHZijr/I8o23rIZaxDtokwshTXA5lohUDgtgY5RFx1eFNx/2BtPByKCI2W1EdRTKGdi/q9s6tddyXG6P9jS2e37qn8cvdII/BrzlA+KRHC0Yab44lhkhYJLFWO6bmmwXjFRIKU8lZRGagfcQgbpN2IucAEGdWn5GYo2YLUJ23dXeicuhwgP07QxdiGXrO4JofcIiW9UpbSp6y6Sskzpg3Tv6Uv/Q+jSkm5FTLP8/gLNMxed1UpmBR0pM9+HkMCoFZ1+l9QxNBs8Mvyh5bYkTWYcZxQcBJTpfaPJY5tJ1ZUsiYghojwNFb8LEpRA41wbASeDShIfSEBZXZVXv1/tli0qmK4n01PcNdlw0IJkGDxuK+/NwhmSmXJ467dSj+AyfRqkRLtNQuN1DWNNg7LisS9yKzllLQB/jG+xME1PpiIbW7xR6xz0eNG1+pNvTWYIPU8mcP/8IXsCfwhmGxFPCXpcw+hwHVVJxmHdGhG+yum4RUBpDQ=="};
 function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 async function __unlock(pw){
  const enc=new TextEncoder();
@@ -329,9 +334,22 @@ function renderBoard(prevIds){
   const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🌙 保留にする";b2.onclick=()=>boardOp(it.id,"hold");
   ops.appendChild(b1);ops.appendChild(b2);d.appendChild(ops);lt.appendChild(d);
   if(prevIds&&!prevIds.has(it.id)){const r=d.getBoundingClientRect();sparkleAt(r.left+40,r.top+10);}});
- // 展示室
+ // 展示室（間違えて完了→戻せる）
  const ld=document.getElementById("list-done");ld.innerHTML=dones.length?"":'<div class="empty">完了した発掘はここに並びます</div>';
- dones.slice(0,10).forEach(it=>{const d=document.createElement("div");d.className="item doneItem";d.innerHTML=itemHtml(it);ld.appendChild(d);});
+ dones.slice(0,10).forEach(it=>{const d=document.createElement("div");d.className="item doneItem";d.innerHTML=itemHtml(it);
+  const ops=document.createElement("div");ops.className="ops";
+  const b=document.createElement("button");b.className="opbtn";b.textContent="↩️ 発掘中に戻す";b.onclick=()=>boardOp(it.id,"reopen");
+  ops.appendChild(b);d.appendChild(ops);ld.appendChild(d);});
+ // 原石箱（アイデア）
+ const li=document.getElementById("list-idea");
+ const ideas=boardCache.filter(x=>x.type==="idea"&&x.status==="open");
+ li.innerHTML=ideas.length?"":'<div class="empty">まだ原石はありません。Slackでのアイデア投稿も毎晩ここに集まります</div>';
+ ideas.forEach(it=>{const d=document.createElement("div");d.className="spec";d.style.background="linear-gradient(#fff,#F3E9FF)";
+  d.innerHTML='<div class="t">💡 '+esc(it.title)+'</div><div class="m">'+esc((it.note||"")+"　"+(it.at||""))+'</div>';
+  const ops=document.createElement("div");ops.className="ops";
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="⛏️ タスクにする";b1.onclick=()=>boardOp(it.id,"restore");
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🌙 保留";b2.onclick=()=>boardOp(it.id,"hold");
+  ops.appendChild(b1);ops.appendChild(b2);d.appendChild(ops);li.appendChild(d);});
  // 標本棚
  const lc=document.getElementById("list-decision");lc.innerHTML=decisions.length?"":'<div class="empty">まだ標本はありません</div>';
  decisions.forEach(it=>{const d=document.createElement("div");d.className="spec";d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc((it.note||"")+"　"+(it.at||""))+'</div>';lc.appendChild(d);});
