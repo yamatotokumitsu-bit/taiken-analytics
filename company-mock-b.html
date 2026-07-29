@@ -1,0 +1,865 @@
+<meta name="robots" content="noindex,nofollow">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>会社全体PMボード（B案）｜運行司令室 — 東京山側DMC</title>
+<style>
+/* =========================================================
+   RESET / BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #eef0f2;
+  color: #111;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; }
+a { color: #1565c0; }
+:focus-visible { outline: 3px solid #1565c0; outline-offset: 2px; }
+.wrap { max-width: 1400px; margin: 0 auto; padding: 16px; }
+@media (min-width: 1024px) { .wrap { padding: 24px; } }
+@media (min-width: 1440px) { .wrap { padding: 32px; } }
+
+.section-title {
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 900;
+  letter-spacing: .03em;
+  margin: 0 0 12px;
+  border-left: 8px solid #111;
+  padding-left: 10px;
+}
+
+/* =========================================================
+   HERO — 発車標（駅の発車案内板）
+   ========================================================= */
+.hero {
+  background: #fff;
+  border: 6px solid #111;
+  border-radius: 6px;
+  padding: clamp(14px, 4vw, 30px);
+  box-shadow: 8px 8px 0 #111;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .05em;
+  color: #333;
+}
+.hero-brand { text-transform: uppercase; }
+.hero-date {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: #111;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-weight: 800;
+}
+.hero-lines {
+  display: flex;
+  height: 8px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 2px solid #111;
+  margin: 12px 0 18px;
+}
+.hero-line-seg { flex: 1; }
+.hero-title {
+  font-size: clamp(26px, 5vw, 42px);
+  font-weight: 900;
+  letter-spacing: .02em;
+  margin: 0;
+}
+.hero-title-sub {
+  display: block;
+  font-size: clamp(13px, 2vw, 16px);
+  font-weight: 700;
+  color: #555;
+  margin-top: 4px;
+}
+.hero-sub {
+  font-size: clamp(11px, 2vw, 13px);
+  font-weight: 800;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  margin: 4px 0 0;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(8px, 2vw, 18px);
+  margin-top: 20px;
+}
+.stat-panel {
+  background: #fff;
+  border: 4px solid #111;
+  border-top: 7px solid var(--accent, #111);
+  border-radius: 4px;
+  padding: 14px 8px;
+  text-align: center;
+}
+.stat-decision { --accent: #c9a227; }
+.stat-task { --accent: #37474f; }
+.stat-idea { --accent: #00838f; }
+.stat-num {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: clamp(34px, 8vw, 60px);
+  font-weight: 900;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+}
+.stat-num.flap-tick { animation: flapTick .09s linear; }
+@keyframes flapTick {
+  0% { transform: rotateX(0deg); opacity: 1; }
+  45% { transform: rotateX(85deg); opacity: .5; }
+  55% { transform: rotateX(85deg); opacity: .5; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+.stat-label {
+  margin-top: 8px;
+  font-size: clamp(12px, 2vw, 14px);
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+@media (max-width: 480px) {
+  .stat-row { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .stat-panel { padding: 10px 4px; }
+}
+
+/* =========================================================
+   MINI ROUTE MAP（遊び要素：クリックで各路線へジャンプ）
+   ========================================================= */
+.minimap {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 6px;
+  margin-bottom: 22px;
+  border-top: 3px solid #111;
+  border-bottom: 3px solid #111;
+  background: #fff;
+}
+.minimap::-webkit-scrollbar { height: 6px; }
+.minimap::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+.minimap-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 3px solid var(--line, #111);
+  background: #fff;
+  color: #111;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.minimap-item .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line, #111);
+  transition: background .15s;
+}
+.minimap-item:hover, .minimap-item:focus-visible {
+  background: var(--line, #111);
+  color: #fff;
+}
+.minimap-item:hover .dot, .minimap-item:focus-visible .dot { background: #fff; }
+
+/* =========================================================
+   SOURCE STATUS CHIPS（情報源ステータス）
+   ========================================================= */
+.sources { margin-bottom: 30px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 3px solid #111;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.chip-sep { color: #999; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; margin-left: 2px; }
+.status-dot.on { background: #2e7d32; box-shadow: 0 0 0 3px rgba(46,125,50,.15); }
+.status-dot.prep { background: #ef6c00; box-shadow: 0 0 0 3px rgba(239,108,0,.15); }
+
+/* =========================================================
+   BOARD — 部署別「路線」区画
+   ========================================================= */
+.board { display: flex; flex-direction: column; gap: 28px; margin-bottom: 36px; }
+.line-section {
+  border: 3px solid #111;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  scroll-margin-top: 14px;
+  box-shadow: 6px 6px 0 rgba(17,17,17,.12);
+}
+.line-section.flash { animation: flashLine 1s ease; }
+@keyframes flashLine {
+  0% { box-shadow: 0 0 0 0 var(--line, #111), 6px 6px 0 rgba(17,17,17,.12); }
+  30% { box-shadow: 0 0 0 8px var(--line, #111), 6px 6px 0 rgba(17,17,17,.12); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0), 6px 6px 0 rgba(17,17,17,.12); }
+}
+.line-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--line, #333);
+  color: #fff;
+  border-bottom: 3px solid #111;
+  flex-wrap: wrap;
+}
+.line-badge {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--line, #333);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 16px;
+  border: 3px solid #111;
+}
+.line-track {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 900;
+  font-size: 12px;
+  background: rgba(0,0,0,.35);
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: .04em;
+}
+.line-name { font-size: clamp(17px, 3vw, 21px); font-weight: 900; letter-spacing: .02em; }
+.line-count {
+  margin-left: auto;
+  font-weight: 800;
+  font-size: 12px;
+  background: rgba(255,255,255,.28);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+@media (max-width: 480px) {
+  .line-count { margin-left: 0; width: 100%; }
+}
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  padding: 16px;
+}
+@media (min-width: 1024px) {
+  .board-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+}
+.empty-msg { padding: 4px 16px 16px; color: #777; font-weight: 700; font-size: 13px; }
+
+/* =========================================================
+   CARD — 行先札
+   ========================================================= */
+.card {
+  border: 3px solid #111;
+  border-top: 8px solid var(--line, #111);
+  border-radius: 6px;
+  background: #fff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  box-shadow: 4px 4px 0 rgba(17,17,17,.15);
+  cursor: pointer;
+}
+.card.is-departed { opacity: .5; }
+.card.is-departed .card-title { text-decoration: line-through; }
+.card.in-siding { border-style: dashed; background: #fafafa; }
+.card-top { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  white-space: nowrap;
+}
+.sample-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border: 1px solid #c9a227;
+  color: #a9821b;
+  border-radius: 4px;
+}
+.dept-tag {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+  background: var(--line, #999);
+}
+.card-title { font-weight: 800; font-size: 15px; line-height: 1.4; }
+.card-meta { font-size: 12px; color: #444; display: flex; gap: 10px; flex-wrap: wrap; }
+.src-badge { font-size: 12px; font-weight: 700; display: inline-flex; gap: 4px; align-items: center; color: #333; }
+.card-note {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .25s ease, opacity .2s ease, padding .25s ease;
+  font-size: 13px;
+  color: #333;
+  background: #f4f5f7;
+  border-radius: 4px;
+}
+.card.open .card-note { max-height: 260px; opacity: 1; padding: 8px; }
+.card-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1565c0;
+  text-decoration: underline;
+  width: fit-content;
+}
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed #ccc;
+}
+.card-actions button {
+  flex: 1;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 7px 6px;
+  border-radius: 4px;
+  border: 2px solid #111;
+  background: #fff;
+  cursor: pointer;
+}
+.card-actions button:nth-child(2) { border-style: dashed; }
+.card-actions button:hover { background: #111; color: #fff; }
+.card-actions button:disabled { opacity: .4; cursor: default; background: #eee; color: #888; border-color: #ccc; }
+.stamp {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-weight: 900;
+  font-size: 11px;
+  color: #c62828;
+  border: 2px solid #c62828;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transform: rotate(-8deg);
+  opacity: 0;
+  transition: opacity .2s;
+  background: #fff;
+}
+.card.is-departed .stamp { opacity: 1; }
+
+/* =========================================================
+   SIDING — 保留の棚（留置線）
+   ========================================================= */
+.siding {
+  border: 3px dashed #111;
+  border-radius: 6px;
+  padding: 16px;
+  background: #e9e9ea;
+  margin-bottom: 32px;
+}
+.siding-desc { font-size: 13px; color: #555; margin: 0 0 12px; }
+.siding-grid.board-grid { padding: 0; }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer { text-align: center; padding: 20px 0 40px; color: #555; font-size: 13px; }
+.footer strong { color: #111; }
+.footer .note { margin-top: 4px; }
+
+/* =========================================================
+   TOAST（発車ベル通知）
+   ========================================================= */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%) translateY(20px);
+  background: #111;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  z-index: 50;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,.3);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero" id="hero">
+  <div class="hero-topbar">
+    <span class="hero-brand">東京山側DMC</span>
+    <span class="hero-date" id="heroDate">本日 ----------</span>
+  </div>
+  <div class="hero-lines" id="heroLines"></div>
+  <h1 class="hero-title">運行司令室
+    <span class="hero-title-sub">会社全体PMボード（B案）— 7路線 統合運行状況</span>
+  </h1>
+  <p class="hero-sub">Daily Departure Summary</p>
+  <div class="stat-row">
+    <div class="stat-panel stat-decision">
+      <div class="stat-num" id="statDecision">00</div>
+      <div class="stat-label">💎 決定</div>
+    </div>
+    <div class="stat-panel stat-task">
+      <div class="stat-num" id="statTask">00</div>
+      <div class="stat-label">⛏️ 宿題</div>
+    </div>
+    <div class="stat-panel stat-idea">
+      <div class="stat-num" id="statIdea">00</div>
+      <div class="stat-label">💡 アイデア</div>
+    </div>
+  </div>
+</header>
+
+<nav class="minimap" id="minimap" aria-label="路線図ミニマップ（クリックで各部署の路線へジャンプ）"></nav>
+
+<section class="sources" aria-labelledby="sourcesTitle">
+  <h2 class="section-title" id="sourcesTitle">情報源ステータス</h2>
+  <div class="chip-row" id="sourceChips"></div>
+</section>
+
+<main class="board" id="board" aria-label="部署別PMボード（路線別掲示）"></main>
+
+<section class="siding" id="siding" aria-labelledby="sidingTitle">
+  <h2 class="section-title" id="sidingTitle">🌙 保留の棚（留置線）</h2>
+  <p class="siding-desc">本線を離れて留置中の案件です。カードの「↩️ 本線へ戻す」で復帰できます（モック動作・保存はされません）。</p>
+  <div class="board-grid siding-grid" id="sidingGrid"></div>
+  <p class="empty-msg" id="sidingEmpty" hidden>留置中の案件はありません。</p>
+</section>
+
+<footer class="footer">
+  <p>更新日時: <strong id="updatedAt">----------</strong></p>
+  <p class="note">🌙 毎晩3:00自動更新（モック） — 実データ接続は本実装で行います</p>
+</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div id="__gate" style="position:fixed;inset:0;z-index:9999;background:#f9f8f4;color:#191713;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,'Hiragino Sans',sans-serif">
+ <form id="__gform" style="background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:30px 34px;max-width:380px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.15)">
+  <div style="font-size:12px;letter-spacing:.16em;color:#8a6d1f;font-weight:700">TOKYO YAMAGAWA DMC</div>
+  <h1 style="font-size:20px;margin:6px 0 4px;font-family:'Hiragino Mincho ProN',serif">体験販売 分析スタジオ</h1>
+  <p style="font-size:12.5px;color:#666;margin:0 0 16px;line-height:1.7">社内限定の資料です。合言葉を入力してください。</p>
+  <input id="__pw" type="password" placeholder="合言葉" autocomplete="off" autofocus style="width:100%;padding:11px 13px;font-size:15px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box">
+  <button type="submit" style="width:100%;margin-top:12px;padding:11px;font-size:14px;font-weight:700;border:none;border-radius:8px;background:#233d33;color:#fff;cursor:pointer">ひらく</button>
+  <p id="__err" style="display:none;font-size:12px;color:#b91c1c;margin:10px 0 0">合言葉がちがうようです。もう一度お試しください。</p>
+ </form>
+</div>
+<script>
+let D=null;
+
+const CIPHER={"s":"SZQ05QIQyjgohdjdHllE8w==","i":"tp1rm4CA4rxrji+3","d":"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"};
+function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+async function __unlock(pw){
+ const enc=new TextEncoder();
+ const km=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+ const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:__b64(CIPHER.s),iterations:100000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
+ const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:__b64(CIPHER.i)},key,__b64(CIPHER.d));
+ return JSON.parse(new TextDecoder().decode(plain));
+}
+document.getElementById('__gform').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=e.target.querySelector('button');btn.textContent='ひらいています…';
+ const __pwval=document.getElementById('__pw').value.trim();
+ try{ D=await __unlock(__pwval);
+  try{ const __hb=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(__pwval+':bunseki-miyairi-v1'));
+   window.__bmAuth=Array.from(new Uint8Array(__hb)).map(b=>b.toString(16).padStart(2,'0')).join(''); }catch(_){}
+  const g=document.getElementById('__gate'); if(g) g.remove(); __boot();
+ }catch(_){ document.getElementById('__err').style.display='block';
+  btn.textContent='ひらく';
+  document.getElementById('__pw').value='';document.getElementById('__pw').focus(); }
+});
+function __boot(){
+
+
+/* ---------- メタ情報テーブル ---------- */
+var TYPE_META = {
+  decision: { icon: '💎', label: '決定' },
+  task:     { icon: '⛏️', label: '宿題' },
+  idea:     { icon: '💡', label: 'アイデア' },
+  hold:     { icon: '🌙', label: '保留' }
+};
+var SRC_META = {
+  slack: { icon: '💬', label: 'Slack' },
+  meet:  { icon: '🎥', label: 'Meet' },
+  plaud: { icon: '🎙️', label: 'PLAUD' },
+  zoom:  { icon: '📹', label: 'Zoom' },
+  line:  { icon: '💚', label: 'LINE' },
+  fb:    { icon: '📘', label: 'Facebook' }
+};
+var LINE_COLOR = {
+  '経営': '#d32f2f',
+  '講座': '#1565c0',
+  '体験': '#2e7d32',
+  '化石塾': '#6d4c41',
+  'コンサル': '#6a1b9a',
+  'AI基盤': '#e65100',
+  'その他': '#616161'
+};
+var LINE_MARK = {
+  '経営': '経',
+  '講座': '講',
+  '体験': '体',
+  '化石塾': '化',
+  'コンサル': 'コ',
+  'AI基盤': 'AI',
+  'その他': '他'
+};
+
+/* ---------- 小さなDOMヘルパー ---------- */
+function el(tag, cls, html) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+/* ---------- ヒーロー（発車標） ---------- */
+function renderHero() {
+  document.getElementById('heroDate').textContent = '本日 ' + D.updated;
+  document.getElementById('updatedAt').textContent = D.updated;
+
+  var linesWrap = document.getElementById('heroLines');
+  D.depts.forEach(function (dept) {
+    var seg = el('span', 'hero-line-seg');
+    seg.style.background = LINE_COLOR[dept] || '#999';
+    seg.title = dept;
+    linesWrap.appendChild(seg);
+  });
+
+  var counts = { decision: 0, task: 0, idea: 0, hold: 0 };
+  D.items.forEach(function (it) { if (counts[it.type] !== undefined) counts[it.type]++; });
+
+  splitFlap(document.getElementById('statDecision'), counts.decision);
+  splitFlap(document.getElementById('statTask'), counts.task);
+  splitFlap(document.getElementById('statIdea'), counts.idea);
+}
+
+/* split-flap（パタパタ）風カウントアップ */
+function splitFlap(target, finalValue) {
+  var finalStr = String(finalValue).padStart(2, '0');
+  var tick = 0;
+  var maxTicks = 10;
+  var timer = setInterval(function () {
+    tick++;
+    if (tick < maxTicks) {
+      target.textContent = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+    } else {
+      target.textContent = finalStr;
+      clearInterval(timer);
+    }
+    target.classList.remove('flap-tick');
+    void target.offsetWidth;
+    target.classList.add('flap-tick');
+  }, 70);
+}
+
+/* ---------- ミニ路線図（遊び要素：クリックでジャンプ） ---------- */
+function renderMinimap() {
+  var wrap = document.getElementById('minimap');
+  D.depts.forEach(function (dept, idx) {
+    var btn = el('button', 'minimap-item');
+    btn.type = 'button';
+    btn.style.setProperty('--line', LINE_COLOR[dept] || '#999');
+    btn.innerHTML = '<span class="dot"></span><span>' + (idx + 1) + '番線 ' + escapeHtml(dept) + '</span>';
+    btn.addEventListener('click', function () { jumpToLine(idx); });
+    wrap.appendChild(btn);
+  });
+}
+function jumpToLine(idx) {
+  var section = document.getElementById('line-' + idx);
+  if (!section) return;
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  section.classList.remove('flash');
+  void section.offsetWidth;
+  section.classList.add('flash');
+}
+
+/* ---------- 情報源ステータスチップ ---------- */
+function renderSources() {
+  var wrap = document.getElementById('sourceChips');
+  D.sources.forEach(function (pair) {
+    var key = pair[0], status = pair[1];
+    var meta = SRC_META[key] || { icon: '📡', label: key };
+    var ready = (status === '稼働中' || status === '接続済');
+    var chip = el('div', 'chip');
+    chip.innerHTML =
+      '<span class="chip-icon">' + meta.icon + '</span>' +
+      '<span class="chip-label">' + escapeHtml(meta.label) + '</span>' +
+      '<span class="chip-sep">：</span>' +
+      '<span class="chip-status">' + escapeHtml(status) + '</span>' +
+      '<span class="status-dot ' + (ready ? 'on' : 'prep') + '"></span>';
+    wrap.appendChild(chip);
+  });
+}
+
+/* ---------- PMボード本体（部署＝路線） ---------- */
+function renderBoard() {
+  var board = document.getElementById('board');
+  D.depts.forEach(function (dept, idx) {
+    var color = LINE_COLOR[dept] || '#999';
+    var section = el('section', 'line-section');
+    section.id = 'line-' + idx;
+    section.style.setProperty('--line', color);
+
+    var items = D.items.filter(function (it) { return it.dept === dept && it.type !== 'hold'; });
+
+    var header = el('div', 'line-header');
+    header.innerHTML =
+      '<span class="line-badge">' + escapeHtml(LINE_MARK[dept] || dept.charAt(0)) + '</span>' +
+      '<span class="line-track">' + (idx + 1) + '番線</span>' +
+      '<span class="line-name">' + escapeHtml(dept) + '</span>' +
+      '<span class="line-count">掲示 ' + items.length + '件</span>';
+    section.appendChild(header);
+
+    var grid = el('div', 'board-grid');
+    grid.id = 'grid-' + idx;
+    items.forEach(function (it) { grid.appendChild(createCard(it, idx)); });
+    section.appendChild(grid);
+
+    var empty = el('p', 'empty-msg');
+    empty.id = 'empty-' + idx;
+    empty.textContent = '現在、本線に掲示中の案件はありません（保留中の案件は留置線へ）。';
+    empty.hidden = items.length > 0;
+    section.appendChild(empty);
+
+    board.appendChild(section);
+  });
+}
+
+/* ---------- 保留の棚（留置線） ---------- */
+function renderSiding() {
+  var grid = document.getElementById('sidingGrid');
+  var holds = D.items.filter(function (it) { return it.type === 'hold'; });
+  holds.forEach(function (it) {
+    var idx = D.depts.indexOf(it.dept);
+    var card = createCard(it, idx);
+    card.classList.add('in-siding');
+    addDeptTag(card, it.dept);
+    grid.appendChild(card);
+  });
+  document.getElementById('sidingEmpty').hidden = holds.length > 0;
+}
+
+/* ---------- カード（行先札） ---------- */
+var cardSeq = 0;
+function createCard(item, deptIdx) {
+  var meta = TYPE_META[item.type] || { icon: '📌', label: item.type };
+  var srcMeta = SRC_META[item.src] || { icon: '📡', label: item.src || '' };
+  var color = LINE_COLOR[item.dept] || '#999';
+  var cardId = 'card-' + (cardSeq++);
+
+  var card = el('article', 'card');
+  card.id = cardId;
+  card.dataset.deptIdx = deptIdx;
+  card.dataset.title = item.title;
+  card.style.setProperty('--line', color);
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-expanded', 'false');
+
+  var top = el('div', 'card-top');
+  top.innerHTML =
+    '<span class="type-chip">' + meta.icon + ' ' + escapeHtml(meta.label) + '</span>' +
+    (item.sample ? '<span class="sample-badge">サンプル</span>' : '');
+  card.appendChild(top);
+
+  var title = el('div', 'card-title');
+  title.textContent = item.title;
+  card.appendChild(title);
+
+  var metaRow = el('div', 'card-meta');
+  var metaHtml = '';
+  if (item.who) metaHtml += '<span>👤 ' + escapeHtml(item.who) + '</span>';
+  if (item.due) metaHtml += '<span>⏰ 期限 ' + escapeHtml(item.due) + '</span>';
+  metaHtml += '<span class="src-badge">' + srcMeta.icon + ' ' + escapeHtml(srcMeta.label) + '</span>';
+  metaRow.innerHTML = metaHtml;
+  card.appendChild(metaRow);
+
+  var note = el('p', 'card-note');
+  note.textContent = item.note || '';
+  card.appendChild(note);
+
+  if (item.url) {
+    var link = document.createElement('a');
+    link.className = 'card-link';
+    link.href = item.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = '原文を見る ↗';
+    link.addEventListener('click', function (e) { e.stopPropagation(); });
+    card.appendChild(link);
+  }
+
+  var stamp = el('span', 'stamp');
+  stamp.textContent = '発車済み';
+  card.appendChild(stamp);
+
+  var actions = el('div', 'card-actions');
+  var departBtn = el('button', 'btn-depart', '✅ 完了');
+  departBtn.type = 'button';
+  departBtn.addEventListener('click', function (e) { e.stopPropagation(); departCard(card); });
+  actions.appendChild(departBtn);
+
+  if (item.type === 'hold') {
+    var returnBtn = el('button', 'btn-return', '↩️ 本線へ戻す');
+    returnBtn.type = 'button';
+    returnBtn.addEventListener('click', function (e) { e.stopPropagation(); returnCard(card); });
+    actions.appendChild(returnBtn);
+  } else {
+    var holdBtn = el('button', 'btn-hold', '🌙 保留');
+    holdBtn.type = 'button';
+    holdBtn.addEventListener('click', function (e) { e.stopPropagation(); holdCard(card); });
+    actions.appendChild(holdBtn);
+  }
+  card.appendChild(actions);
+
+  card.addEventListener('click', function () { toggleNote(card); });
+  card.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleNote(card); }
+  });
+
+  return card;
+}
+
+function toggleNote(card) {
+  var open = card.classList.toggle('open');
+  card.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function departCard(card) {
+  if (card.classList.contains('is-departed')) return;
+  card.classList.add('is-departed');
+  card.querySelectorAll('.card-actions button').forEach(function (b) { b.disabled = true; });
+  toast((card.dataset.title || '案件') + ' を発車済みにしました');
+}
+
+function holdCard(card) {
+  var deptIdx = card.dataset.deptIdx;
+  var dept = D.depts[deptIdx];
+  card.classList.add('in-siding');
+  addDeptTag(card, dept);
+  swapButton(card, 'btn-hold', '↩️ 本線へ戻す', 'btn-return', returnCard);
+  document.getElementById('sidingGrid').appendChild(card);
+  document.getElementById('sidingEmpty').hidden = true;
+  refreshEmptyState(deptIdx);
+  toast((card.dataset.title || '案件') + ' を留置線へ移動しました');
+}
+
+function returnCard(card) {
+  var deptIdx = card.dataset.deptIdx;
+  card.classList.remove('in-siding');
+  removeDeptTag(card);
+  swapButton(card, 'btn-return', '🌙 保留', 'btn-hold', holdCard);
+  document.getElementById('grid-' + deptIdx).appendChild(card);
+  refreshEmptyState(deptIdx);
+  var remain = document.querySelectorAll('#sidingGrid .card').length;
+  document.getElementById('sidingEmpty').hidden = remain > 0;
+  toast((card.dataset.title || '案件') + ' を本線へ戻しました');
+}
+
+function swapButton(card, oldCls, label, newCls, handler) {
+  var btn = card.querySelector('.' + oldCls);
+  if (!btn) return;
+  var clone = btn.cloneNode(true);
+  clone.className = newCls;
+  clone.textContent = label;
+  btn.parentNode.replaceChild(clone, btn);
+  clone.addEventListener('click', function (e) { e.stopPropagation(); handler(card); });
+}
+
+function addDeptTag(card, dept) {
+  if (card.querySelector('.dept-tag')) return;
+  var tag = el('span', 'dept-tag');
+  tag.textContent = dept;
+  tag.style.setProperty('--line', LINE_COLOR[dept] || '#999');
+  card.querySelector('.card-top').appendChild(tag);
+}
+function removeDeptTag(card) {
+  var tag = card.querySelector('.dept-tag');
+  if (tag) tag.remove();
+}
+function refreshEmptyState(deptIdx) {
+  var grid = document.getElementById('grid-' + deptIdx);
+  var empty = document.getElementById('empty-' + deptIdx);
+  if (!grid || !empty) return;
+  empty.hidden = grid.children.length > 0;
+}
+
+/* ---------- トースト（発車ベル通知） ---------- */
+var toastTimer = null;
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = '🔔 ' + msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+}
+
+/* ---------- 初期化 ---------- */
+function init() {
+  renderHero();
+  renderMinimap();
+  renderSources();
+  renderBoard();
+  renderSiding();
+}
+document.addEventListener('DOMContentLoaded', init);
+
+}
+</script>
+</body>
+</html>
