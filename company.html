@@ -1,0 +1,966 @@
+<meta name="robots" content="noindex,nofollow">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>会社全体PMボード｜運行司令室 — 東京山側DMC</title>
+<style>
+/* =========================================================
+   RESET / BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #eef0f2;
+  color: #111;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; }
+a { color: #1565c0; }
+:focus-visible { outline: 3px solid #1565c0; outline-offset: 2px; }
+.wrap { max-width: 1400px; margin: 0 auto; padding: 16px; }
+@media (min-width: 1024px) { .wrap { padding: 24px; } }
+@media (min-width: 1440px) { .wrap { padding: 32px; } }
+
+.section-title {
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 900;
+  letter-spacing: .03em;
+  margin: 0 0 12px;
+  border-left: 8px solid #111;
+  padding-left: 10px;
+}
+
+/* =========================================================
+   HERO — 発車標（駅の発車案内板）
+   ========================================================= */
+.hero {
+  background: #fff;
+  border: 6px solid #111;
+  border-radius: 6px;
+  padding: clamp(14px, 4vw, 30px);
+  box-shadow: 8px 8px 0 #111;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .05em;
+  color: #333;
+}
+.hero-brand { text-transform: uppercase; }
+.hero-right { display: flex; align-items: center; gap: 8px; }
+.hero-date {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  background: #111;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-weight: 800;
+}
+.reload-btn {
+  border: 2px solid #111;
+  background: #fff;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+.reload-btn:hover { background: #111; color: #fff; }
+.hero-lines {
+  display: flex;
+  height: 8px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 2px solid #111;
+  margin: 12px 0 18px;
+}
+.hero-line-seg { flex: 1; }
+.hero-title {
+  font-size: clamp(26px, 5vw, 42px);
+  font-weight: 900;
+  letter-spacing: .02em;
+  margin: 0;
+}
+.hero-title-sub {
+  display: block;
+  font-size: clamp(13px, 2vw, 16px);
+  font-weight: 700;
+  color: #555;
+  margin-top: 4px;
+}
+.hero-sub {
+  font-size: clamp(11px, 2vw, 13px);
+  font-weight: 800;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  margin: 4px 0 0;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(8px, 2vw, 18px);
+  margin-top: 20px;
+}
+.stat-panel {
+  background: #fff;
+  border: 4px solid #111;
+  border-top: 7px solid var(--accent, #111);
+  border-radius: 4px;
+  padding: 14px 8px;
+  text-align: center;
+}
+.stat-decision { --accent: #c9a227; }
+.stat-task { --accent: #37474f; }
+.stat-idea { --accent: #00838f; }
+.stat-num {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: clamp(34px, 8vw, 60px);
+  font-weight: 900;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+}
+.stat-num.flap-tick { animation: flapTick .09s linear; }
+@keyframes flapTick {
+  0% { transform: rotateX(0deg); opacity: 1; }
+  45% { transform: rotateX(85deg); opacity: .5; }
+  55% { transform: rotateX(85deg); opacity: .5; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+.stat-label {
+  margin-top: 8px;
+  font-size: clamp(12px, 2vw, 14px);
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+@media (max-width: 480px) {
+  .stat-row { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .stat-panel { padding: 10px 4px; }
+}
+.loading-banner, .error-banner {
+  margin-top: 16px;
+  border: 3px solid #111;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-weight: 800;
+  font-size: 13px;
+  background: #fffbe6;
+}
+.error-banner { background: #fdecea; color: #b71c1c; }
+
+/* =========================================================
+   MINI ROUTE MAP（クリックで各路線へジャンプ）
+   ========================================================= */
+.minimap {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 6px;
+  margin-bottom: 22px;
+  border-top: 3px solid #111;
+  border-bottom: 3px solid #111;
+  background: #fff;
+}
+.minimap::-webkit-scrollbar { height: 6px; }
+.minimap::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+.minimap-item {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 3px solid var(--line, #111);
+  background: #fff;
+  color: #111;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.minimap-item .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line, #111);
+  transition: background .15s;
+}
+.minimap-item:hover, .minimap-item:focus-visible {
+  background: var(--line, #111);
+  color: #fff;
+}
+.minimap-item:hover .dot, .minimap-item:focus-visible .dot { background: #fff; }
+
+/* =========================================================
+   SOURCE STATUS CHIPS（情報源ステータス）
+   ========================================================= */
+.sources { margin-bottom: 30px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 3px solid #111;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.chip-sep { color: #999; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; margin-left: 2px; }
+.status-dot.on { background: #2e7d32; box-shadow: 0 0 0 3px rgba(46,125,50,.15); }
+.status-dot.prep { background: #ef6c00; box-shadow: 0 0 0 3px rgba(239,108,0,.15); }
+
+/* =========================================================
+   BOARD — 部署別「路線」区画
+   ========================================================= */
+.board { display: flex; flex-direction: column; gap: 28px; margin-bottom: 36px; }
+.line-section {
+  border: 3px solid #111;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  scroll-margin-top: 14px;
+  box-shadow: 6px 6px 0 rgba(17,17,17,.12);
+}
+.line-section.flash { animation: flashLine 1s ease; }
+@keyframes flashLine {
+  0% { box-shadow: 0 0 0 0 var(--line, #111), 6px 6px 0 rgba(17,17,17,.12); }
+  30% { box-shadow: 0 0 0 8px var(--line, #111), 6px 6px 0 rgba(17,17,17,.12); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0), 6px 6px 0 rgba(17,17,17,.12); }
+}
+.line-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--line, #333);
+  color: #fff;
+  border-bottom: 3px solid #111;
+  flex-wrap: wrap;
+}
+.line-badge {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--line, #333);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 16px;
+  border: 3px solid #111;
+}
+.line-track {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 900;
+  font-size: 12px;
+  background: rgba(0,0,0,.35);
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: .04em;
+}
+.line-name { font-size: clamp(17px, 3vw, 21px); font-weight: 900; letter-spacing: .02em; }
+.line-count {
+  margin-left: auto;
+  font-weight: 800;
+  font-size: 12px;
+  background: rgba(255,255,255,.28);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+@media (max-width: 480px) {
+  .line-count { margin-left: 0; width: 100%; }
+}
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  padding: 16px;
+}
+@media (min-width: 1024px) {
+  .board-grid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+}
+.empty-msg { padding: 4px 16px 16px; color: #777; font-weight: 700; font-size: 13px; }
+
+/* =========================================================
+   CARD — 行先札
+   ========================================================= */
+.card {
+  border: 3px solid #111;
+  border-top: 8px solid var(--line, #111);
+  border-radius: 6px;
+  background: #fff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  box-shadow: 4px 4px 0 rgba(17,17,17,.15);
+  cursor: pointer;
+}
+.card.is-departed { opacity: .55; }
+.card.is-departed .card-title { text-decoration: line-through; }
+.card.in-siding { border-style: dashed; background: #fafafa; }
+.card-top { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.type-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  white-space: nowrap;
+}
+.date-chip { font-size: 10px; font-weight: 800; color: #888; margin-left: auto; }
+.dept-tag {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #fff;
+  background: var(--line, #999);
+}
+.card-title { font-weight: 800; font-size: 15px; line-height: 1.4; }
+.card-meta { font-size: 12px; color: #444; display: flex; gap: 10px; flex-wrap: wrap; }
+.src-badge { font-size: 12px; font-weight: 700; display: inline-flex; gap: 4px; align-items: center; color: #333; }
+.card-note {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .25s ease, opacity .2s ease, padding .25s ease;
+  font-size: 13px;
+  color: #333;
+  background: #f4f5f7;
+  border-radius: 4px;
+}
+.card.open .card-note { max-height: 300px; opacity: 1; padding: 8px; }
+.card-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1565c0;
+  text-decoration: underline;
+  width: fit-content;
+}
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed #ccc;
+}
+.card-actions button {
+  flex: 1;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 7px 6px;
+  border-radius: 4px;
+  border: 2px solid #111;
+  background: #fff;
+  cursor: pointer;
+}
+.card-actions button.btn-del { flex: 0 0 auto; border-color: #c62828; color: #c62828; }
+.card-actions button.btn-del:hover { background: #c62828; color: #fff; }
+.card-actions button:hover { background: #111; color: #fff; }
+.card-actions button:disabled { opacity: .4; cursor: default; background: #eee; color: #888; border-color: #ccc; }
+.stamp {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-weight: 900;
+  font-size: 11px;
+  color: #c62828;
+  border: 2px solid #c62828;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transform: rotate(-8deg);
+  opacity: 0;
+  transition: opacity .2s;
+  background: #fff;
+}
+.card.is-departed .stamp { opacity: 1; }
+
+/* =========================================================
+   SIDING — 保留の棚（留置線）／ DEPARTED — 発車済みの棚
+   ========================================================= */
+.siding {
+  border: 3px dashed #111;
+  border-radius: 6px;
+  padding: 16px;
+  background: #e9e9ea;
+  margin-bottom: 32px;
+}
+.siding-desc { font-size: 13px; color: #555; margin: 0 0 12px; }
+.siding-grid.board-grid { padding: 0; }
+.departed-sec {
+  border: 3px solid #111;
+  border-radius: 6px;
+  background: #f5f2ea;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.departed-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fff;
+  border: none;
+  border-bottom: 3px solid #111;
+  font-weight: 900;
+  font-size: clamp(15px, 3vw, 18px);
+  cursor: pointer;
+  text-align: left;
+}
+.departed-head .cnt { margin-left: auto; font-size: 12px; background: #111; color: #fff; border-radius: 999px; padding: 3px 10px; }
+.departed-body { padding: 16px; display: none; }
+.departed-sec.open .departed-body { display: block; }
+
+/* =========================================================
+   FOOTER / TOAST
+   ========================================================= */
+.footer { text-align: center; padding: 20px 0 40px; color: #555; font-size: 13px; }
+.footer strong { color: #111; }
+.footer .note { margin-top: 4px; }
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%) translateY(20px);
+  background: #111;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  z-index: 50;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,.3);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero" id="hero">
+  <div class="hero-topbar">
+    <span class="hero-brand">東京山側DMC</span>
+    <span class="hero-right">
+      <button type="button" class="reload-btn" id="reloadBtn">🔄 再読込</button>
+      <span class="hero-date" id="heroDate">本日 ----------</span>
+    </span>
+  </div>
+  <div class="hero-lines" id="heroLines"></div>
+  <h1 class="hero-title">運行司令室
+    <span class="hero-title-sub">会社全体PMボード — 7路線 統合運行状況</span>
+  </h1>
+  <p class="hero-sub">Daily Departure Summary</p>
+  <div class="stat-row">
+    <div class="stat-panel stat-decision">
+      <div class="stat-num" id="statDecision">00</div>
+      <div class="stat-label">💎 決定</div>
+    </div>
+    <div class="stat-panel stat-task">
+      <div class="stat-num" id="statTask">00</div>
+      <div class="stat-label">⛏️ 宿題</div>
+    </div>
+    <div class="stat-panel stat-idea">
+      <div class="stat-num" id="statIdea">00</div>
+      <div class="stat-label">💡 アイデア</div>
+    </div>
+  </div>
+  <div class="loading-banner" id="loadingBanner">🚉 ボードのデータを読み込んでいます…</div>
+  <div class="error-banner" id="errorBanner" hidden>⚠️ ボードに接続できませんでした。電波の良い場所で「🔄 再読込」を押してください。</div>
+</header>
+
+<nav class="minimap" id="minimap" aria-label="路線図ミニマップ（クリックで各部署の路線へジャンプ）"></nav>
+
+<section class="sources" aria-labelledby="sourcesTitle">
+  <h2 class="section-title" id="sourcesTitle">情報源ステータス</h2>
+  <div class="chip-row" id="sourceChips"></div>
+</section>
+
+<main class="board" id="board" aria-label="部署別PMボード（路線別掲示）"></main>
+
+<section class="siding" id="siding" aria-labelledby="sidingTitle">
+  <h2 class="section-title" id="sidingTitle">🌙 保留の棚（留置線）</h2>
+  <p class="siding-desc">本線を離れて留置中・判断待ちの案件です。「↩️ 本線へ戻す」で復帰できます。</p>
+  <div class="board-grid siding-grid" id="sidingGrid"></div>
+  <p class="empty-msg" id="sidingEmpty" hidden>留置中の案件はありません。</p>
+</section>
+
+<section class="departed-sec" id="departedSec">
+  <button type="button" class="departed-head" id="departedHead">🚉 発車済み（完了した案件）<span class="cnt" id="departedCnt">0件</span></button>
+  <div class="departed-body">
+    <div class="board-grid siding-grid" id="departedGrid"></div>
+    <p class="empty-msg" id="departedEmpty" hidden>発車済みの案件はまだありません。</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>最終更新: <strong id="updatedAt">----------</strong></p>
+  <p class="note">🌙 毎晩 21:00（Slack）と 3:00（全情報源）に自動で吸い上げてこのボードに反映されます</p>
+</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div id="__gate" style="position:fixed;inset:0;z-index:9999;background:#f9f8f4;color:#191713;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,'Hiragino Sans',sans-serif">
+ <form id="__gform" style="background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:14px;padding:30px 34px;max-width:380px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,.15)">
+  <div style="font-size:12px;letter-spacing:.16em;color:#8a6d1f;font-weight:700">TOKYO YAMAGAWA DMC</div>
+  <h1 style="font-size:20px;margin:6px 0 4px;font-family:'Hiragino Mincho ProN',serif">体験販売 分析スタジオ</h1>
+  <p style="font-size:12.5px;color:#666;margin:0 0 16px;line-height:1.7">社内限定の資料です。合言葉を入力してください。</p>
+  <input id="__pw" type="password" placeholder="合言葉" autocomplete="off" autofocus style="width:100%;padding:11px 13px;font-size:15px;border:1px solid #ccc;border-radius:8px;box-sizing:border-box">
+  <button type="submit" style="width:100%;margin-top:12px;padding:11px;font-size:14px;font-weight:700;border:none;border-radius:8px;background:#233d33;color:#fff;cursor:pointer">ひらく</button>
+  <p id="__err" style="display:none;font-size:12px;color:#b91c1c;margin:10px 0 0">合言葉がちがうようです。もう一度お試しください。</p>
+ </form>
+</div>
+<script>
+let D=null;
+
+const CIPHER={"s":"AXcmu1r3r7PwMQVp91eMDg==","i":"olWgYdJtg7RzTy0p","d":"GmTkFT7ZnERCbw5Gc073GtSyzZ7CMzJUvXs00h4x+r22PmwkhMN7ViKI31Zfx8DnkjcYeFGc8YcLe68Wt9LI8s9ZIZ6ieYDFgURQConSIeIE4qcl9U+BhOb4CWz1awHjVtRTDb4d2KdJAhvssKRQhWEV8bjJvuV6NnvkFdgPqjCuxD+XnwPMOzt1QwjdqmHANWiNlOgf21OEuqmGsZaww2SDfkTYKPQtC1Lnx0EP5nx5aVw+1SYx6fffEHr8LE54sWDSAXS8+uvvmmu7uDPxSAP30W1kEYe1A520YyeZkHYMRwuHJjohn4WfyJwCYHSsSELSIUB9i9iuKg0W4LmCRU65OpoW8PLIHOvjnR26WVRwTMajGIaITJDsllElqVxMGY/W105q7wqY99WJNYxf2qXxixfycOyfuzmY6vY7bslUoA=="};
+function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+async function __unlock(pw){
+ const enc=new TextEncoder();
+ const km=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
+ const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:__b64(CIPHER.s),iterations:100000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
+ const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:__b64(CIPHER.i)},key,__b64(CIPHER.d));
+ return JSON.parse(new TextDecoder().decode(plain));
+}
+document.getElementById('__gform').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const btn=e.target.querySelector('button');btn.textContent='ひらいています…';
+ const __pwval=document.getElementById('__pw').value.trim();
+ try{ D=await __unlock(__pwval);
+  try{ const __hb=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(__pwval+':bunseki-miyairi-v1'));
+   window.__bmAuth=Array.from(new Uint8Array(__hb)).map(b=>b.toString(16).padStart(2,'0')).join(''); }catch(_){}
+  const g=document.getElementById('__gate'); if(g) g.remove(); __boot();
+ }catch(_){ document.getElementById('__err').style.display='block';
+  btn.textContent='ひらく';
+  document.getElementById('__pw').value='';document.getElementById('__pw').focus(); }
+});
+function __boot(){
+
+
+/* ---------- メタ情報テーブル ---------- */
+var TYPE_META = {
+  decision: { icon: '💎', label: '決定' },
+  task:     { icon: '⛏️', label: '宿題' },
+  idea:     { icon: '💡', label: 'アイデア' },
+  hold:     { icon: '🌙', label: '保留' }
+};
+var SRC_META = {
+  slack: { icon: '💬', label: 'Slack' },
+  meet:  { icon: '🎥', label: 'Meet' },
+  plaud: { icon: '🎙️', label: 'PLAUD' },
+  zoom:  { icon: '📹', label: 'Zoom' },
+  line:  { icon: '💚', label: 'LINE' },
+  fb:    { icon: '📘', label: 'FB' },
+  etc:   { icon: '📡', label: '収集' }
+};
+var LINE_COLOR = {
+  '経営': '#d32f2f',
+  '講座': '#1565c0',
+  '体験': '#2e7d32',
+  '化石塾': '#6d4c41',
+  'コンサル': '#6a1b9a',
+  'AI基盤': '#e65100',
+  'その他': '#616161'
+};
+var LINE_MARK = {
+  '経営': '経',
+  '講座': '講',
+  '体験': '体',
+  '化石塾': '化',
+  'コンサル': 'コ',
+  'AI基盤': 'AI',
+  'その他': '他'
+};
+
+var ITEMS = [];
+var firstLoad = true;
+
+/* ---------- 小さなDOMヘルパー ---------- */
+function el(tag, cls, html) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+function authHeader() {
+  return { 'Content-Type': 'application/json', 'X-BM-Auth': (window.__bmAuth || '') };
+}
+/* 出典テキストとURLから情報源を推定する */
+function srcOf(item) {
+  var t = (item.note || '') + ' ' + (item.url || '');
+  if (/FB|Facebook|フェイスブック/i.test(t)) return 'fb';
+  if (/PLAUD/i.test(t)) return 'plaud';
+  if (/LINE/i.test(t)) return 'line';
+  if (/zoom|vtt|きいてみよう|やってみよう/i.test(t)) return 'zoom';
+  if (/Meet|パワモ|パワーモーニング|議事録/i.test(t)) return 'meet';
+  if (/出典:#|slack\.com/i.test(t)) return 'slack';
+  if (/docs\.google\.com/i.test(t)) return 'meet';
+  return 'etc';
+}
+function isOpenMain(it) { return it.status === 'open' && it.type !== 'hold'; }
+function isSiding(it)   { return it.status === 'hold' || (it.type === 'hold' && it.status === 'open'); }
+function isDeparted(it) { return it.status === 'done'; }
+
+/* ---------- データ読み込み ---------- */
+async function loadBoard() {
+  var lb = document.getElementById('loadingBanner');
+  var eb = document.getElementById('errorBanner');
+  lb.hidden = false; eb.hidden = true;
+  try {
+    var r = await fetch(D.worker + '/board?user=' + encodeURIComponent(D.user), { headers: authHeader() });
+    if (!r.ok) throw new Error('http ' + r.status);
+    var j = await r.json();
+    ITEMS = (j.items || []).map(function (it) { return it; });
+    lb.hidden = true;
+    renderAll();
+  } catch (e) {
+    lb.hidden = true;
+    eb.hidden = false;
+  }
+}
+async function boardOp(id, op) {
+  try {
+    var r = await fetch(D.worker + '/board-op', {
+      method: 'POST',
+      headers: authHeader(),
+      body: JSON.stringify({ user: D.user, id: id, op: op })
+    });
+    if (!r.ok) throw new Error('http ' + r.status);
+    return true;
+  } catch (e) {
+    toast('⚠️ 保存できませんでした（電波を確認して再読込を）');
+    return false;
+  }
+}
+function findItem(id) {
+  for (var i = 0; i < ITEMS.length; i++) if (ITEMS[i].id === id) return ITEMS[i];
+  return null;
+}
+/* 操作→ローカル状態の更新（サーバーと同じルール） */
+var OP_STATUS = { done: 'done', reopen: 'open', hold: 'hold', restore: 'open', 'delete': 'deleted' };
+async function applyOp(id, op, msg) {
+  var it = findItem(id);
+  if (!it) return;
+  var ok = await boardOp(id, op);
+  if (!ok) return;
+  it.status = OP_STATUS[op] || it.status;
+  renderAll();
+  toast(msg);
+}
+
+/* ---------- ヒーロー（発車標） ---------- */
+function renderHero() {
+  var now = new Date();
+  var ymd = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+  var hm = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('heroDate').textContent = '本日 ' + ymd;
+  var latest = '';
+  ITEMS.forEach(function (it) { if (it.at && it.at > latest) latest = it.at; });
+  document.getElementById('updatedAt').textContent = (latest ? '収集 ' + latest : '') + '（表示 ' + ymd + ' ' + hm + '）';
+
+  var counts = { decision: 0, task: 0, idea: 0 };
+  ITEMS.forEach(function (it) {
+    if (it.status !== 'open' || it.type === 'hold') return;
+    if (counts[it.type] !== undefined) counts[it.type]++;
+  });
+  if (firstLoad) {
+    splitFlap(document.getElementById('statDecision'), counts.decision);
+    splitFlap(document.getElementById('statTask'), counts.task);
+    splitFlap(document.getElementById('statIdea'), counts.idea);
+    firstLoad = false;
+  } else {
+    document.getElementById('statDecision').textContent = String(counts.decision).padStart(2, '0');
+    document.getElementById('statTask').textContent = String(counts.task).padStart(2, '0');
+    document.getElementById('statIdea').textContent = String(counts.idea).padStart(2, '0');
+  }
+}
+function splitFlap(target, finalValue) {
+  var finalStr = String(finalValue).padStart(2, '0');
+  var tick = 0;
+  var maxTicks = 10;
+  var timer = setInterval(function () {
+    tick++;
+    if (tick < maxTicks) {
+      target.textContent = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+    } else {
+      target.textContent = finalStr;
+      clearInterval(timer);
+    }
+    target.classList.remove('flap-tick');
+    void target.offsetWidth;
+    target.classList.add('flap-tick');
+  }, 70);
+}
+
+/* ---------- ミニ路線図 ---------- */
+function renderMinimap() {
+  var wrap = document.getElementById('minimap');
+  wrap.innerHTML = '';
+  D.depts.forEach(function (dept, idx) {
+    var btn = el('button', 'minimap-item');
+    btn.type = 'button';
+    btn.style.setProperty('--line', LINE_COLOR[dept] || '#999');
+    btn.innerHTML = '<span class="dot"></span><span>' + (idx + 1) + '番線 ' + escapeHtml(dept) + '</span>';
+    btn.addEventListener('click', function () { jumpToLine(idx); });
+    wrap.appendChild(btn);
+  });
+}
+function jumpToLine(idx) {
+  var section = document.getElementById('line-' + idx);
+  if (!section) return;
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  section.classList.remove('flash');
+  void section.offsetWidth;
+  section.classList.add('flash');
+}
+
+/* ---------- 情報源ステータスチップ ---------- */
+function renderSources() {
+  var wrap = document.getElementById('sourceChips');
+  wrap.innerHTML = '';
+  D.sources.forEach(function (pair) {
+    var key = pair[0], status = pair[1];
+    var meta = SRC_META[key] || { icon: '📡', label: key };
+    var ready = (status === '稼働中' || status === '接続済' || status === '受付中');
+    var chip = el('div', 'chip');
+    chip.innerHTML =
+      '<span class="chip-icon">' + meta.icon + '</span>' +
+      '<span class="chip-label">' + escapeHtml(meta.label) + '</span>' +
+      '<span class="chip-sep">：</span>' +
+      '<span class="chip-status">' + escapeHtml(status) + '</span>' +
+      '<span class="status-dot ' + (ready ? 'on' : 'prep') + '"></span>';
+    wrap.appendChild(chip);
+  });
+}
+
+/* ---------- PMボード本体（部署＝路線） ---------- */
+function deptIndexOf(dept) {
+  var i = D.depts.indexOf(dept);
+  return i >= 0 ? i : D.depts.indexOf('その他');
+}
+function renderBoard() {
+  var board = document.getElementById('board');
+  board.innerHTML = '';
+  D.depts.forEach(function (dept, idx) {
+    var color = LINE_COLOR[dept] || '#999';
+    var section = el('section', 'line-section');
+    section.id = 'line-' + idx;
+    section.style.setProperty('--line', color);
+
+    var items = ITEMS.filter(function (it) { return isOpenMain(it) && deptIndexOf(it.dept) === idx; });
+
+    var header = el('div', 'line-header');
+    header.innerHTML =
+      '<span class="line-badge">' + escapeHtml(LINE_MARK[dept] || dept.charAt(0)) + '</span>' +
+      '<span class="line-track">' + (idx + 1) + '番線</span>' +
+      '<span class="line-name">' + escapeHtml(dept) + '</span>' +
+      '<span class="line-count">掲示 ' + items.length + '件</span>';
+    section.appendChild(header);
+
+    var grid = el('div', 'board-grid');
+    items.forEach(function (it) { grid.appendChild(createCard(it, 'main')); });
+    section.appendChild(grid);
+
+    if (!items.length) {
+      var empty = el('p', 'empty-msg');
+      empty.textContent = '現在、本線に掲示中の案件はありません。';
+      section.appendChild(empty);
+    }
+    board.appendChild(section);
+  });
+}
+
+/* ---------- 保留の棚（留置線）と発車済みの棚 ---------- */
+function renderSiding() {
+  var grid = document.getElementById('sidingGrid');
+  grid.innerHTML = '';
+  var holds = ITEMS.filter(isSiding);
+  holds.forEach(function (it) {
+    var card = createCard(it, 'siding');
+    card.classList.add('in-siding');
+    grid.appendChild(card);
+  });
+  document.getElementById('sidingEmpty').hidden = holds.length > 0;
+}
+function renderDeparted() {
+  var grid = document.getElementById('departedGrid');
+  grid.innerHTML = '';
+  var dones = ITEMS.filter(isDeparted);
+  dones.forEach(function (it) {
+    var card = createCard(it, 'departed');
+    card.classList.add('is-departed');
+    grid.appendChild(card);
+  });
+  document.getElementById('departedCnt').textContent = dones.length + '件';
+  document.getElementById('departedEmpty').hidden = dones.length > 0;
+}
+
+/* ---------- カード（行先札） ---------- */
+function createCard(item, zone) {
+  var meta = TYPE_META[item.type] || { icon: '📌', label: item.type };
+  var srcKey = srcOf(item);
+  var srcMeta = SRC_META[srcKey];
+  var color = LINE_COLOR[item.dept] || '#999';
+
+  var card = el('article', 'card');
+  card.style.setProperty('--line', color);
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('aria-expanded', 'false');
+
+  var top = el('div', 'card-top');
+  var topHtml = '<span class="type-chip">' + meta.icon + ' ' + escapeHtml(meta.label) + '</span>';
+  if (zone !== 'main') {
+    topHtml += '<span class="dept-tag" style="--line:' + (LINE_COLOR[item.dept] || '#999') + '">' + escapeHtml(item.dept || 'その他') + '</span>';
+  }
+  if (item.at) topHtml += '<span class="date-chip">' + escapeHtml(String(item.at).slice(5)) + '</span>';
+  top.innerHTML = topHtml;
+  card.appendChild(top);
+
+  var title = el('div', 'card-title');
+  title.textContent = item.title;
+  card.appendChild(title);
+
+  var metaRow = el('div', 'card-meta');
+  var metaHtml = '';
+  if (item.who) metaHtml += '<span>👤 ' + escapeHtml(item.who) + '</span>';
+  if (item.due) metaHtml += '<span>⏰ 期限 ' + escapeHtml(item.due) + '</span>';
+  metaHtml += '<span class="src-badge">' + srcMeta.icon + ' ' + escapeHtml(srcMeta.label) + '</span>';
+  metaRow.innerHTML = metaHtml;
+  card.appendChild(metaRow);
+
+  var note = el('p', 'card-note');
+  note.textContent = item.note || '';
+  card.appendChild(note);
+
+  if (item.url && /^https:\/\//.test(item.url)) {
+    var link = document.createElement('a');
+    link.className = 'card-link';
+    link.href = item.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = '原文を見る ↗';
+    link.addEventListener('click', function (e) { e.stopPropagation(); });
+    card.appendChild(link);
+  }
+
+  var stamp = el('span', 'stamp');
+  stamp.textContent = '発車済み';
+  card.appendChild(stamp);
+
+  var actions = el('div', 'card-actions');
+  function addBtn(label, cls, handler) {
+    var b = el('button', cls, label);
+    b.type = 'button';
+    b.addEventListener('click', function (e) { e.stopPropagation(); handler(); });
+    actions.appendChild(b);
+  }
+  var t = escapeHtml('');
+  if (zone === 'main') {
+    addBtn('✅ 完了', 'btn-depart', function () { applyOp(item.id, 'done', (item.title || '案件') + ' を発車済みにしました'); });
+    addBtn('🌙 保留', 'btn-hold', function () { applyOp(item.id, 'hold', (item.title || '案件') + ' を留置線へ移しました'); });
+    addBtn('✕', 'btn-del', function () {
+      if (confirm('「' + (item.title || '案件') + '」をボードから消します。よろしいですか？')) {
+        applyOp(item.id, 'delete', '消しました');
+      }
+    });
+  } else if (zone === 'siding') {
+    if (item.status === 'hold') {
+      addBtn('↩️ 本線へ戻す', 'btn-return', function () { applyOp(item.id, 'restore', (item.title || '案件') + ' を本線へ戻しました'); });
+    }
+    addBtn('✅ 完了', 'btn-depart', function () { applyOp(item.id, 'done', (item.title || '案件') + ' を発車済みにしました'); });
+    addBtn('✕', 'btn-del', function () {
+      if (confirm('「' + (item.title || '案件') + '」をボードから消します。よろしいですか？')) {
+        applyOp(item.id, 'delete', '消しました');
+      }
+    });
+  } else if (zone === 'departed') {
+    addBtn('↩️ 発車を取り消す（戻す）', 'btn-return', function () { applyOp(item.id, 'reopen', (item.title || '案件') + ' を本線へ戻しました'); });
+  }
+  card.appendChild(actions);
+
+  card.addEventListener('click', function () { toggleNote(card); });
+  card.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleNote(card); }
+  });
+
+  return card;
+}
+function toggleNote(card) {
+  var open = card.classList.toggle('open');
+  card.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+/* ---------- トースト ---------- */
+var toastTimer = null;
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = '🔔 ' + msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
+}
+
+/* ---------- 描画一括 ---------- */
+function renderAll() {
+  renderHero();
+  renderBoard();
+  renderSiding();
+  renderDeparted();
+}
+
+/* ---------- 初期化 ---------- */
+function init() {
+  renderMinimap();
+  renderSources();
+  document.getElementById('reloadBtn').addEventListener('click', function () { firstLoad = true; loadBoard(); });
+  document.getElementById('departedHead').addEventListener('click', function () {
+    document.getElementById('departedSec').classList.toggle('open');
+  });
+  loadBoard();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+}
+</script>
+</body>
+</html>
