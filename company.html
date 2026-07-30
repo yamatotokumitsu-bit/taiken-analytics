@@ -589,7 +589,7 @@ a { color: #1565c0; }
 <script>
 let D=null;
 
-const CIPHER={"s":"iQ037y4TOa2RxR/guc7hlw==","i":"yPzH9Ii4e2kQ1XI9","d":"e19DS3G3GEaJu7XqGwaHGpTz416gBTQAhhZDFK+xACjgBKI6FoXEr0/dhtgRkCvctvxOTrxqT7+40D6zC4nR5Ie/fbEYsMv/YqhiuIQf4kt1kYOcMxdtw4Vn/jwNVDBy6Br1p9nj/W4vKfn4+AV6WtZJJW+zuA8DufgK2aQiN/ovQbMUohvo98ay5KDVlnXpBD/O1Am0L2vf7H3Otd9xaI8PjH+o48iRhwF+uXZrBdZrr9tlMdoLlnQxL55j6/vXPTRkqvP6zVmyj/VVHHjU6ZPLUK0lLDbSse0SijCXKan2ZK10Lf4J95/kcsR/h2yzVAEE1ZFzIOe4ylODWbwbR/scqv9h4uFGw9SPxdmVZBBQSejPtik8RzPXH7UFvkKNpI++tO3oJ+pfGU4a6WjdjXSmKjGFfPrQZW6hBZ+Ery/CpQ=="};
+const CIPHER={"s":"5dn6PxTCyZ3rGqBKYzBGgA==","i":"Tky/JR5yN6PWbiqc","d":"0rbVBNX+91xUHxd7un7GcUFqxqKdtCGbevpofkeiUn9If29Sr/feBgWMFkJ2+AnAF7NqZbEHMymYr758HowK2l4dbxXX3erg4QsasNjQjpifFvpeR6CHQg5hYbBza4zkggIWNbUdBhowxp/M+Xh64g49/THelW8aLCp6JHw+gTGBKy1ynlt/U56uh9px0ZZNAzc1Abj5zre8KONKDSgTxpwec6ezX+y0czOokU8q3BJiMhCthU/LPnxhHsVrbrHoFBUtPKNxSdG7neDPSQCsjIe/S0k3OePdr0gSVu6SBhvKIz+vNzVAAio7EU2qH4X+Ax/d9dARuUNagVTJDyZf1+d0u5zfIiI249VuZGlYUGHKWgcTOmY5OFex54Gfw6QS/iQvzb1p8kUSIxSpn3jCZ/KXCtCJGgY7Z1aT1wym3VsFcg=="};
 function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 async function __unlock(pw){
  const enc=new TextEncoder();
@@ -717,14 +717,18 @@ function findItem(id) {
   for (var i = 0; i < ITEMS.length; i++) if (ITEMS[i].id === id) return ITEMS[i];
   return null;
 }
-/* 操作→ローカル状態の更新（サーバーと同じルール） */
-var OP_STATUS = { done: 'done', reopen: 'open', hold: 'hold', restore: 'open', 'delete': 'deleted' };
+/* 操作→ローカル状態の更新（サーバーと同じルール:
+   done/reopen/delete=状態変更・hold=種別を保留に・restore=宿題に戻して本線へ） */
 async function applyOp(id, op, msg) {
   var it = findItem(id);
   if (!it) return;
   var ok = await boardOp(id, op);
   if (!ok) return;
-  it.status = OP_STATUS[op] || it.status;
+  if (op === 'done') it.status = 'done';
+  else if (op === 'reopen') it.status = 'open';
+  else if (op === 'hold') { it.type = 'hold'; it.status = 'open'; }
+  else if (op === 'restore') { it.type = 'task'; it.status = 'open'; }
+  else if (op === 'delete') it.status = 'deleted';
   renderAll();
   toast(msg);
 }
@@ -954,9 +958,7 @@ function createCard(item, zone) {
       }
     });
   } else if (zone === 'siding') {
-    if (item.status === 'hold') {
-      addBtn('↩️ 本線へ戻す', 'btn-return', function () { applyOp(item.id, 'restore', (item.title || '案件') + ' を本線へ戻しました'); });
-    }
+    addBtn('↩️ 本線へ戻す', 'btn-return', function () { applyOp(item.id, 'restore', (item.title || '案件') + ' を宿題として本線へ戻しました'); });
     addBtn('✅ 完了', 'btn-depart', function () { applyOp(item.id, 'done', (item.title || '案件') + ' を発車済みにしました'); });
     addBtn('✕', 'btn-del', function () {
       if (confirm('「' + (item.title || '案件') + '」をボードから消します。よろしいですか？')) {
