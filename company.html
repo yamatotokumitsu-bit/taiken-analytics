@@ -362,6 +362,51 @@ a { color: #1565c0; }
   text-decoration: underline;
   width: fit-content;
 }
+.sum-btn {
+  width: 100%;
+  border: 2px solid #c9a227;
+  background: #fffbe6;
+  color: #7a5f13;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 7px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.sum-btn:hover { background: #c9a227; color: #fff; }
+.card-summary {
+  display: none;
+  font-size: 13px;
+  line-height: 1.75;
+  background: #fffbe6;
+  border: 2px solid #c9a227;
+  border-radius: 6px;
+  padding: 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.card.sum-open .card-summary { display: block; }
+.sum-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 11px;
+  color: #8a6d1f;
+  white-space: normal;
+}
+.sum-refresh {
+  border: 1px solid #c9a227;
+  background: #fff;
+  color: #7a5f13;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+.sum-refresh:hover { background: #c9a227; color: #fff; }
 .card-actions {
   display: flex;
   gap: 8px;
@@ -544,7 +589,7 @@ a { color: #1565c0; }
 <script>
 let D=null;
 
-const CIPHER={"s":"AXcmu1r3r7PwMQVp91eMDg==","i":"olWgYdJtg7RzTy0p","d":"GmTkFT7ZnERCbw5Gc073GtSyzZ7CMzJUvXs00h4x+r22PmwkhMN7ViKI31Zfx8DnkjcYeFGc8YcLe68Wt9LI8s9ZIZ6ieYDFgURQConSIeIE4qcl9U+BhOb4CWz1awHjVtRTDb4d2KdJAhvssKRQhWEV8bjJvuV6NnvkFdgPqjCuxD+XnwPMOzt1QwjdqmHANWiNlOgf21OEuqmGsZaww2SDfkTYKPQtC1Lnx0EP5nx5aVw+1SYx6fffEHr8LE54sWDSAXS8+uvvmmu7uDPxSAP30W1kEYe1A520YyeZkHYMRwuHJjohn4WfyJwCYHSsSELSIUB9i9iuKg0W4LmCRU65OpoW8PLIHOvjnR26WVRwTMajGIaITJDsllElqVxMGY/W105q7wqY99WJNYxf2qXxixfycOyfuzmY6vY7bslUoA=="};
+const CIPHER={"s":"iQ037y4TOa2RxR/guc7hlw==","i":"yPzH9Ii4e2kQ1XI9","d":"e19DS3G3GEaJu7XqGwaHGpTz416gBTQAhhZDFK+xACjgBKI6FoXEr0/dhtgRkCvctvxOTrxqT7+40D6zC4nR5Ie/fbEYsMv/YqhiuIQf4kt1kYOcMxdtw4Vn/jwNVDBy6Br1p9nj/W4vKfn4+AV6WtZJJW+zuA8DufgK2aQiN/ovQbMUohvo98ay5KDVlnXpBD/O1Am0L2vf7H3Otd9xaI8PjH+o48iRhwF+uXZrBdZrr9tlMdoLlnQxL55j6/vXPTRkqvP6zVmyj/VVHHjU6ZPLUK0lLDbSse0SijCXKan2ZK10Lf4J95/kcsR/h2yzVAEE1ZFzIOe4ylODWbwbR/scqv9h4uFGw9SPxdmVZBBQSejPtik8RzPXH7UFvkKNpI++tO3oJ+pfGU4a6WjdjXSmKjGFfPrQZW6hBZ+Ery/CpQ=="};
 function __b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 async function __unlock(pw){
  const enc=new TextEncoder();
@@ -883,6 +928,15 @@ function createCard(item, zone) {
   stamp.textContent = '発車済み';
   card.appendChild(stamp);
 
+  // 案件まとめ（経緯→いま→次のアクション）
+  var sumBtn = el('button', 'sum-btn', '📖 まとめを見る');
+  sumBtn.type = 'button';
+  sumBtn.addEventListener('click', function (e) { e.stopPropagation(); toggleSummary(card, item, sumBtn); });
+  card.appendChild(sumBtn);
+  var sumPanel = el('div', 'card-summary');
+  sumPanel.addEventListener('click', function (e) { e.stopPropagation(); });
+  card.appendChild(sumPanel);
+
   var actions = el('div', 'card-actions');
   function addBtn(label, cls, handler) {
     var b = el('button', cls, label);
@@ -924,6 +978,65 @@ function createCard(item, zone) {
 function toggleNote(card) {
   var open = card.classList.toggle('open');
   card.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+/* ---------- 案件まとめ（📖 経緯→いま→次のアクション） ---------- */
+async function fetchSummary(item, force) {
+  var r = await fetch(D.worker + '/board-summarize', {
+    method: 'POST',
+    headers: authHeader(),
+    body: JSON.stringify({ user: D.user, id: item.id, force: !!force })
+  });
+  if (!r.ok) throw new Error('http ' + r.status);
+  var j = await r.json();
+  if (!j.ok) throw new Error(j.error || 'failed');
+  return j;
+}
+async function toggleSummary(card, item, btn) {
+  var panel = card.querySelector('.card-summary');
+  if (card.classList.contains('sum-open')) {
+    card.classList.remove('sum-open');
+    btn.textContent = '📖 まとめを見る';
+    return;
+  }
+  card.classList.add('sum-open');
+  btn.textContent = '📖 まとめを閉じる';
+  if (item.summary) {
+    renderSummaryPanel(panel, item);
+    return;
+  }
+  panel.textContent = '🤖 まとめを作成しています…（10秒ほどお待ちください）';
+  try {
+    var j = await fetchSummary(item, false);
+    item.summary = j.summary;
+    item.summaryAt = j.summaryAt || '';
+    renderSummaryPanel(panel, item);
+  } catch (e) {
+    panel.textContent = '⚠️ まとめを作れませんでした。電波を確認して、もう一度「まとめを見る」を押してください。';
+  }
+}
+function renderSummaryPanel(panel, item) {
+  panel.innerHTML = '';
+  var body = el('div', '', escapeHtml(item.summary).replace(/\n/g, '<br>'));
+  panel.appendChild(body);
+  var foot = el('div', 'sum-foot');
+  foot.appendChild(el('span', '', item.summaryAt ? 'まとめ作成: ' + escapeHtml(item.summaryAt) : ''));
+  var rf = el('button', 'sum-refresh', '🔄 最新で作り直す');
+  rf.type = 'button';
+  rf.addEventListener('click', async function (e) {
+    e.stopPropagation();
+    panel.textContent = '🤖 作り直しています…（10秒ほど）';
+    try {
+      var j = await fetchSummary(item, true);
+      item.summary = j.summary;
+      item.summaryAt = j.summaryAt || '';
+      renderSummaryPanel(panel, item);
+    } catch (_) {
+      panel.textContent = '⚠️ 作り直せませんでした。少し待ってもう一度お試しください。';
+    }
+  });
+  foot.appendChild(rf);
+  panel.appendChild(foot);
 }
 
 /* ---------- トースト ---------- */
