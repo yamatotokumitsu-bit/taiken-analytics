@@ -15,6 +15,9 @@
   --line:4px solid var(--ink);
 }
 *{margin:0;padding:0;box-sizing:border-box}
+/* スマホで縦スクロール中に左右へ揺れないように。傾けたカードのはみ出しと横方向のゴム動きを止め、指の横移動は拾わない（ピンチでの拡大は残す） */
+html,body{overflow-x:hidden;overscroll-behavior-x:none}
+body{touch-action:pan-y pinch-zoom}
 body{font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN",sans-serif;color:var(--ink);
  background:
   repeating-linear-gradient(0deg, rgba(201,155,106,.07) 0 2px, transparent 2px 26px),
@@ -404,7 +407,7 @@ body.digging .crystal.dug{animation:none}
 
   <!-- ===== 予定の紙もの ===== -->
   <h2 class="sec"><span class="num">05</span>🗓️ 予定の紙もの</h2>
-  <p class="secnote">これからの開催が、マスキングテープで留めたメモになっています</p>
+  <p class="secnote">これからの開催が、マスキングテープで留めたメモになっています<span id="studio-asof" style="opacity:.7"></span></p>
   <div class="cards3" id="schedule"></div>
 
   <!-- ===== これまでの手仕事 ===== -->
@@ -556,12 +559,25 @@ async function refreshBoard(sparkleNew){
 /* ---- カレンダー・記録 ---- */
 function renderStatic(){
  document.getElementById("hero-next").textContent="つぎの開催: "+D.next;
- const sc=document.getElementById("schedule");
- D.schedule.forEach(s=>{const d=document.createElement("div");d.className="evcard";
+ const sc=document.getElementById("schedule");sc.innerHTML="";
+ (D.schedule||[]).forEach(s=>{const d=document.createElement(s.url?"a":"div");d.className="evcard";
+  if(s.url){d.href=s.url;d.target="_blank";d.rel="noopener";d.style.textDecoration="none";d.style.color="inherit";}
   d.innerHTML='<span class="tag badge '+(s.tagbg||"")+'">'+esc(s.tag)+'</span><div class="d">'+esc(s.date)+'</div><div class="t">'+esc(s.title)+'</div><div class="m">'+esc(s.meta)+'</div>';sc.appendChild(d);});
- const rc=document.getElementById("records");
- D.records.forEach(s=>{const d=document.createElement("div");d.className="reccard";
+ const rc=document.getElementById("records");rc.innerHTML="";
+ (D.records||[]).forEach(s=>{const d=document.createElement("div");d.className="reccard";
   d.innerHTML='<div class="n">'+esc(s.n)+'</div><div class="l">'+esc(s.l)+'</div>';rc.appendChild(d);});}
+/* 予定・実績はサーバー(KV)の最新版で上書きする。取れなければページ内の控えのまま表示する */
+async function refreshStudio(){
+ try{const r=await fetch(W+"/studio?user="+encodeURIComponent(D.user),{headers:{"X-BM-Auth":auth()}});
+  if(!r.ok)return;const d=await r.json();
+  if(!d||d.empty||!Array.isArray(d.schedule)||!d.schedule.length)return;
+  if(d.next)D.next=d.next;
+  D.schedule=d.schedule;
+  if(Array.isArray(d.records)&&d.records.length)D.records=d.records;
+  renderStatic();
+  const el=document.getElementById("studio-asof");
+  if(el&&d.generated_at)el.textContent="（"+d.generated_at+" 現在）";
+ }catch(_){}}
 /* ---- 遊び: 窓のお日さま・ボタンあつめ ---- */
 function playSetup(){
  let digging=false,dug=0;
@@ -574,8 +590,8 @@ function playSetup(){
  document.getElementById("sun").addEventListener("click",()=>{["bird1","bird2"].forEach((id,i)=>{const b=document.getElementById(id);b.classList.remove("fly");void b.getBoundingClientRect();setTimeout(()=>b.classList.add("fly"),i*400);});});
 }
 /* ---- 起動 ---- */
-renderStatic();playSetup();
-add("bot","こんにちは、印南先生。ここはあなた専用のアトリエです 🧵 8/14の微小鉱物（満席！）のことでも、8/17の流しそうめんのことでも、なんでも相談してください。決まったことは下の作業台に自動で並びます。");
+renderStatic();playSetup();refreshStudio();setInterval(refreshStudio,600000);
+add("bot","こんにちは、印南先生。ここはあなた専用のアトリエです 🧵 上の『予定の紙もの』にある回のことでも、集客・料金・持ちもののことでも、なんでも相談してください。決まったことは下の作業台に自動で並びます。");
 refreshBoard(false);
 setInterval(()=>refreshBoard(false),90000);
 
