@@ -184,6 +184,39 @@ body.digging .crystal.dug{animation:none}
 .kindrow input{margin-right:5px}
 .addops{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .addmsg{font-size:13px;font-weight:700;color:#2b6a45}
+
+/* ===== AIミヤリ君カード ＆ 完全削除（2026-08-28） ===== */
+.askCard{background:#FFF9EC;border:2px solid var(--ink,#4A3426);border-radius:18px;box-shadow:0 5px 0 var(--ink,#4A3426);
+  padding:16px 18px;margin:0 0 18px}
+.askHead{font-size:18px;font-weight:800;margin-bottom:6px}
+.askNote{font-size:13px;line-height:1.85;color:#5b4a35;margin:0 0 12px}
+.askOps{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.askBtn{display:inline-block;font-weight:800;font-size:15px;padding:11px 20px;border:2px solid var(--ink,#4A3426);
+  border-radius:999px;background:#E8C86B;color:#3A2A18;text-decoration:none;cursor:pointer;line-height:1.4}
+.askBtn:hover{background:#DFB94F}
+.delb{background:#FBE9E9!important;border-color:#A63232!important;color:#A63232!important}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#2b2116;color:#fff;
+  padding:11px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9999}
+.toast.on{opacity:1}
+
+/* ===== スマホでの見え方を整える（2026-08-28） ===== */
+@media(max-width:520px){
+  h2.sec{font-size:19px;align-items:flex-start;gap:8px;margin:32px 0 6px}
+  h2.sec .num{flex:0 0 auto;margin-top:3px}
+  .askCard,.addCard{padding:14px}
+  .askHead{font-size:16.5px}
+  .askOps{flex-direction:column;align-items:stretch}
+  .askBtn,.addbtn{width:100%;text-align:center;box-sizing:border-box}
+  .askOps .opbtn{width:100%}
+  .addhint{display:block;margin:10px 0 0}
+  .kindrow{gap:6px}
+  .kindrow label{font-size:12.5px;padding:5px 10px}
+  .howto>summary{font-size:15px}
+  .howto table{font-size:12px}
+  .howto th,.howto td{padding:5px 6px}
+}
+.ops{display:flex;flex-wrap:wrap;gap:6px}
+.howto .scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
 </style>
 </head>
 <body>
@@ -385,72 +418,17 @@ body.digging .crystal.dug{animation:none}
 </div>
 
 <div class="wrap">
-  <!-- ===== 使い方 ===== -->
-  <details class="howto" open>
-    <summary>📖 このページの使い方</summary>
 
-    <h4>このページは何のためのものですか</h4>
-    <p>印南先生専用の「わすれもの防止ノート」です。<b>やること・決まったこと・アイデア・予定・実績</b>が1か所に集まります。
-    合言葉を知っている人しか開けません（社内限定）。</p>
-
-    <h4>中身は3つの入口から入ってきます</h4>
-    <table>
-      <tr><th>入口</th><th>やり方</th><th>入るタイミング</th></tr>
-      <tr><td>① 自分で書く</td><td>下の<b>「＋ 書き足す」</b>を押して1行書く</td><td>すぐ</td></tr>
-      <tr><td>② AIに相談する</td><td>下の<b>「相談する」</b>に質問や状況を書く</td><td>その場（会話の中で決まったことが自動で並びます）</td></tr>
-      <tr><td>③ Slack</td><td>3つのチャンネル（会議室／みちくさ化石塾／プロデューサー講座）での発言を自動で拾います</td><td><b>毎晩21時</b></td></tr>
-    </table>
-    <p>※「化石の話でもないし、みんなに向けて言うことでもない」というメモは、<b>①の「＋ 書き足す」</b>が向いています。
-    Slackに書かないので、誰にも通知されません。</p>
-
-    <h4>それぞれの欄の意味</h4>
-    <table>
-      <tr><th>欄</th><th>何が入るか</th></tr>
-      <tr><td>📌 いま最優先の1件</td><td>「やること」の中でいちばん新しいものが、大きく表示されます</td></tr>
-      <tr><td>✅ やること</td><td>これから手を動かすこと。終わったら「完了にする」を押します</td></tr>
-      <tr><td>🏷️ 決まったこと</td><td>相談の中で決まった方針の記録。見返す用です</td></tr>
-      <tr><td>💡 アイデア・メモ</td><td>思いついたこと、忘れたくないこと。すぐやらなくてよいもの</td></tr>
-      <tr><td>⏸️ あとで（保留）</td><td>「また今度」の話。いつでも「やること」に戻せます</td></tr>
-      <tr><td>🗓️ これからの予定</td><td>これから開催する回（自動で入ります）</td></tr>
-      <tr><td>🖼️ これまでの開催</td><td>終わった回の実績（自動で入ります）</td></tr>
-    </table>
-
-    <h4>ボタンの意味</h4>
-    <ul>
-      <li><b>✅ 完了にする</b> … 終わったこと。「🎉 終わったこと」へ移ります</li>
-      <li><b>⏸️ あとでにする</b> … いったん置いておく。「⏸️ あとで」へ移ります</li>
-      <li><b>↩️ やることに戻す</b> … 完了や「あとで」から呼び戻します（押し間違えても戻せます）</li>
-      <li><b>✅ やることにする</b> … アイデアを、実際にやる仕事に格上げします</li>
-      <li><b>📖 詳細</b> … AIがまとめた要点を開きます　／　<b>💬 Slackで見る</b> … 元の発言に飛びます</li>
-    </ul>
-
-    <h4>よくある質問</h4>
-    <p class="q">Q. 書いたものは他の人に見えますか？</p>
-    <p>A. このページは合言葉が必要な社内限定ページです。「＋ 書き足す」で足したものは<b>Slackには流れません</b>。</p>
-    <p class="q">Q. 間違えて「完了」を押してしまいました</p>
-    <p>A. 「🎉 終わったこと」の中に「↩️ やることに戻す」があります。何度でも戻せます。</p>
-    <p class="q">Q. いらないものを消したい</p>
-    <p>A. いまは「⏸️ あとでにする」で見えないところへ移す形です。完全に消す機能が要る場合はお知らせください。</p>
-    <p class="q">Q. いつ新しくなりますか</p>
-    <p>A. 自分で書いた分はすぐ。Slackから拾う分は毎晩21時です。ページを開き直すと最新になります。</p>
-    <p class="q">Q. スマホでも使えますか</p>
-    <p>A. 使えます。ホーム画面に追加しておくと、次からアイコン1つで開けます。</p>
-  </details>
-
-  <!-- ===== チャット（相談テーブル） ===== -->
-  <div class="chatCard">
-    <div class="chatHead">
-      <span style="font-size:26px">🧶</span>
-      <div><div class="tt">相談する（AIが答えます）</div>
-      <div class="st">ここで相談すると、決まったこと・やること・あとでにする話が、下の欄に自動で並びます</div></div>
-      <button class="pickbtn" id="newchat" style="margin-left:auto">💬 新しく相談する</button>
+  <!-- ===== AIミヤリ君に相談する ===== -->
+  <div class="askCard">
+    <div class="askHead">🎓 AIミヤリ君に相談する</div>
+    <p class="askNote">ボタンを押すと、<b>いまの状況（予定・実績・やること・決まったこと・アイデア）がまるごとコピー</b>されます。<br>
+    開いた画面で<b>長押し →「ペースト」</b>して、最後に相談したいことを書き足して送ってください。</p>
+    <div class="askOps">
+      <a class="askBtn" id="askbtn" href="https://chatgpt.com/g/g-69f8331da53c819191005f8ac7fea391-aigong-ru-kun-v4-1" target="_blank" rel="noopener">🎓 コピーしてAIミヤリ君を開く</a>
+      <button class="opbtn" id="askcopy" type="button">📋 コピーだけする</button>
+      <span class="addmsg" id="askmsg"></span>
     </div>
-    <div class="log" id="log"></div>
-    <form class="inbar" id="form">
-      <textarea id="q" rows="2" placeholder="相談したいことをどうぞ（例: 9/21の発掘体験、あと3名をどう集める？）"></textarea>
-      <button type="submit" class="sendbtn" id="send">送信</button>
-    </form>
-    <p class="chatnote">回答は参考情報です。会話の要点は記録として残り、決まったこと・やることは下の欄に反映されます。</p>
   </div>
 
     <!-- ===== ＋ 書き足す ===== -->
@@ -482,7 +460,7 @@ body.digging .crystal.dug{animation:none}
 
   <!-- ===== 作業台 ===== -->
   <h2 class="sec"><span class="num">02</span>✅ やること</h2>
-  <p class="secnote">相談で決まったこと・Slackから拾ったことが並びます。終わったら「✅ 完了にする」を押してください</p>
+  <p class="secnote">相談で決まったこと・Slackから拾ったことが並びます。終わったら「✅ 完了にする」を押してください。右の「🎉 終わったこと」がたまってきたら「🗑 完全に消す」で片付けられます</p>
   <div class="board">
     <div class="col dig"><div class="colhead">✅ いま進めていること</div><div class="list" id="list-task"></div></div>
     <div class="col done"><div class="colhead">🎉 終わったこと</div><div class="list" id="list-done"></div></div>
@@ -512,6 +490,58 @@ body.digging .crystal.dug{animation:none}
   <h2 class="sec"><span class="num">07</span>🖼️ これまでの開催（実績）</h2>
   <p class="secnote">終わった回の実績が並びます</p>
   <div class="cards3" id="records"></div>
+
+  <!-- ===== 使い方 ===== -->
+  <details class="howto">
+    <summary>📖 このページの使い方</summary>
+
+    <h4>このページは何のためのものですか</h4>
+    <p>印南先生専用の「わすれもの防止ノート」です。<b>やること・決まったこと・アイデア・予定・実績</b>が1か所に集まります。
+    合言葉を知っている人しか開けません（社内限定）。</p>
+
+    <h4>中身は3つの入口から入ってきます</h4>
+    <div class="scrollx"><table>
+      <tr><th>入口</th><th>やり方</th><th>入るタイミング</th></tr>
+      <tr><td>① 自分で書く</td><td>下の<b>「＋ 書き足す」</b>を押して1行書く</td><td>すぐ</td></tr>
+      <tr><td>② AIに相談する</td><td>下の<b>「相談する」</b>に質問や状況を書く</td><td>その場（会話の中で決まったことが自動で並びます）</td></tr>
+      <tr><td>③ Slack</td><td>3つのチャンネル（会議室／みちくさ化石塾／プロデューサー講座）での発言を自動で拾います</td><td><b>毎晩21時</b></td></tr>
+    </table></div>
+    <p>※「化石の話でもないし、みんなに向けて言うことでもない」というメモは、<b>①の「＋ 書き足す」</b>が向いています。
+    Slackに書かないので、誰にも通知されません。</p>
+
+    <h4>それぞれの欄の意味</h4>
+    <div class="scrollx"><table>
+      <tr><th>欄</th><th>何が入るか</th></tr>
+      <tr><td>📌 いま最優先の1件</td><td>「やること」の中でいちばん新しいものが、大きく表示されます</td></tr>
+      <tr><td>✅ やること</td><td>これから手を動かすこと。終わったら「完了にする」を押します</td></tr>
+      <tr><td>🏷️ 決まったこと</td><td>相談の中で決まった方針の記録。見返す用です</td></tr>
+      <tr><td>💡 アイデア・メモ</td><td>思いついたこと、忘れたくないこと。すぐやらなくてよいもの</td></tr>
+      <tr><td>⏸️ あとで（保留）</td><td>「また今度」の話。いつでも「やること」に戻せます</td></tr>
+      <tr><td>🗓️ これからの予定</td><td>これから開催する回（自動で入ります）</td></tr>
+      <tr><td>🖼️ これまでの開催</td><td>終わった回の実績（自動で入ります）</td></tr>
+    </table></div>
+
+    <h4>ボタンの意味</h4>
+    <ul>
+      <li><b>✅ 完了にする</b> … 終わったこと。「🎉 終わったこと」へ移ります</li>
+      <li><b>⏸️ あとでにする</b> … いったん置いておく。「⏸️ あとで」へ移ります</li>
+      <li><b>↩️ やることに戻す</b> … 完了や「あとで」から呼び戻します（押し間違えても戻せます）</li>
+      <li><b>✅ やることにする</b> … アイデアを、実際にやる仕事に格上げします</li>
+      <li><b>📖 詳細</b> … AIがまとめた要点を開きます　／　<b>💬 Slackで見る</b> … 元の発言に飛びます</li>
+    </ul>
+
+    <h4>よくある質問</h4>
+    <p class="q">Q. 書いたものは他の人に見えますか？</p>
+    <p>A. このページは合言葉が必要な社内限定ページです。「＋ 書き足す」で足したものは<b>Slackには流れません</b>。</p>
+    <p class="q">Q. 間違えて「完了」を押してしまいました</p>
+    <p>A. 「🎉 終わったこと」の中に「↩️ やることに戻す」があります。何度でも戻せます。</p>
+    <p class="q">Q. いらないものを消したい</p>
+    <p>A. いまは「⏸️ あとでにする」で見えないところへ移す形です。完全に消す機能が要る場合はお知らせください。</p>
+    <p class="q">Q. いつ新しくなりますか</p>
+    <p>A. 自分で書いた分はすぐ。Slackから拾う分は毎晩21時です。ページを開き直すと最新になります。</p>
+    <p class="q">Q. スマホでも使えますか</p>
+    <p>A. 使えます。ホーム画面に追加しておくと、次からアイコン1つで開けます。</p>
+  </details>
 
   <p class="footer">東京山側DMC 分析スタジオ｜印南先生専用ページ（社内限定）<br>データ出典: aini/gifte実測・予約通知メール（個人名は保存していません）</p>
 </div>
@@ -554,36 +584,53 @@ document.getElementById('__gform').addEventListener('submit',async e=>{
 function __boot(){
 
 const W=D.worker;
-let history=[],busy=false;
-const log=document.getElementById("log"),qEl=document.getElementById("q"),sendBtn=document.getElementById("send");
 const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function auth(){return (typeof window!=="undefined"&&window.__bmAuth)||"";}
-/* ---- チャット ---- */
-function extractCals(text){const cals=[];let clean=String(text).replace(/<cal\b([^>]*?)\/?>(?:<\/cal>)?/gi,(m,a)=>{const g=k=>{const mm=a.match(new RegExp(k+'\\s*=\\s*"([^"]*)"',"i"));return mm?mm[1]:"";};const t=g("title"),s=g("start");if(t&&/^\d{4}-\d{2}-\d{2}$/.test(s))cals.push({title:t.slice(0,60),start:s,time:g("time"),minutes:parseInt(g("minutes")||"60",10)||60,details:g("details").slice(0,200)});return "";}).replace(/<cal\b[^>]*$/i,"");return {clean:clean.trim(),cals:cals.slice(0,3)};}
-function calUrl(c){const p=n=>String(n).padStart(2,"0");let dates;if(/^\d{2}:\d{2}$/.test(c.time||"")){const st=c.start.replace(/-/g,"")+"T"+c.time.replace(":","")+"00";const en=new Date(c.start+"T"+c.time+":00");en.setMinutes(en.getMinutes()+c.minutes);dates=st+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate())+"T"+p(en.getHours())+p(en.getMinutes())+"00";}else{const en=new Date(c.start+"T00:00:00");en.setDate(en.getDate()+1);dates=c.start.replace(/-/g,"")+"/"+en.getFullYear()+p(en.getMonth()+1)+p(en.getDate());}return "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(c.title)+"&dates="+dates+"&ctz=Asia/Tokyo&details="+encodeURIComponent(c.details||"アトリエの相談テーブルより");}
-function add(cls,text,cals){const d=document.createElement("div");d.className="msg "+cls;
- d.innerHTML=esc(text).replace(/\*\*([^*\n]{1,80}?)\*\*/g,"<b>$1</b>").replace(/^#{1,4}\s*/gm,"").replace(/\n/g,"<br>");
- if(cals&&cals.length){const w=document.createElement("div");w.className="calwrap";cals.forEach(c=>{const a=document.createElement("a");a.className="calbtn";a.target="_blank";a.rel="noopener";a.href=calUrl(c);a.textContent="📅 "+c.title;w.appendChild(a);});d.appendChild(w);}
- log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
-async function send(){if(busy)return;const text=qEl.value.trim();if(!text)return;
- add("user",text);qEl.value="";busy=true;sendBtn.disabled=true;
- const wait=add("wait","考えています…（30秒ほどかかることがあります）");
- try{
-  const res=await fetch(W+"/ask",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},
-   body:JSON.stringify({mode:"consult",user:D.user,question:text,history:history,model:"sonnet"})});
-  let data=null;try{data=await res.json();}catch(_){ }
-  if(!data||typeof data.answer!=="string")throw new Error((data&&data.error)||("bad response "+res.status));
-  wait.remove();
-  const stripped=data.answer.replace(/<karte>[\s\S]*?<\/karte>/gi,"").replace(/<stats\b[^>]*\/?>/gi,"").trim();
-  const cx=extractCals(stripped);
-  add("bot",cx.clean,cx.cals);
-  history=history.concat([{role:"user",content:text},{role:"assistant",content:cx.clean}]).slice(-40);
-  refreshBoard(true);
- }catch(err){wait.remove();add("err",/上限|お断り|翌月/.test(String(err.message))?err.message:"つながりませんでした。少し時間をおいてもう一度お試しください。");}
- finally{busy=false;sendBtn.disabled=false;qEl.focus();}}
-document.getElementById("form").addEventListener("submit",e=>{e.preventDefault();send();});
-qEl.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();send();}});
-document.getElementById("newchat").addEventListener("click",()=>{if(busy)return;history=[];log.innerHTML="";add("bot","新しく相談を始めます。聞きたいことをどうぞ 💬");qEl.focus();});
+/* ---- AIミヤリ君に相談する（いまの状況をまるごとコピー） ---- */
+let toastTimer;
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");
+ clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("on"),2600);}
+function askText(){
+ const one=it=>"・"+it.title+(it.note?("　… "+String(it.note).replace(/\s+/g," ").slice(0,90)):"");
+ const pick=(t)=>boardCache.filter(x=>x.type===t&&x.status==="open");
+ const tasks=pick("task"),ideas=pick("idea"),decs=pick("decision"),holds=pick("hold");
+ const dones=boardCache.filter(x=>x.status==="done").slice(0,10);
+ const L=[];
+ L.push("【印南 幸恵（東京山側DMC）の現在地】");
+ L.push("担当: 微小鉱物・地質・みちくさ ／ 2026年7月 講師デビュー");
+ L.push("次の開催: "+(D.next||"—"));
+ L.push("");
+ L.push("■ これからの開催予定");
+ (D.schedule||[]).forEach(x=>L.push("・"+[x.date,x.title,x.meta,x.tag].filter(Boolean).join("　")));
+ L.push("");
+ L.push("■ これまでの実績");
+ (D.records||[]).forEach(x=>L.push("・"+x.n+"　"+x.l));
+ L.push("");
+ L.push("■ いまのやること（"+tasks.length+"件）"); tasks.forEach(x=>L.push(one(x)));
+ L.push("");
+ L.push("■ 決まったこと（"+decs.length+"件）"); decs.forEach(x=>L.push(one(x)));
+ L.push("");
+ L.push("■ アイデア・メモ（"+ideas.length+"件）"); ideas.forEach(x=>L.push(one(x)));
+ L.push("");
+ L.push("■ あとで（"+holds.length+"件）"); holds.forEach(x=>L.push(one(x)));
+ if(dones.length){L.push("");L.push("■ 最近終わったこと");dones.forEach(x=>L.push(one(x)));}
+ L.push("");
+ L.push("この現在地を踏まえて、相談したいことがあります：");
+ return L.join("\n");
+}
+function copyText(text,done){
+ const fallback=()=>{const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";
+  ta.style.top="-1000px";document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");showToast(done);}catch(e){showToast("コピーできませんでした。長押しで選択してください");}
+  document.body.removeChild(ta);};
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(text).then(()=>showToast(done),fallback);
+ }else fallback();
+}
+document.getElementById("askbtn").addEventListener("click",()=>{
+ copyText(askText(),"いまの状況をコピーしました。開いた画面で貼り付けてください");});
+document.getElementById("askcopy").addEventListener("click",()=>{
+ copyText(askText(),"いまの状況をコピーしました");});
 /* ---- ＋ 書き足す（本人が1件ずつ足す） ---- */
 const addOpen=document.getElementById("addopen"),addForm=document.getElementById("addform"),
       addText=document.getElementById("addtext"),addMsg=document.getElementById("addmsg");
@@ -615,6 +662,10 @@ let boardCache=[];
 function sparkleAt(x,y){for(let i=0;i<7;i++){const s=document.createElement("div");s.className="spark";s.textContent=["✨","🧵","🌸"][i%3];s.style.left=x+"px";s.style.top=y+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(Math.random()*-140-20)+"px");document.body.appendChild(s);setTimeout(()=>s.remove(),1000);}}
 async function boardOp(id,op,ev){try{await fetch(W+"/board-op",{method:"POST",headers:{"Content-Type":"application/json","X-BM-Auth":auth()},body:JSON.stringify({user:D.user,id:id,op:op})});}catch(_){}
  if(op==="done"&&ev)sparkleAt(ev.clientX,ev.clientY);refreshBoard(false);}
+/* 完全に消す（元に戻せないので必ず確認する） */
+function delItem(it){
+ if(!confirm("「"+it.title+"」を完全に消します。\n元には戻せません。よろしいですか？"))return;
+ boardOp(it.id,"delete");showToast("消しました");}
 function itemHtml(it){const meta=[it.who?("👤 "+it.who):"",it.due?("📅 "+it.due):"",it.at?("記録 "+it.at):""].filter(Boolean).join("　");
  const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
  return '<div class="t">'+esc(it.title)+'</div>'+(short?'<div class="m">'+esc(short)+'</div>':'')+'<div class="m">'+esc(meta)+'</div>';}
@@ -652,7 +703,8 @@ function renderBoard(prevIds){
  dones.slice(0,10).forEach(it=>{const d=document.createElement("div");d.className="item doneItem";d.innerHTML=itemHtml(it);
   const ops=document.createElement("div");ops.className="ops";
   const b=document.createElement("button");b.className="opbtn";b.textContent="↩️ やることに戻す";b.onclick=()=>boardOp(it.id,"reopen");
-  ops.appendChild(b);d.appendChild(ops);ld.appendChild(d);});
+  const bd=document.createElement("button");bd.className="opbtn delb";bd.textContent="🗑 完全に消す";bd.onclick=()=>delItem(it);
+  ops.appendChild(b);ops.appendChild(bd);d.appendChild(ops);ld.appendChild(d);});
  // 布見本帳（アイデア）
  const li=document.getElementById("list-idea");
  const ideas=boardCache.filter(x=>x.type==="idea"&&x.status==="open");
@@ -663,7 +715,8 @@ function renderBoard(prevIds){
   const ops=document.createElement("div");ops.className="ops";
   const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="✅ やることにする";b1.onclick=()=>boardOp(it.id,"restore");
   const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="⏸️ あとでにする";b2.onclick=()=>boardOp(it.id,"hold");
-  ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(detailBtns(it));d.appendChild(ops);li.appendChild(d);});
+  const b3=document.createElement("button");b3.className="opbtn delb";b3.textContent="🗑 完全に消す";b3.onclick=()=>delItem(it);
+  ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(b3);ops.appendChild(detailBtns(it));d.appendChild(ops);li.appendChild(d);});
  // 標本棚
  const lc=document.getElementById("list-decision");lc.innerHTML=decisions.length?"":'<div class="empty">まだありません</div>';
  decisions.forEach(it=>{const d=document.createElement("div");d.className="spec";d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc((it.note||"")+"　"+(it.at||""))+'</div>';lc.appendChild(d);});
@@ -715,11 +768,11 @@ function playSetup(){
 }
 /* ---- 起動 ---- */
 renderStatic();playSetup();refreshStudio();setInterval(refreshStudio,600000);
-add("bot","こんにちは、印南先生。ここはあなた専用のアトリエです 🧵 上の『予定の紙もの』にある回のことでも、集客・料金・持ちもののことでも、なんでも相談してください。決まったことは下の作業台に自動で並びます。");
 refreshBoard(false);
 setInterval(()=>refreshBoard(false),90000);
 
 }
 </script>
+<div class="toast" id="toast"></div>
 </body>
 </html>
