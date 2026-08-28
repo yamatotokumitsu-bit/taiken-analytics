@@ -185,7 +185,7 @@ body.digging .crystal.dug{animation:none}
 .addops{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .addmsg{font-size:13px;font-weight:700;color:#2b6a45}
 
-/* ===== AIミヤリ君カード ＆ 完全削除（2026-08-28） ===== */
+/* ===== AI宮入くんカード ＆ 完全削除（2026-08-28） ===== */
 .askCard{background:#FFF9EC;border:2px solid var(--ink,#4A3426);border-radius:18px;box-shadow:0 5px 0 var(--ink,#4A3426);
   padding:16px 18px;margin:0 0 18px}
 .askHead{font-size:18px;font-weight:800;margin-bottom:6px}
@@ -217,6 +217,9 @@ body.digging .crystal.dug{animation:none}
 }
 .ops{display:flex;flex-wrap:wrap;gap:6px}
 .howto .scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.topnote{font-size:12.5px;color:#8a7358;margin:0 0 10px;text-align:right}
+.topnote a{color:#8a5a2b;font-weight:700}
 </style>
 </head>
 <body>
@@ -419,13 +422,15 @@ body.digging .crystal.dug{animation:none}
 
 <div class="wrap">
 
-  <!-- ===== AIミヤリ君に相談する ===== -->
+  <p class="topnote">📖 このページの使い方は <a href="#howto">いちばん下</a> にまとめてあります</p>
+
+  <!-- ===== AI宮入くんに相談する ===== -->
   <div class="askCard">
-    <div class="askHead">🎓 AIミヤリ君に相談する</div>
+    <div class="askHead">🎓 AI宮入くんに相談する</div>
     <p class="askNote">ボタンを押すと、<b>いまの状況（予定・実績・やること・決まったこと・アイデア）がまるごとコピー</b>されます。<br>
     開いた画面で<b>長押し →「ペースト」</b>して、最後に相談したいことを書き足して送ってください。</p>
     <div class="askOps">
-      <a class="askBtn" id="askbtn" href="https://chatgpt.com/g/g-69f8331da53c819191005f8ac7fea391-aigong-ru-kun-v4-1" target="_blank" rel="noopener">🎓 コピーしてAIミヤリ君を開く</a>
+      <a class="askBtn" id="askbtn" href="https://chatgpt.com/g/g-69f8331da53c819191005f8ac7fea391-aigong-ru-kun-v4-1" target="_blank" rel="noopener">🎓 コピーしてAI宮入くんを開く</a>
       <button class="opbtn" id="askcopy" type="button">📋 コピーだけする</button>
       <span class="addmsg" id="askmsg"></span>
     </div>
@@ -492,7 +497,7 @@ body.digging .crystal.dug{animation:none}
   <div class="cards3" id="records"></div>
 
   <!-- ===== 使い方 ===== -->
-  <details class="howto">
+  <details class="howto" id="howto">
     <summary>📖 このページの使い方</summary>
 
     <h4>このページは何のためのものですか</h4>
@@ -586,7 +591,7 @@ function __boot(){
 const W=D.worker;
 const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function auth(){return (typeof window!=="undefined"&&window.__bmAuth)||"";}
-/* ---- AIミヤリ君に相談する（いまの状況をまるごとコピー） ---- */
+/* ---- AI宮入くんに相談する（いまの状況をまるごとコピー） ---- */
 let toastTimer;
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");
  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("on"),2600);}
