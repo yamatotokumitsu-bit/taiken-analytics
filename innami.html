@@ -157,6 +157,33 @@ body.digging .crystal.dug{animation:none}
 .spark{position:fixed;pointer-events:none;font-size:22px;animation:sp 1s ease-out forwards;z-index:99}
 @keyframes sp{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.4)}}
 .footer{font-size:11.5px;color:#8a7a68;text-align:center;margin-top:46px;line-height:1.8}
+
+/* ===== 使い方 ＆ ＋書き足す（2026-08-28 追加） ===== */
+.howto{border:2px solid var(--ink,#4A3426);border-radius:14px;background:#FFFDF4;padding:0 16px;margin:0 0 18px}
+.howto>summary{cursor:pointer;font-weight:800;font-size:16px;padding:14px 0;list-style:none}
+.howto>summary::-webkit-details-marker{display:none}
+.howto>summary::before{content:"▶ ";font-size:12px}
+.howto[open]>summary::before{content:"▼ "}
+.howto h4{margin:16px 0 6px;font-size:14.5px;color:#5A3A22}
+.howto p,.howto li{font-size:13.5px;line-height:1.9;margin:4px 0}
+.howto ul,.howto ol{padding-left:20px;margin:4px 0 10px}
+.howto table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 12px;background:#fff}
+.howto th,.howto td{border:1px solid #D9C6A8;padding:6px 9px;text-align:left;vertical-align:top}
+.howto th{background:#F6EEDF;white-space:nowrap}
+.howto .q{font-weight:700;margin-top:10px}
+.addCard{border:2px dashed var(--ink,#4A3426);border-radius:14px;background:#FFF9EC;padding:14px 16px;margin:0 0 18px}
+.addbtn{font-family:inherit;font-weight:800;font-size:15px;padding:9px 18px;border:2px solid var(--ink,#4A3426);
+  border-radius:999px;background:#F7E7C6;cursor:pointer}
+.addbtn:hover{background:#EFD9AE}
+.addhint{font-size:12.5px;color:#6b5b45;margin-left:10px}
+.addform{margin-top:12px}
+.addform textarea{width:100%;box-sizing:border-box;font-family:inherit;font-size:15px;padding:10px 12px;
+  border:2px solid var(--ink,#4A3426);border-radius:10px;background:#fff;resize:vertical}
+.kindrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.kindrow label{font-size:13.5px;border:2px solid var(--ink,#4A3426);border-radius:999px;padding:5px 12px;background:#fff;cursor:pointer}
+.kindrow input{margin-right:5px}
+.addops{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.addmsg{font-size:13px;font-weight:700;color:#2b6a45}
 </style>
 </head>
 <body>
@@ -171,7 +198,7 @@ body.digging .crystal.dug{animation:none}
       <span class="badge go" id="hero-next">つぎの開催: —</span>
     </div>
     <div class="pickbar">
-      <button class="pickbtn" id="pickmode" title="机に転がったくるみボタンを拾ってあつめる遊びです">🧺 ボタンあつめ</button>
+      <button class="pickbtn" id="pickmode" title="机に転がったくるみボタンを拾ってあつめる遊びです">🧺 ボタンあつめ（おまけ）</button>
       <span class="digcount" id="digcount">🔘 0</span>
     </div>
     <svg class="heroSvg" viewBox="0 0 1180 320" xmlns="http://www.w3.org/2000/svg" id="heroSvg">
@@ -358,61 +385,132 @@ body.digging .crystal.dug{animation:none}
 </div>
 
 <div class="wrap">
+  <!-- ===== 使い方 ===== -->
+  <details class="howto" open>
+    <summary>📖 このページの使い方</summary>
+
+    <h4>このページは何のためのものですか</h4>
+    <p>印南先生専用の「わすれもの防止ノート」です。<b>やること・決まったこと・アイデア・予定・実績</b>が1か所に集まります。
+    合言葉を知っている人しか開けません（社内限定）。</p>
+
+    <h4>中身は3つの入口から入ってきます</h4>
+    <table>
+      <tr><th>入口</th><th>やり方</th><th>入るタイミング</th></tr>
+      <tr><td>① 自分で書く</td><td>下の<b>「＋ 書き足す」</b>を押して1行書く</td><td>すぐ</td></tr>
+      <tr><td>② AIに相談する</td><td>下の<b>「相談する」</b>に質問や状況を書く</td><td>その場（会話の中で決まったことが自動で並びます）</td></tr>
+      <tr><td>③ Slack</td><td>3つのチャンネル（会議室／みちくさ化石塾／プロデューサー講座）での発言を自動で拾います</td><td><b>毎晩21時</b></td></tr>
+    </table>
+    <p>※「化石の話でもないし、みんなに向けて言うことでもない」というメモは、<b>①の「＋ 書き足す」</b>が向いています。
+    Slackに書かないので、誰にも通知されません。</p>
+
+    <h4>それぞれの欄の意味</h4>
+    <table>
+      <tr><th>欄</th><th>何が入るか</th></tr>
+      <tr><td>📌 いま最優先の1件</td><td>「やること」の中でいちばん新しいものが、大きく表示されます</td></tr>
+      <tr><td>✅ やること</td><td>これから手を動かすこと。終わったら「完了にする」を押します</td></tr>
+      <tr><td>🏷️ 決まったこと</td><td>相談の中で決まった方針の記録。見返す用です</td></tr>
+      <tr><td>💡 アイデア・メモ</td><td>思いついたこと、忘れたくないこと。すぐやらなくてよいもの</td></tr>
+      <tr><td>⏸️ あとで（保留）</td><td>「また今度」の話。いつでも「やること」に戻せます</td></tr>
+      <tr><td>🗓️ これからの予定</td><td>これから開催する回（自動で入ります）</td></tr>
+      <tr><td>🖼️ これまでの開催</td><td>終わった回の実績（自動で入ります）</td></tr>
+    </table>
+
+    <h4>ボタンの意味</h4>
+    <ul>
+      <li><b>✅ 完了にする</b> … 終わったこと。「🎉 終わったこと」へ移ります</li>
+      <li><b>⏸️ あとでにする</b> … いったん置いておく。「⏸️ あとで」へ移ります</li>
+      <li><b>↩️ やることに戻す</b> … 完了や「あとで」から呼び戻します（押し間違えても戻せます）</li>
+      <li><b>✅ やることにする</b> … アイデアを、実際にやる仕事に格上げします</li>
+      <li><b>📖 詳細</b> … AIがまとめた要点を開きます　／　<b>💬 Slackで見る</b> … 元の発言に飛びます</li>
+    </ul>
+
+    <h4>よくある質問</h4>
+    <p class="q">Q. 書いたものは他の人に見えますか？</p>
+    <p>A. このページは合言葉が必要な社内限定ページです。「＋ 書き足す」で足したものは<b>Slackには流れません</b>。</p>
+    <p class="q">Q. 間違えて「完了」を押してしまいました</p>
+    <p>A. 「🎉 終わったこと」の中に「↩️ やることに戻す」があります。何度でも戻せます。</p>
+    <p class="q">Q. いらないものを消したい</p>
+    <p>A. いまは「⏸️ あとでにする」で見えないところへ移す形です。完全に消す機能が要る場合はお知らせください。</p>
+    <p class="q">Q. いつ新しくなりますか</p>
+    <p>A. 自分で書いた分はすぐ。Slackから拾う分は毎晩21時です。ページを開き直すと最新になります。</p>
+    <p class="q">Q. スマホでも使えますか</p>
+    <p>A. 使えます。ホーム画面に追加しておくと、次からアイコン1つで開けます。</p>
+  </details>
+
   <!-- ===== チャット（相談テーブル） ===== -->
   <div class="chatCard">
     <div class="chatHead">
       <span style="font-size:26px">🧶</span>
-      <div><div class="tt">相談テーブル｜分析宮入くんと</div>
-      <div class="st">相談すると、決まったこと・宿題・しまっておく話が下の作業台に自動で並びます</div></div>
-      <button class="pickbtn" id="newchat" style="margin-left:auto">🧶 新しいおしゃべり</button>
+      <div><div class="tt">相談する（AIが答えます）</div>
+      <div class="st">ここで相談すると、決まったこと・やること・あとでにする話が、下の欄に自動で並びます</div></div>
+      <button class="pickbtn" id="newchat" style="margin-left:auto">💬 新しく相談する</button>
     </div>
     <div class="log" id="log"></div>
     <form class="inbar" id="form">
-      <textarea id="q" rows="2" placeholder="相談したいことをどうぞ（例: 8/17の流しそうめん、あと3名をどう集める？）"></textarea>
+      <textarea id="q" rows="2" placeholder="相談したいことをどうぞ（例: 9/21の発掘体験、あと3名をどう集める？）"></textarea>
       <button type="submit" class="sendbtn" id="send">送信</button>
     </form>
-    <p class="chatnote">回答は参考情報です。会話の要点はカルテとして学習され、決定・宿題は作業台に反映されます。</p>
+    <p class="chatnote">回答は参考情報です。会話の要点は記録として残り、決まったこと・やることは下の欄に反映されます。</p>
+  </div>
+
+    <!-- ===== ＋ 書き足す ===== -->
+  <div class="addCard">
+    <button class="addbtn" id="addopen">＋ 書き足す</button>
+    <span class="addhint">忘れたくないこと・思いついたことを1件ずつ。Slackには流れません</span>
+    <form class="addform" id="addform" hidden>
+      <textarea id="addtext" rows="2" placeholder="例: 来月の発掘体験でグッズを売ってみたい"></textarea>
+      <div class="kindrow">
+        <label><input type="radio" name="addkind" value="idea" checked> 💡 アイデア・メモ</label>
+        <label><input type="radio" name="addkind" value="task"> ✅ やること</label>
+        <label><input type="radio" name="addkind" value="hold"> ⏸️ あとで</label>
+      </div>
+      <div class="addops">
+        <button type="submit" class="sendbtn" id="addsend">この内容で足す</button>
+        <button type="button" class="opbtn" id="addcancel">やめる</button>
+        <span class="addmsg" id="addmsg"></span>
+      </div>
+    </form>
   </div>
 
   <!-- ===== いちばんのしごと ===== -->
-  <h2 class="sec"><span class="num">01</span>📌 いちばんのしごと</h2>
-  <p class="secnote">作業台の中でいちばん新しい「やること」が、真鍮のピンで留まります</p>
+  <h2 class="sec"><span class="num">01</span>📌 いま最優先の1件</h2>
+  <p class="secnote">「やること」の中でいちばん新しいものが、ここに大きく出ます</p>
   <div class="flagCard" id="flagcard">
     <svg width="64" height="64" viewBox="0 0 64 64"><rect x="8" y="16" width="48" height="40" rx="6" fill="#FFF9EC" stroke="#4A3426" stroke-width="4"/><line x1="16" y1="32" x2="48" y2="32" stroke="#D9C6A8" stroke-width="3"/><line x1="16" y1="42" x2="40" y2="42" stroke="#D9C6A8" stroke-width="3"/><circle cx="32" cy="12" r="8" fill="#E0805F" stroke="#4A3426" stroke-width="4"/><line x1="32" y1="18" x2="32" y2="27" stroke="#4A3426" stroke-width="4" stroke-linecap="round"/></svg>
-    <div><div class="ttl">PINNED</div><div class="big" id="flag-title">まだありません。上の相談テーブルでおしゃべりをどうぞ</div><div class="meta" id="flag-meta"></div></div>
+    <div><div class="ttl">いちばん上のやること</div><div class="big" id="flag-title">まだありません。上の「＋ 書き足す」から追加できます</div><div class="meta" id="flag-meta"></div></div>
   </div>
 
   <!-- ===== 作業台 ===== -->
-  <h2 class="sec"><span class="num">02</span>🧺 作業台（やること）</h2>
-  <p class="secnote">相談テーブルで握った宿題が、木のトレーに作りかけの札で並びます。仕上がったら「🎀 できあがり！」を押してください</p>
+  <h2 class="sec"><span class="num">02</span>✅ やること</h2>
+  <p class="secnote">相談で決まったこと・Slackから拾ったことが並びます。終わったら「✅ 完了にする」を押してください</p>
   <div class="board">
-    <div class="col dig"><div class="colhead">🧺 作業中のしごと</div><div class="list" id="list-task"></div></div>
-    <div class="col done"><div class="colhead">🎀 できあがり棚（完了）</div><div class="list" id="list-done"></div></div>
+    <div class="col dig"><div class="colhead">✅ いま進めていること</div><div class="list" id="list-task"></div></div>
+    <div class="col done"><div class="colhead">🎉 終わったこと</div><div class="list" id="list-done"></div></div>
   </div>
 
   <!-- ===== 標本棚（決定） ===== -->
-  <h2 class="sec"><span class="num">03</span>🏷️ 標本棚（決まったこと）</h2>
-  <p class="secnote">会話で決まった方針は、ガラス瓶にラベルを貼って棚に並べます</p>
-  <div class="shelf jars"><div class="shelfrow" id="list-decision"><div class="empty">まだラベルはありません</div></div></div>
+  <h2 class="sec"><span class="num">03</span>🏷️ 決まったこと</h2>
+  <p class="secnote">相談の中で決まった方針が並びます。あとから見返すための記録です</p>
+  <div class="shelf jars"><div class="shelfrow" id="list-decision"><div class="empty">まだありません</div></div></div>
 
   <!-- ===== 布見本帳（アイデア） ===== -->
-  <h2 class="sec"><span class="num">03b</span>🧵 布見本帳（アイデア）</h2>
-  <p class="secnote">チャットやSlack（会議室・みちくさ化石塾・プロデューサー講座）で出た印南さんのアイデア・関連タスクが、端切れカードになって毎晩ここに集まります</p>
-  <div class="shelf"><div class="shelfrow" id="list-idea"><div class="empty">まだ端切れはありません</div></div></div>
+  <h2 class="sec"><span class="num">04</span>💡 アイデア・メモ</h2>
+  <p class="secnote">思いついたこと・忘れたくないことの置き場です。上の「＋ 書き足す」からご自身で足せます。Slackで出たアイデアも毎晩ここに集まります</p>
+  <div class="shelf"><div class="shelfrow" id="list-idea"><div class="empty">まだありません</div></div></div>
 
   <!-- ===== 引き出し（保留） ===== -->
-  <h2 class="sec"><span class="num">04</span>🗄️ 引き出しにしまう（保留）</h2>
-  <p class="secnote">「また今度」の話題はこの引き出しへ。開ければいつでも再開できます</p>
-  <div class="drawer"><div class="knob"></div><div class="inner" id="list-hold"><div class="empty" style="color:#fff8ea">いま引き出しは空っぽです</div></div></div>
+  <h2 class="sec"><span class="num">05</span>⏸️ あとで（保留）</h2>
+  <p class="secnote">「また今度」の話はここへ。いつでも「やること」に戻せます</p>
+  <div class="drawer"><div class="knob"></div><div class="inner" id="list-hold"><div class="empty" style="color:#fff8ea">いまは空です</div></div></div>
 
   <!-- ===== 予定の紙もの ===== -->
-  <h2 class="sec"><span class="num">05</span>🗓️ 予定の紙もの</h2>
-  <p class="secnote">これからの開催が、マスキングテープで留めたメモになっています<span id="studio-asof" style="opacity:.7"></span></p>
+  <h2 class="sec"><span class="num">06</span>🗓️ これからの予定</h2>
+  <p class="secnote">これから開催する回が新しい順に並びます<span id="studio-asof" style="opacity:.7"></span></p>
   <div class="cards3" id="schedule"></div>
 
   <!-- ===== これまでの手仕事 ===== -->
-  <h2 class="sec"><span class="num">06</span>🖼️ これまでの手仕事（実績）</h2>
-  <p class="secnote">仕上げた開催は、ステッチの額に入れて飾ってあります</p>
+  <h2 class="sec"><span class="num">07</span>🖼️ これまでの開催（実績）</h2>
+  <p class="secnote">終わった回の実績が並びます</p>
   <div class="cards3" id="records"></div>
 
   <p class="footer">東京山側DMC 分析スタジオ｜印南先生専用ページ（社内限定）<br>データ出典: aini/gifte実測・予約通知メール（個人名は保存していません）</p>
@@ -485,7 +583,33 @@ async function send(){if(busy)return;const text=qEl.value.trim();if(!text)return
  finally{busy=false;sendBtn.disabled=false;qEl.focus();}}
 document.getElementById("form").addEventListener("submit",e=>{e.preventDefault();send();});
 qEl.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();send();}});
-document.getElementById("newchat").addEventListener("click",()=>{if(busy)return;history=[];log.innerHTML="";add("bot","新しいおしゃべりを始めます。聞きたいことをどうぞ 🧵");qEl.focus();});
+document.getElementById("newchat").addEventListener("click",()=>{if(busy)return;history=[];log.innerHTML="";add("bot","新しく相談を始めます。聞きたいことをどうぞ 💬");qEl.focus();});
+/* ---- ＋ 書き足す（本人が1件ずつ足す） ---- */
+const addOpen=document.getElementById("addopen"),addForm=document.getElementById("addform"),
+      addText=document.getElementById("addtext"),addMsg=document.getElementById("addmsg");
+function addClose(){addForm.hidden=true;addOpen.textContent="＋ 書き足す";addMsg.textContent="";}
+addOpen.addEventListener("click",()=>{addForm.hidden=!addForm.hidden;
+ addOpen.textContent=addForm.hidden?"＋ 書き足す":"× 閉じる";if(!addForm.hidden)addText.focus();});
+document.getElementById("addcancel").addEventListener("click",()=>{addText.value="";addClose();});
+addText.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();addForm.requestSubmit();}});
+addForm.addEventListener("submit",async e=>{e.preventDefault();
+ const t=addText.value.trim();if(!t){addText.focus();return;}
+ const kind=(document.querySelector('input[name="addkind"]:checked')||{}).value||"idea";
+ const btn=document.getElementById("addsend");btn.disabled=true;addMsg.textContent="書いています…";
+ const lines=t.split("\n");
+ const title=lines[0].slice(0,60);
+ const note=(lines.length>1||t.length>60)?t.slice(0,300):"";
+ try{
+  const r=await fetch(W+"/board-add",{method:"POST",
+    headers:{"Content-Type":"application/json","X-BM-Auth":auth()},
+    body:JSON.stringify({user:D.user,items:[{type:kind,title:title,note:note,who:"自分でメモ"}]})});
+  const d=await r.json();
+  if(d&&d.ok&&d.added){addMsg.textContent="足しました ✅";addText.value="";
+   await refreshBoard(true);setTimeout(addClose,1200);}
+  else if(d&&d.ok&&!d.added){addMsg.textContent="同じ内容がすでにあります";}
+  else{addMsg.textContent="うまくいきませんでした（"+((d&&d.error)||"原因不明")+"）";}
+ }catch(_){addMsg.textContent="通信できませんでした。少し待ってもう一度お試しください";}
+ btn.disabled=false;});
 /* ---- ボード ---- */
 let boardCache=[];
 function sparkleAt(x,y){for(let i=0;i<7;i++){const s=document.createElement("div");s.className="spark";s.textContent=["✨","🧵","🌸"][i%3];s.style.left=x+"px";s.style.top=y+"px";s.style.setProperty("--dx",(Math.random()*160-80)+"px");s.style.setProperty("--dy",(Math.random()*-140-20)+"px");document.body.appendChild(s);setTimeout(()=>s.remove(),1000);}}
@@ -514,42 +638,42 @@ function renderBoard(prevIds){
  // ピン留めメモ
  if(tasks.length){document.getElementById("flag-title").textContent=tasks[0].title;
   document.getElementById("flag-meta").textContent=[tasks[0].who?("担当: "+tasks[0].who):"",tasks[0].due?("期限: "+tasks[0].due):"",tasks[0].note||""].filter(Boolean).join("　");}
- else{document.getElementById("flag-title").textContent="まだありません。上の相談テーブルでおしゃべりをどうぞ";document.getElementById("flag-meta").textContent="";}
+ else{document.getElementById("flag-title").textContent="まだありません。上の「＋ 書き足す」から追加できます";document.getElementById("flag-meta").textContent="";}
  // 作業中のしごと
- const lt=document.getElementById("list-task");lt.innerHTML=tasks.length?"":'<div class="empty">いまは空です。相談テーブルでしごとを決めましょう</div>';
+ const lt=document.getElementById("list-task");lt.innerHTML=tasks.length?"":'<div class="empty">いまは空です。上の「＋ 書き足す」か、相談から追加できます</div>';
  tasks.forEach(it=>{const d=document.createElement("div");d.className="item"+(prevIds&&!prevIds.has(it.id)?" newItem":"");d.innerHTML=itemHtml(it);
   const ops=document.createElement("div");ops.className="ops";
-  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="🎀 できあがり！";b1.onclick=e=>boardOp(it.id,"done",e);
-  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🗄️ 引き出しへ";b2.onclick=()=>boardOp(it.id,"hold");
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="✅ 完了にする";b1.onclick=e=>boardOp(it.id,"done",e);
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="⏸️ あとでにする";b2.onclick=()=>boardOp(it.id,"hold");
   ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(detailBtns(it));d.appendChild(ops);lt.appendChild(d);
   if(prevIds&&!prevIds.has(it.id)){const r=d.getBoundingClientRect();sparkleAt(r.left+40,r.top+10);}});
  // できあがり棚（間違えて完了→戻せる）
- const ld=document.getElementById("list-done");ld.innerHTML=dones.length?"":'<div class="empty">できあがった作品はここに並びます</div>';
+ const ld=document.getElementById("list-done");ld.innerHTML=dones.length?"":'<div class="empty">終わったことがここに並びます</div>';
  dones.slice(0,10).forEach(it=>{const d=document.createElement("div");d.className="item doneItem";d.innerHTML=itemHtml(it);
   const ops=document.createElement("div");ops.className="ops";
-  const b=document.createElement("button");b.className="opbtn";b.textContent="↩️ 作業台に戻す";b.onclick=()=>boardOp(it.id,"reopen");
+  const b=document.createElement("button");b.className="opbtn";b.textContent="↩️ やることに戻す";b.onclick=()=>boardOp(it.id,"reopen");
   ops.appendChild(b);d.appendChild(ops);ld.appendChild(d);});
  // 布見本帳（アイデア）
  const li=document.getElementById("list-idea");
  const ideas=boardCache.filter(x=>x.type==="idea"&&x.status==="open");
- li.innerHTML=ideas.length?"":'<div class="empty">まだ端切れはありません。Slackでのアイデア投稿も毎晩ここに集まります</div>';
+ li.innerHTML=ideas.length?"":'<div class="empty">まだありません。「＋ 書き足す」からいつでも足せます</div>';
  ideas.forEach(it=>{const d=document.createElement("div");d.className="spec";d.style.background="linear-gradient(#fff,#F3E9FF)";
   const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
   d.innerHTML='<div class="t">💡 '+esc(it.title)+'</div><div class="m">'+esc(short+"　"+(it.at||""))+'</div>';
   const ops=document.createElement("div");ops.className="ops";
-  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="✂️ しごとにする";b1.onclick=()=>boardOp(it.id,"restore");
-  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="🗄️ 引き出しへ";b2.onclick=()=>boardOp(it.id,"hold");
+  const b1=document.createElement("button");b1.className="opbtn doneb";b1.textContent="✅ やることにする";b1.onclick=()=>boardOp(it.id,"restore");
+  const b2=document.createElement("button");b2.className="opbtn holdb";b2.textContent="⏸️ あとでにする";b2.onclick=()=>boardOp(it.id,"hold");
   ops.appendChild(b1);ops.appendChild(b2);ops.appendChild(detailBtns(it));d.appendChild(ops);li.appendChild(d);});
  // 標本棚
- const lc=document.getElementById("list-decision");lc.innerHTML=decisions.length?"":'<div class="empty">まだラベルはありません</div>';
+ const lc=document.getElementById("list-decision");lc.innerHTML=decisions.length?"":'<div class="empty">まだありません</div>';
  decisions.forEach(it=>{const d=document.createElement("div");d.className="spec";d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc((it.note||"")+"　"+(it.at||""))+'</div>';lc.appendChild(d);});
  // 引き出しにしまう
- const lh=document.getElementById("list-hold");lh.innerHTML=holds.length?"":'<div class="empty" style="color:#fff8ea">いま引き出しは空っぽです</div>';
+ const lh=document.getElementById("list-hold");lh.innerHTML=holds.length?"":'<div class="empty" style="color:#fff8ea">いまは空です</div>';
  holds.forEach(it=>{const d=document.createElement("div");d.className="holditem";
   const short=it.note?(it.note.length>44?it.note.slice(0,44)+"…":it.note):"";
   d.innerHTML='<div class="t">'+esc(it.title)+'</div><div class="m">'+esc(short)+'</div>';
   const ops=document.createElement("div");ops.className="ops";
-  const b=document.createElement("button");b.className="opbtn";b.textContent="🧺 取り出す";b.onclick=()=>boardOp(it.id,"restore");
+  const b=document.createElement("button");b.className="opbtn";b.textContent="↩️ やることに戻す";b.onclick=()=>boardOp(it.id,"restore");
   ops.appendChild(b);ops.appendChild(detailBtns(it));d.appendChild(ops);lh.appendChild(d);});}
 async function refreshBoard(sparkleNew){
  const prevIds=sparkleNew?new Set(boardCache.map(x=>x.id)):null;
