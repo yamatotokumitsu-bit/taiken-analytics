@@ -220,6 +220,219 @@ body.digging .crystal.dug{animation:none}
 
 .topnote{font-size:12.5px;color:#8a7358;margin:0 0 10px;text-align:right}
 .topnote a{color:#8a5a2b;font-weight:700}
+
+/* ============================================================
+   化石カード風スキン（2026-08-30 追加）
+   ・既存の「手仕事アトリエ」は1文字も消していません
+   ・html[data-skin="fossil"] が付いたときだけ、この見た目に変わります
+   ・ボタンで切り替え。選んだ見た目はブラウザが覚えます
+   ============================================================ */
+html[data-skin="fossil"]{
+  --linen:#E7DDC5; --linen2:#D9CEB1; --wall:#DFD4B9;
+  --wood:#4A3320; --wood2:#3B2818; --wood3:#2A1C10;
+  --pink:#D9CEB1; --pink2:#8C7A55; --mint:#CBD8BC; --mint2:#4E6B3C;
+  --terra:#8A6B2E; --lav:#D0C7AF; --lav2:#7A6A45; --brass:#C9A227; --sky:#B9C6AE;
+  --ink:#1C1409; --paper:#F0E8D3; --card:#EADFC6;
+  --line:3px solid var(--ink);
+  --f-green:#2E3A22; --f-green2:#3F4E2E; --f-gold:#C9A227; --f-gold2:#EBD08A;
+  --f-dark:#17110A; --f-stone:#DCD2BA; --f-brown:#4A3320;
+  --f-noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+html[data-skin="fossil"] body{
+  background:#20180E;
+  color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+}
+html[data-skin="fossil"] .wrap{
+  background:linear-gradient(180deg,#EFE6D0,#E3D8BE);
+  background-image:var(--f-noise),linear-gradient(180deg,#EFE6D0,#E3D8BE);
+  background-blend-mode:multiply,normal;
+  border-left:3px solid var(--f-dark);border-right:3px solid var(--f-dark);
+  padding-top:18px;
+}
+/* --- 見出し帯（カード上部の「多摩の化石カード」帯を再現） --- */
+html[data-skin="fossil"] h2.sec{
+  background:linear-gradient(180deg,var(--f-green),var(--f-green2));
+  color:#F3EAD0;font-family:"Hiragino Mincho ProN",serif;font-weight:800;
+  letter-spacing:.06em;padding:11px 14px;border-radius:4px;
+  border-left:5px solid var(--f-gold);box-shadow:0 3px 0 rgba(0,0,0,.35);
+  margin:40px 0 8px;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+html[data-skin="fossil"] h2.sec .num{
+  background:linear-gradient(180deg,#3A2A16,#241809);color:var(--f-gold2);
+  border:2px solid var(--f-gold);border-radius:3px;box-shadow:none;
+  font-family:"Hiragino Mincho ProN",serif;letter-spacing:.16em}
+html[data-skin="fossil"] .secnote{color:#5C4B2E;font-size:12.5px}
+/* --- 岩肌のカード --- */
+html[data-skin="fossil"] .item,
+html[data-skin="fossil"] .spec,
+html[data-skin="fossil"] .holditem,
+html[data-skin="fossil"] .evcard,
+html[data-skin="fossil"] .reccard,
+html[data-skin="fossil"] .flagCard,
+html[data-skin="fossil"] .askCard,
+html[data-skin="fossil"] .addCard,
+html[data-skin="fossil"] .howto{
+  background-color:var(--f-stone);
+  background-image:var(--f-noise);
+  background-blend-mode:multiply;
+  border:2px solid var(--f-dark);border-radius:3px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 4px 0 rgba(0,0,0,.28)}
+html[data-skin="fossil"] .spec{background-image:var(--f-noise)!important}
+html[data-skin="fossil"] .item .t,
+html[data-skin="fossil"] .spec .t,
+html[data-skin="fossil"] .holditem .t,
+html[data-skin="fossil"] .evcard .t{
+  font-family:"Hiragino Mincho ProN",serif;font-weight:800;color:#17110A}
+/* 日付・見出しラベルは黒帯（カードの「加住層｜前期更新世」風） */
+html[data-skin="fossil"] .evcard .d{
+  display:inline-block;background:var(--f-dark);color:var(--f-gold2);
+  padding:2px 9px;border-radius:2px;font-family:"Hiragino Mincho ProN",serif}
+html[data-skin="fossil"] .reccard .n{
+  background:linear-gradient(180deg,#8A6B2E,#6B5220);color:#FBF3DC;
+  border:1px solid var(--f-dark);border-radius:2px;padding:2px 10px;display:inline-block}
+/* --- 棚・引き出し・トレー --- */
+html[data-skin="fossil"] .board .col,
+html[data-skin="fossil"] .shelf{
+  background-color:#CFC3A6;background-image:var(--f-noise);background-blend-mode:multiply;
+  border:2px solid var(--f-dark);border-radius:4px}
+html[data-skin="fossil"] .colhead{
+  background:linear-gradient(180deg,var(--f-green),var(--f-green2));color:#F3EAD0;
+  font-family:"Hiragino Mincho ProN",serif;letter-spacing:.05em;
+  border-bottom:2px solid var(--f-dark)}
+html[data-skin="fossil"] .col.done .colhead{background:linear-gradient(180deg,#6B5220,#4A3720)}
+html[data-skin="fossil"] .drawer{background:linear-gradient(180deg,#4A3320,#33220F);border:2px solid var(--f-dark)}
+html[data-skin="fossil"] .drawer .knob{background:linear-gradient(180deg,#E0C46A,#A8842C);border:2px solid var(--f-dark)}
+/* --- ボタン --- */
+html[data-skin="fossil"] .opbtn,
+html[data-skin="fossil"] .pickbtn,
+html[data-skin="fossil"] .addbtn{
+  background:linear-gradient(180deg,#EFE4C8,#DCCFAB);border:2px solid var(--f-dark);
+  border-radius:3px;color:#241A0C;font-weight:700}
+html[data-skin="fossil"] .opbtn.doneb{background:linear-gradient(180deg,#CFDCBB,#AEC195)}
+html[data-skin="fossil"] .opbtn.holdb{background:linear-gradient(180deg,#E6D8B0,#CFBE8C)}
+html[data-skin="fossil"] .opbtn.delb{background:linear-gradient(180deg,#EBD3CC,#D9B6AB)!important;
+  border-color:#7A2E22!important;color:#7A2E22!important}
+html[data-skin="fossil"] .askBtn,
+html[data-skin="fossil"] .sendbtn{
+  background:linear-gradient(180deg,#E0C46A,#B8942F);border:2px solid var(--f-dark);
+  color:#241A0C;border-radius:3px;font-weight:800}
+html[data-skin="fossil"] .badge{background:#EFE6CE;border:2px solid var(--f-dark);border-radius:3px;color:#241A0C}
+html[data-skin="fossil"] .badge.hot{background:linear-gradient(180deg,#B8703F,#8A4F27);color:#FBF3DC}
+html[data-skin="fossil"] .badge.go{background:linear-gradient(180deg,#4E6B3C,#3A5230);color:#F1F6E6}
+/* --- ヒーロー（カードの上部そのもの） --- */
+html[data-skin="fossil"] .hero{
+  position:relative;
+  background:linear-gradient(180deg,#26301C,#2E3A22 45%,#3B2F16 100%);
+  border-bottom:5px solid var(--f-gold);
+  padding-bottom:22px}
+html[data-skin="fossil"] .hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:-5px;height:5px;
+  background:linear-gradient(90deg,#8A6B2E,#EBD08A 40%,#C9A227 60%,#8A6B2E)}
+html[data-skin="fossil"] .hero-inner{position:relative}
+html[data-skin="fossil"] .hero-inner::after{
+  content:"TAMA FOSSIL｜SP-01";position:absolute;right:0;top:2px;
+  font-family:"Hiragino Mincho ProN",serif;font-size:12px;letter-spacing:.18em;
+  color:#241A0C;background:linear-gradient(180deg,#EBD08A,#C9A227);
+  border:2px solid #17110A;border-radius:3px;padding:3px 12px}
+html[data-skin="fossil"] .heroSvg{display:none}
+html[data-skin="fossil"] .hero h1{
+  font-family:"Hiragino Mincho ProN",serif;color:#F5EDD6;font-weight:800;
+  letter-spacing:.04em;text-shadow:0 2px 4px rgba(0,0,0,.55);margin-top:2px}
+html[data-skin="fossil"] .hero .tagline{color:#CDBE8A;letter-spacing:.22em}
+html[data-skin="fossil"] .pickbar{position:static;margin-top:10px}
+html[data-skin="fossil"] #skinbtn{background:linear-gradient(180deg,#EBD08A,#C9A227);border:2px solid #17110A;color:#241A0C;font-weight:800}
+html[data-skin="fossil"] .hero-inner::before{
+  content:"多摩の化石カード｜印南先生の記録";display:block;
+  font-family:"Hiragino Mincho ProN",serif;font-size:12.5px;letter-spacing:.2em;
+  color:#CDBE8A;margin-bottom:2px}
+/* --- 使い方・注記 --- */
+html[data-skin="fossil"] .howto>summary{font-family:"Hiragino Mincho ProN",serif}
+html[data-skin="fossil"] .howto th{background:#D5C9AA}
+html[data-skin="fossil"] .howto th,html[data-skin="fossil"] .howto td{border-color:#A89A78}
+html[data-skin="fossil"] .topnote{color:#5C4B2E}
+html[data-skin="fossil"] .topnote a{color:#7A5A16}
+/* --- フッター（地層＋アンモナイト） --- */
+html[data-skin="fossil"] .footer{
+  position:relative;margin-top:40px;padding:44px 0 26px;
+  background:linear-gradient(180deg,#4A3320,#2A1C10);color:#CDBE8A;
+  font-family:"Hiragino Mincho ProN",serif;letter-spacing:.14em;
+  border-top:3px solid var(--f-dark)}
+html[data-skin="fossil"] .footer::before{
+  content:"🌀";position:absolute;left:22px;top:12px;font-size:30px;
+  filter:sepia(1) saturate(3) hue-rotate(-12deg)}
+html[data-skin="fossil"] .footer::after{
+  content:"TYMK FOSSIL EDUCATION CARD";display:block;margin-top:12px;
+  font-size:11.5px;letter-spacing:.28em;color:#9C8A5E}
+/* 遊び要素はこのスキンでは隠す */
+html[data-skin="fossil"] #pickmode,html[data-skin="fossil"] #digcount{display:none}
+html[data-skin="fossil"] .col.dig .colhead{background:linear-gradient(180deg,var(--f-green),var(--f-green2));color:#F3EAD0}
+html[data-skin="fossil"] .col.dig .list{background:repeating-linear-gradient(90deg,#D6CBAF 0 22px,#CEC2A4 22px 44px)}
+html[data-skin="fossil"] .item.doneItem{background:#D9CFB4}
+html[data-skin="fossil"] .item.doneItem::after{content:"✔";color:#4E6B3C;font-size:16px;top:-10px}
+html[data-skin="fossil"] .item.doneItem .t{text-decoration-color:#6B5220}
+html[data-skin="fossil"] .empty{color:#6B5A3A}
+
+/* ===== 実写を使う（カードから切り出した写真） ===== */
+.fossilTitle{display:none}
+html[data-skin="fossil"] .hero h1,
+html[data-skin="fossil"] .hero .tagline{display:none}
+html[data-skin="fossil"] .fossilTitle{display:block;position:relative;z-index:2}
+html[data-skin="fossil"] .ft-band{
+  display:inline-block;background:linear-gradient(180deg,#2E3A22,#3F4E2E);
+  color:#F3EAD0;font-family:"Hiragino Mincho ProN",serif;font-size:14px;
+  letter-spacing:.34em;padding:5px 18px 5px 22px;border:2px solid #17110A;border-radius:3px;
+  box-shadow:0 3px 0 rgba(0,0,0,.45)}
+html[data-skin="fossil"] .ft-main{
+  font-family:"Hiragino Mincho ProN",serif;font-weight:800;font-size:40px;line-height:1.25;
+  color:#F7F0DC;margin:12px 0 4px;letter-spacing:.05em;
+  text-shadow:0 3px 10px rgba(0,0,0,.75),0 1px 0 rgba(0,0,0,.9)}
+html[data-skin="fossil"] .ft-sub{
+  font-family:"Hiragino Mincho ProN",serif;font-size:13px;letter-spacing:.2em;color:#DCCFA4;
+  text-shadow:0 2px 6px rgba(0,0,0,.8)}
+@media(max-width:520px){html[data-skin="fossil"] .ft-main{font-size:27px}}
+
+/* ヒーロー＝アケボノゾウの実写を敷く */
+html[data-skin="fossil"] .hero{
+  background-image:
+    linear-gradient(180deg,rgba(20,26,14,.86) 0 34%,rgba(20,26,14,.55) 62%,rgba(30,22,10,.9) 100%),
+    url("assets/innami/hero.jpg");
+  background-size:cover;background-position:center 42%;background-repeat:no-repeat}
+/* カード＝岩肌の実写 */
+/* 岩肌は「うっすら」。文字が読めることを最優先にする */
+html[data-skin="fossil"] .item,
+html[data-skin="fossil"] .spec,
+html[data-skin="fossil"] .holditem,
+html[data-skin="fossil"] .evcard,
+html[data-skin="fossil"] .reccard,
+html[data-skin="fossil"] .flagCard,
+html[data-skin="fossil"] .askCard,
+html[data-skin="fossil"] .addCard,
+html[data-skin="fossil"] .howto{
+  background-image:linear-gradient(rgba(244,238,222,.90),rgba(240,233,214,.90)),url("assets/innami/stone.jpg");
+  background-size:auto,240px;background-blend-mode:normal;background-color:#EDE5D0}
+html[data-skin="fossil"] .board .col,
+html[data-skin="fossil"] .shelf{
+  background-image:linear-gradient(rgba(226,218,196,.90),rgba(220,211,187,.90)),url("assets/innami/stone.jpg");
+  background-size:auto,300px;background-color:#DFD6BA}
+html[data-skin="fossil"] .wrap{
+  background-image:linear-gradient(rgba(239,230,208,.93),rgba(227,216,190,.93)),url("assets/innami/stone.jpg");
+  background-size:auto,560px;background-blend-mode:normal}
+/* 岩肌をはっきり見せるのは「帯」と「見出しの脇」だけ */
+html[data-skin="fossil"] h2.sec{
+  background-image:linear-gradient(180deg,rgba(46,58,34,.94),rgba(63,78,46,.94)),url("assets/innami/stone.jpg");
+  background-size:auto,300px}
+html[data-skin="fossil"] .colhead,
+html[data-skin="fossil"] .col.dig .colhead{
+  background-image:linear-gradient(180deg,rgba(46,58,34,.95),rgba(63,78,46,.95)),url("assets/innami/stone.jpg");
+  background-size:auto,260px}
+/* フッター＝地層の実写＋アンモナイト */
+html[data-skin="fossil"] .footer{
+  background-image:linear-gradient(180deg,rgba(30,20,10,.55),rgba(20,13,6,.9)),url("assets/innami/strata.jpg");
+  background-size:cover;background-position:center;padding:52px 0 30px}
+html[data-skin="fossil"] .footer::before{
+  content:"";position:absolute;left:20px;top:10px;width:62px;height:62px;
+  background:url("assets/innami/ammonite.jpg") center/cover;border-radius:50%;
+  box-shadow:0 0 0 2px rgba(201,162,39,.6);filter:none}
 </style>
 </head>
 <body>
@@ -227,6 +440,11 @@ body.digging .crystal.dug{animation:none}
 <div class="hero">
   <div class="hero-inner">
     <h1>🧵 印南先生の手仕事アトリエ</h1>
+    <div class="fossilTitle">
+      <div class="ft-band">多摩の化石カード</div>
+      <div class="ft-main">東京山側みちくさ化石塾</div>
+      <div class="ft-sub">印南先生の記録｜TYMK FOSSIL RECORD</div>
+    </div>
     <p class="tagline">― つむいで、つないで、かたちにする ―</p>
     <div class="sub">
       <span class="badge hot">2026年7月 講師デビュー</span>
@@ -234,6 +452,7 @@ body.digging .crystal.dug{animation:none}
       <span class="badge go" id="hero-next">つぎの開催: —</span>
     </div>
     <div class="pickbar">
+      <button class="pickbtn" id="skinbtn" title="見た目を切り替えます。いつでも元に戻せます">🪨 化石カード風にする</button>
       <button class="pickbtn" id="pickmode" title="机に転がったくるみボタンを拾ってあつめる遊びです">🧺 ボタンあつめ（おまけ）</button>
       <span class="digcount" id="digcount">🔘 0</span>
     </div>
@@ -591,6 +810,23 @@ function __boot(){
 const W=D.worker;
 const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function auth(){return (typeof window!=="undefined"&&window.__bmAuth)||"";}
+/* ---- 見た目の切り替え（アトリエ風 ⇄ 化石カード風） ---- */
+const SKIN_KEY="innami-skin";
+function applySkin(v){
+ const el=document.documentElement;
+ if(v==="fossil"){el.setAttribute("data-skin","fossil");}
+ else{el.removeAttribute("data-skin");}
+ const b=document.getElementById("skinbtn");
+ if(b)b.textContent=(v==="fossil")?"🧵 アトリエ風にもどす":"🪨 化石カード風にする";
+}
+try{applySkin(localStorage.getItem(SKIN_KEY)||"atelier");}catch(_){applySkin("atelier");}
+const _sb=document.getElementById("skinbtn");
+if(_sb)_sb.addEventListener("click",()=>{
+ const now=document.documentElement.getAttribute("data-skin")==="fossil"?"atelier":"fossil";
+ applySkin(now);
+ try{localStorage.setItem(SKIN_KEY,now);}catch(_){}
+ showToast(now==="fossil"?"化石カード風にしました":"アトリエ風にもどしました");
+});
 /* ---- AI宮入くんに相談する（いまの状況をまるごとコピー） ---- */
 let toastTimer;
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("on");
